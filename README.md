@@ -4,9 +4,11 @@ Ares is a local software engineering workflow control plane around a mature codi
 
 It is not an IDE, a company-role simulation, or a replacement agent/session/tool runtime. Codex owns reasoning, native conversation context, search, editing, shell and sandbox execution. Ares exists to reduce the human effort of coordinating those steps, with measurable evidence.
 
-## Current branch and baseline
+## Current Workbench and historical baseline
 
-The immutable v0.2.0 tag contains the sanitized original Workbench. This feature branch adds Workflow Fusion: DISCUSSING with Primary → Owner freezes Ready → same native session implements → deterministic verification and independent Reviewer → Owner acceptance. FAST/STANDARD/CRITICAL, rework, Stop/Cancel, Blocked/Resume, approval and history reuse the existing Workbench.
+The immutable v0.2.0 tag contains the sanitized original Workbench. The current Workbench includes Workflow Fusion: DISCUSSING with Primary → Owner freezes Ready → same native session implements → deterministic verification and independent Reviewer → Owner acceptance. FAST/STANDARD/CRITICAL, rework, Stop/Cancel, Blocked/Resume, approval and history reuse the existing Workbench.
+
+The former Mini Lab teaching prototype is retired. Its design lessons, evaluation catalogue and recovery reference are retained in [Mini Lab history](docs/history/MINI_LAB.md). This repository is the sole maintained project.
 
 This is a private single-user engineering tool. No proprietary target-project code, credentials or runtime records belong in this repository.
 
