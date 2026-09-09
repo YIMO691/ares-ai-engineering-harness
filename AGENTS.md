@@ -6,7 +6,7 @@ Use existing coordinator, store and native Codex adapter. Reviewer must remain i
 
 Keep all generated/cache/log/test outputs in an explicitly configured external task directory under D:/AgentWorkspace on the current Windows host. Never write process output to C: or a commercial target workspace. Resolve absolute output paths and reject reparse-point traversal.
 
-Use feature branches; no force push or automatic merge. Before committing, inspect staged paths for target-project code, local configuration, auth and runtime data. Do not add a license without owner selection.
+Use feature branches and docs/GITHUB_WORKFLOW.md; no force push or unattended auto-merge. Explicit Owner instructions can authorize a PR merge after checks pass; do not ask again for the same authorization. Before committing or pushing, inspect all outgoing paths for target-project code, local configuration, auth and runtime data. Do not add a license without owner selection.
 
 
 ## Direct collaboration entry

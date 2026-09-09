@@ -3,6 +3,7 @@
 在一个本地项目中完成需求讨论、工程文档、开发验证、独立审查和变化解释。Owner 与当前 Codex 直接协作，Web 是可选只读观察台。
 
 - [统一流程与使用入口](docs/UNIFIED_WORKFLOW.md)
+- [GitHub 协作与合并规范](docs/GITHUB_WORKFLOW.md) · [贡献指南](CONTRIBUTING.md)
 - [公司 SOP 与模板](workflow/README.md) · [Ares 执行规范](workflow/ARES_PROFILE.md)
 - [Change Lens](tools/change-lens/README.md)：只读变化解释，保留开发预览与 PARTIAL 边界
 - [原直接协作说明](docs/CODEX_DIRECT.md)
@@ -36,7 +37,7 @@ On Windows, native Codex sandbox provisioning may be needed once. The parameteri
 ## Verify
 
 ```powershell
-pwsh -NoProfile -File ./scripts/Test-Workbench.ps1 -ScratchRoot <absolute-task-scratch> -EvidenceRoot <absolute-task-evidence>
+pwsh -NoProfile -File ./scripts/Test-Unified.ps1 -ScratchRoot <absolute-task-scratch> -EvidenceRoot <absolute-task-evidence> -InstallTestDependencies
 ```
 
 The script builds the solution and runs all tests, including a clearly labeled scripted-executor integration fixture. These tests do not impersonate a real Codex browser acceptance run. See [architecture](docs/architecture/ARCHITECTURE.md), [workflow](WORKFLOW.md), [contributing](CONTRIBUTING.md) and [security](SECURITY.md).
