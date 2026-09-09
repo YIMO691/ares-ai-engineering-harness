@@ -1,0 +1,12 @@
+@page "{id}"
+@model Ares.Workbench.Web.Pages.Tasks.DetailsModel
+@{ViewData["Title"]=Model.TaskItem.Title;var t=Model.TaskItem;var latest=Model.Store.Runs().Where(r=>r.TaskId==t.TaskId).OrderByDescending(r=>r.StartedAt).FirstOrDefault();}
+<div class="page-head"><div><p class="eyebrow">@Model.Project.Name · @t.Risk.ToString().ToUpperInvariant()</p><h1>@t.Title</h1><p><span class="badge">@(latest?.State is RunState.Blocked or RunState.Paused?"Needs Attention · 需要处理":UiText.Task(t.Lifecycle))</span> <small class="muted">@t.TaskId</small></p></div>
+@if(t.Lifecycle!=TaskLifecycle.Delivered){<form method="post" asp-page-handler="Run"><button type="submit">▶ 运行任务</button></form>}
+</div><div asp-validation-summary="All" class="error"></div>
+<div class="two-cols"><section><h2>目标</h2><p class="pre-wrap">@t.Goal</p><h2>验收标准</h2><ul class="check-list">@foreach(var a in t.Acceptance){<li>@a</li>}</ul></section>
+<section><h2>执行边界</h2><p class="path">@Model.Project.RepoRoot</p><p>允许写入：@string.Join(", ",Model.Project.AllowedPaths)</p><ul>@foreach(var c in t.Constraints){<li>@c</li>}</ul><p class="hint">运行会直接修改本地允许路径，不自动提交或推送。</p></section></div>
+<section><div class="section-head"><h2>运行历史</h2><span>@Model.History.Count 次</span></div>
+@if(Model.History.Count==0){<p class="empty">点击“运行任务”，开始第一次执行。</p>}
+@foreach(var ticket in Model.History){var run=Model.Store.FindRun(ticket.RunId);<div class="history-row"><a href="/Runs/Details/@ticket.RunId">@ticket.CreatedAt.LocalDateTime.ToString("yyyy-MM-dd HH:mm:ss") · @(run is null?ticket.State:UiText.State(run.State)) →</a><span>@(run?.ReworkCount??0) 次返工</span></div>}
+</section>

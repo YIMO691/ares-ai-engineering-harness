@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+<ItemGroup>
+<ProjectReference Include="../Ares.Workbench.Adapters.Codex/Ares.Workbench.Adapters.Codex.csproj" />
+<ProjectReference Include="../Ares.Workbench.Adapters.AgentFramework/Ares.Workbench.Adapters.AgentFramework.csproj" />
+</ItemGroup>
+</Project>

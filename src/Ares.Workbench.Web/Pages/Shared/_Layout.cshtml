@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>@ViewData["Title"] · Ares Workbench</title>
+<link rel="stylesheet" href="/site.css" asp-append-version="true"/></head>
+<body>
+<aside><a class="brand" href="/"><span class="logo">A</span><span>ARES<small>Engineering Workbench</small></span></a>
+<nav><a href="/">概览 <span>Overview</span></a><a href="/Projects">项目 <span>Projects</span></a><a href="/Tasks">任务 <span>Tasks</span></a></nav>
+<div class="aside-foot"><span class="dot"></span> 本地工作台<br/><small>Thin Control Plane · v0.2</small></div></aside>
+<div class="workspace"><header><span>从目标到可验证的交付</span><span class="badge">LOCAL · 单用户</span></header>
+<main>@if(TempData["Notice"] is string notice){<div class="notice">@notice</div>}@RenderBody()</main><footer>Ares Workbench · 修改保留在本地项目中</footer></div>
+@await RenderSectionAsync("Scripts",required:false)
+</body></html>

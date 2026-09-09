@@ -1,0 +1,13 @@
+{
+  "Workbench": {
+    "DataRoot": "<absolute DataRoot path>",
+    "ScratchRoot": "<absolute ScratchRoot path>",
+    "CodexHome": "<absolute CodexHome path>",
+    "AuthSource": "",
+    "CodexExecutable": "<absolute CodexExecutable path>",
+    "DotnetExecutable": "<absolute DotnetExecutable path>",
+    "GitExecutable": "<absolute GitExecutable path>",
+    "NugetPackages": "",
+    "Model": "gpt-6-astra"
+  }
+}

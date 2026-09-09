@@ -1,0 +1,8 @@
+@page
+@model Ares.Workbench.Web.Pages.Projects.IndexModel
+@{ViewData["Title"]="项目";}
+<div class="page-head"><div><p class="eyebrow">PROJECTS</p><h1>项目</h1><p>项目配置决定工作流在哪里工作，以及如何验证结果。</p></div><a class="button" href="/Projects/Edit">＋ 添加项目</a></div>
+<div class="cards">
+@foreach(var p in Model.Projects){<section class="project-card"><div class="section-head"><h2>@p.Name</h2><span class="badge">@p.DefaultRisk.ToString().ToUpperInvariant()</span></div><p class="path">@p.RepoRoot</p><dl><dt>测试</dt><dd><code>@p.TestCommand</code></dd><dt>允许写入</dt><dd>@string.Join(", ",p.AllowedPaths)</dd></dl><a class="button secondary" href="/Projects/Edit/@p.ProjectId">查看 / 编辑</a><a class="text-link" href="/Tasks/Create?projectId=@p.ProjectId">创建任务 →</a></section>}
+@if(Model.Projects.Count==0){<section class="empty"><h2>还没有项目</h2><p>添加本地 Git 仓库。保存配置时不会执行构建或测试。</p><a href="/Projects/Edit">添加第一个项目 →</a></section>}
+</div>

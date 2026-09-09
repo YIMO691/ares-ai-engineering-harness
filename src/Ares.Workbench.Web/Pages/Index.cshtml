@@ -1,0 +1,23 @@
+@page
+@model IndexModel
+@{ ViewData["Title"]="概览";var tasks=Model.Store.Tasks();var runs=Model.Store.Runs(); }
+<div class="page-head"><div><p class="eyebrow">WORKBENCH</p><h1>让研发任务有始有终</h1><p>添加项目、明确验收标准，让工作流推进每一步。</p></div><a class="button" href="/Tasks/Create">＋ 新建任务</a></div>
+<div class="stats">
+<div><span>项目</span><strong>@Model.Store.Projects().Count</strong></div>
+<div><span>未完成任务</span><strong>@tasks.Count(t=>t.Lifecycle!=TaskLifecycle.Delivered)</strong></div>
+<div><span>运行中</span><strong>@runs.Count(r=>r.State==RunState.Running)</strong></div>
+<div><span>等待审批</span><strong>@runs.Count(r=>r.State==RunState.Waiting)</strong></div>
+<div><span>今日交付</span><strong>@runs.Count(r=>r.State==RunState.Completed&&r.UpdatedAt.LocalDateTime.Date==DateTime.Today)</strong></div>
+</div>
+<section><div class="section-head"><h2>最近任务</h2><a href="/Tasks">查看全部 →</a></div>
+@if(tasks.Count==0){<div class="empty"><h3>从第一个项目开始</h3><p>连接一个本地 Git 仓库，然后创建有明确目标和验收标准的任务。</p><a class="button" href="/Projects/Edit">添加项目</a></div>}
+else {<table><thead><tr><th>任务</th><th>项目</th><th>工作流</th><th>状态</th></tr></thead><tbody>
+@foreach(var t in tasks.OrderByDescending(x=>x.CreatedAt).Take(8)){<tr><td><a href="/Tasks/Details/@t.TaskId">@t.Title</a></td><td>@Model.Store.Project(t.WorkspaceId).Name</td><td>@t.Risk.ToString().ToUpperInvariant()</td><td><span class="badge">@UiText.Task(t.Lifecycle)</span></td></tr>}
+</tbody></table>}
+</section>
+<section><div class="section-head"><h2>最近运行</h2><span class="muted">真实事件 · 可追溯结果</span></div>
+@if(runs.Count==0){<p class="empty">运行任务后，这里会保留每次执行的历史。</p>}
+else {<table><thead><tr><th>任务</th><th>当前步骤</th><th>返工</th><th>状态</th></tr></thead><tbody>
+@foreach(var r in runs.OrderByDescending(x=>x.StartedAt).Take(6)){<tr><td><a href="/Runs/Details/@r.RunId">@Model.Store.Task(r.TaskId).Title</a></td><td>@UiText.Node(r.CurrentNode)</td><td>@r.ReworkCount</td><td>@UiText.State(r.State)</td></tr>}
+</tbody></table>}
+</section>

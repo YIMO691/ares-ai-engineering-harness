@@ -1,0 +1,8 @@
+@page
+@model Ares.Workbench.Web.Pages.Tasks.IndexModel
+@{ViewData["Title"]="任务";}
+<div class="page-head"><div><p class="eyebrow">TASK INBOX</p><h1>任务</h1><p>一个目标，一组验收标准，一条可追溯的执行记录。</p></div><a class="button" href="/Tasks/Create">＋ 新建任务</a></div>
+<div class="filters">@foreach(var (key,label) in new[]{("All","全部"),("Open","未完成"),("Running","运行中"),("Blocked","Needs Attention"),("Delivered","已交付")}){<a class="@(Model.Filter==key?"selected":"")" href="/Tasks?filter=@key">@label</a>}</div>
+<section><table><thead><tr><th>任务</th><th>项目</th><th>工作流</th><th>状态</th><th>创建时间</th></tr></thead><tbody>
+@foreach(var t in Model.Items()){var last=Model.Store.Runs().Where(r=>r.TaskId==t.TaskId).OrderByDescending(r=>r.StartedAt).FirstOrDefault();<tr><td><a href="/Tasks/Details/@t.TaskId">@t.Title</a></td><td>@Model.Store.Project(t.WorkspaceId).Name</td><td>@t.Risk.ToString().ToUpperInvariant()</td><td>@(last?.State is RunState.Blocked or RunState.Paused?"Needs Attention · 需要处理":last is null?UiText.Task(t.Lifecycle):UiText.State(last.State))</td><td>@t.CreatedAt.LocalDateTime.ToString("MM-dd HH:mm")</td></tr>}
+</tbody></table>@if(Model.Items().Count==0){<p class="empty">暂无符合条件的任务。</p>}</section>

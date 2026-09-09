@@ -1,0 +1,125 @@
+using System.Collections.Immutable;
+using System.Text.Json;
+using Ares.Workbench.Application;
+using Ares.Workbench.Adapters.Codex;
+using Ares.Workbench.Domain;
+using Ares.Workbench.Infrastructure;
+namespace Ares.Workbench.Web;
+
+public sealed class RunHandlerFactory(RuntimeSettings settings,IWorkbenchStore events) : IRunHandlerFactory
+{
+    private sealed class Contexts(ProjectProfile project) : IContextBuilder
+    {
+        public ValueTask<ContextPackage> BuildAsync(EngineeringTask task,Workspace workspace,WorkflowRun run,CancellationToken ct)
+        {
+            var instructions=ImmutableDictionary.CreateBuilder<string,string>();
+            foreach(var relative in project.InstructionFiles) {
+                var path=WorkspacePolicy.Under(workspace.RepoRoot,Path.Combine(workspace.RepoRoot,relative));
+                if(new FileInfo(path).Length>100000)throw new InvalidDataException("指令文件超过 100 KB："+relative);
+                instructions[relative]=File.ReadAllText(path);
+            }
+            return ValueTask.FromResult(new ContextPackage(task,workspace,instructions.ToImmutable(),[],run.Executions,task.Constraints,project.InstructionFiles));
+        }
+    }
+    private sealed class Handler(Func<NodeInvocation,CancellationToken,ValueTask<NodeResult>> call) : INodeHandler
+    {public ValueTask<NodeResult> ExecuteAsync(NodeInvocation i,CancellationToken ct)=>call(i,ct);}
+    public async ValueTask<string> WorkspaceStampAsync(ProjectProfile project,Workspace workspace,CancellationToken ct)
+    {
+        var env=settings.EnvironmentFor(Path.GetFileName(workspace.ArtifactRoot));
+        var values=new List<string>();
+        foreach(var args in new[]{new[]{"rev-parse","HEAD"},new[]{"rev-parse","--abbrev-ref","HEAD"}}) {
+            var result=await new ProcessRunner([settings.GitExecutable],[workspace.RepoRoot]).RunAsync(
+                new(settings.GitExecutable,[..args],workspace.RepoRoot,TimeSpan.FromSeconds(30),env),ct);
+            if(!result.Passed)throw new InvalidOperationException("Git prerequisite failed: "+result.Stderr);
+            values.Add(result.Stdout.Trim());
+        }
+        foreach(var relative in project.InstructionFiles) {
+            var path=WorkspacePolicy.Under(workspace.RepoRoot,Path.Combine(workspace.RepoRoot,relative));
+            values.Add(relative+":"+Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(File.ReadAllBytes(path))));
+        }
+        return string.Join("|",values);
+    }
+    public RunHandlers Create(ProjectProfile project,Workspace workspace)
+    {
+        string id=Path.GetFileName(workspace.ArtifactRoot);
+        var env=settings.EnvironmentFor(id);
+        string scratch=LocalPaths.Output(Path.Combine(settings.ScratchRoot,id,"build"));Directory.CreateDirectory(scratch);
+        var commands=new ProjectCommands(project,workspace,settings.GitExecutable,settings.DotnetExecutable,scratch,env);
+        var codex=new CodexRoleExecutor(new(settings.CodexExecutable,settings.CodexHome,env,[],settings.Model),events);
+        string PathFor(string name)=>WorkspacePolicy.Under(workspace.ArtifactRoot,Path.Combine(workspace.ArtifactRoot,name));
+        async ValueTask<NodeResult> Role(NodeInvocation i,CodexRole role,CancellationToken ct)
+        {
+            var before=await commands.Snapshot(ct);
+            var writable=role is CodexRole.Engineer or CodexRole.PrimaryImplement;
+            var protectedFiles=before.Keys.Where(p=>!writable||!commands.Writable(p)).ToImmutableArray();
+            if(writable&&i.Run.Executions.Any(e=>e.NodeId=="prepare"&&e.Result.Outcome==NodeOutcome.Succeeded)) {
+                var paths=PathFor("required-write-paths.json");
+                if(!File.Exists(paths))return NodeResult.Fail("PROJECT_CONFIGURATION","已完成的准备输出缺失，请 New Run。",false,EffectStatus.Unknown);
+                var required=JsonSerializer.Deserialize<string[]>(await File.ReadAllTextAsync(paths,ct))??[];
+                var denied=required.Where(p=>!commands.Writable(p)).ToArray();
+                if(denied.Length>0)return NodeResult.Fail("PROJECT_POLICY","任务需要写入 "+string.Join(", ",denied)+
+                    "，但当前 allowed_paths 未授权或文件受保护。请编辑 Project 添加必要路径，再 Resume 同一 Run。",false,EffectStatus.Unknown);
+            }
+            static string Compact(string value,int size=12000)=>value.Length<=size?value:value[..(size/2)]+"\n[report excerpt]\n"+value[^(size/2)..];
+            var previous=i.Run.Executions.Where(e=>e.NodeId is "prepare" or "review" or "test")
+                .GroupBy(e=>e.NodeId).Select(g=>g.Last()).Select(e=>new {e.NodeId,e.Attempt,output=Compact(e.Result.Output),e.Result.Outcome}).ToArray();
+            string instructions=role switch {
+                CodexRole.PrimaryPrepare=>"Understand the task and inspect relevant files. Produce concise grounding (files, symbols, rules, risks, unknowns), plan (steps, tests, acceptance mapping), and exact required_write_paths. Do not implement yet. Keep each report focused; a policy conflict must be reported without failing completed preparation.",
+                CodexRole.PrimaryImplement=>"This is PRIMARY_IMPLEMENT / PRIMARY_REWORK. Continue the prepared task. CURRENT allowed_paths below replace previous project configuration. Address every latest Reviewer finding during rework. Read files before editing and verify saved source. FAST runs prepare and implement within this single invocation. Return changes and limitations.",
+                _=>"Independently inspect actual source and provided diff/test evidence against every acceptance criterion. PASS only when requirements are satisfied; otherwise REWORK_REQUIRED with actionable severity, requirement, issue, evidence and requested_fix. Do not invent findings, implement code or redo full grounding."
+            };
+            string diff=role==CodexRole.Reviewer?await commands.Diff(ct):"";
+            string Section(string name)=>File.Exists(PathFor(name+".md"))?Compact(File.ReadAllText(PathFor(name+".md")),6000):"";
+            var cp=events.Checkpoint(i.Run.RunId);
+            var session=role==CodexRole.Reviewer?cp?.ReviewerSessionRef:cp?.PrimarySessionRef;
+            var prompt=instructions+"\nCURRENT TASK AND PROJECT POLICY:\n"+JsonSerializer.Serialize(new {
+                task=i.Task,project,workspace,grounding=Section("grounding"),plan=Section("plan"),latest_business_results=previous,
+                instruction_files=i.Context.SelectedFiles,rework_count=i.Run.ReworkCount,git_diff=diff,
+                continuation=new {run_id=i.Run.RunId,resume_target=i.Node.NodeId,completed_steps=cp?.CompletedSteps}
+            },SqliteWorkbenchStore.Json);
+            var result=await codex.ExecuteAsync(new(role,i,prompt,protectedFiles,session),ct);
+            var after=await commands.Snapshot(CancellationToken.None);
+            var changed=before.Keys.Union(after.Keys,StringComparer.OrdinalIgnoreCase)
+                .Where(p=>before.GetValueOrDefault(p)!=after.GetValueOrDefault(p)).ToArray();
+            if(changed.Any(p=>!writable||!commands.Writable(p)))
+                return NodeResult.Fail("ROLE_BOUNDARY_VIOLATION","角色改动超出授权路径："+string.Join(", ",changed),false,EffectStatus.Unknown) with {ArtifactRefs=result.ArtifactRefs};
+            if(writable && !ct.IsCancellationRequested) {
+                var path=PathFor("diff-r"+i.Run.ReworkCount+"-a"+(i.Run.Executions.Count(e=>e.NodeId==i.Node.NodeId)+1)+".patch");
+                await File.WriteAllTextAsync(path,await commands.Diff(ct),ct);
+                var changedPath=PathFor("changed-files-r"+i.Run.ReworkCount+"-a"+(i.Run.Executions.Count(e=>e.NodeId==i.Node.NodeId)+1)+".json");
+                await File.WriteAllTextAsync(changedPath,JsonSerializer.Serialize(changed),ct);
+                result=result with {ArtifactRefs=result.ArtifactRefs.Add(path).Add(changedPath)};
+            }
+            return result;
+        }
+        async ValueTask<NodeResult> Test(NodeInvocation i,CancellationToken ct)
+        {
+            var artifacts=new List<string>();var output=new System.Text.StringBuilder();
+            foreach(var (kind,command) in new[]{("build",project.BuildCommand),("test",project.TestCommand)}) {
+                var p=await commands.Run(command,ct);
+                var text=PathFor(kind+"-r"+i.Run.ReworkCount+"-a"+(i.Run.Executions.Count(e=>e.NodeId==i.Node.NodeId)+1)+".txt");
+                var json=PathFor(kind+"-r"+i.Run.ReworkCount+"-a"+(i.Run.Executions.Count(e=>e.NodeId==i.Node.NodeId)+1)+".json");
+                await File.WriteAllTextAsync(text,command+"\n"+p.Stdout+"\n"+p.Stderr,CancellationToken.None);
+                await File.WriteAllTextAsync(json,JsonSerializer.Serialize(p,SqliteWorkbenchStore.Json),CancellationToken.None);
+                artifacts.Add(text);artifacts.Add(json);
+                output.AppendLine(kind+": "+(p.Passed?"PASS":"FAIL")).AppendLine(p.Stdout).AppendLine(p.Stderr);
+                if(p.Cancelled)return new(NodeOutcome.Cancelled,"node-result/v1","Verification interrupted.",[..artifacts]);
+                if(!p.Passed)return NodeResult.Fail("VERIFICATION_FAILED",kind+" 命令失败；请查看测试输出。",false,EffectStatus.Unknown) with {ArtifactRefs=[..artifacts]};
+            }
+            return NodeResult.Success(output.ToString(),[..artifacts]);
+        }
+        async ValueTask<NodeResult> Deliver(NodeInvocation i,CancellationToken ct)
+        {
+            var diff=PathFor("final.diff.patch");await File.WriteAllTextAsync(diff,await commands.Diff(ct),ct);
+            var summary=PathFor("delivery.md");
+            await File.WriteAllTextAsync(summary,"# "+i.Task.Title+"\n\n所有必需节点通过。\n\nRun: "+i.Run.RunId+"\n返工次数: "+i.Run.ReworkCount+"\n未自动提交或推送。",ct);
+            return NodeResult.Success("工作流验证完成，修改保留在本地项目中。",diff,summary);
+        }
+        return new(new Contexts(project),new Dictionary<string,INodeHandler> {
+            ["prepare"]=new Handler((i,ct)=>Role(i,CodexRole.PrimaryPrepare,ct)),
+            ["codex"]=new Handler((i,ct)=>Role(i,CodexRole.PrimaryImplement,ct)),
+            ["review"]=new Handler((i,ct)=>Role(i,CodexRole.Reviewer,ct)),
+            ["test"]=new Handler(Test),["deliver"]=new Handler(Deliver),["human"]=new HumanNodeHandler()
+        });
+    }
+}

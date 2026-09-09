@@ -1,0 +1,13 @@
+@page "{id?}"
+@model Ares.Workbench.Web.Pages.Projects.EditModel
+@{ViewData["Title"]=string.IsNullOrEmpty(Model.ProjectId)?"添加项目":"项目配置";}
+<div class="page-head"><div><p class="eyebrow">PROJECT PROFILE</p><h1>@ViewData["Title"]</h1><p>保存只检查配置，不执行任何项目命令。</p></div><a href="/Projects">返回项目</a></div>
+<form method="post" class="form-card">
+<div asp-validation-summary="All" class="error"></div><input asp-for="ProjectId" type="hidden"/>
+<div class="two-cols"><label>项目名称<input asp-for="Name" required placeholder="例如：LabelFormatter Demo"/></label><label>默认工作流<select asp-for="DefaultRisk"><option value="Standard">STANDARD</option><option value="Fast">FAST</option><option value="Critical">CRITICAL</option></select></label></div>
+<label>本地仓库路径<input asp-for="RepoRoot" required placeholder="D:\projects\MyProject"/><small>选择现有目录；运行会修改其中允许的文件。</small></label>
+<div class="two-cols"><label>构建命令<input asp-for="BuildCommand" required/></label><label>测试命令<input asp-for="TestCommand" required/></label></div>
+<p class="hint">命令直接调用可执行程序，不支持管道或 shell 连接符。路径有空格时使用双引号。.NET 构建产物自动写入工作台临时目录；其他工具可使用 {artifacts} 占位符。</p>
+<div class="two-cols"><label>允许写入的路径<textarea asp-for="AllowedPaths" rows="4" required></textarea><small>每行一个仓库内相对路径；“.” 代表整个仓库。</small></label><label>项目指令文件<textarea asp-for="InstructionFiles" rows="4"></textarea><small>每行一个已存在的相对文件路径；这些文件保持只读。</small></label></div>
+<button type="submit">保存项目</button>
+</form>

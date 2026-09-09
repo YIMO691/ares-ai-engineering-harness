@@ -1,0 +1,1 @@
+<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><OutputType>Exe</OutputType></PropertyGroup><ItemGroup><ProjectReference Include="../Ares.Workbench.Adapters.AgentFramework/Ares.Workbench.Adapters.AgentFramework.csproj" /><ProjectReference Include="../Ares.Workbench.Adapters.Codex/Ares.Workbench.Adapters.Codex.csproj" /></ItemGroup></Project>
