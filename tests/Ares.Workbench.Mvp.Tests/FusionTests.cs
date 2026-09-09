@@ -170,6 +170,8 @@ public class FusionTests
         var h=new Harness();h.Factory.BlockReview=true;var id=await h.Run();
         h.Service.ReturnToDiscussion(h.Task.TaskId,h.Current.Fusion!.Revision);
         Assert.Equal(TaskLifecycle.Discussing,h.Current.Lifecycle);Assert.Single(h.Store.Runs());
+        Assert.False(h.Service.CanResume(id));
+        Assert.Throws<InvalidOperationException>(()=>h.Service.RequestResume(id));
         Assert.Throws<InvalidOperationException>(()=>h.Service.FreezeReady(h.Task.TaskId,h.Current.Fusion!.Revision,Anchors));
         await h.Discuss();h.Service.FreezeReady(h.Task.TaskId,h.Current.Fusion!.Revision,Anchors);
         Assert.Equal(2,h.Current.Fusion!.Snapshots.Length);Assert.Equal(RunState.Blocked,h.Store.FindRun(id)!.State);

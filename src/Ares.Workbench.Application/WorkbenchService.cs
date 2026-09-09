@@ -57,6 +57,7 @@ public sealed partial class WorkbenchService(IWorkbenchStore store,IProjectWorks
     }
     public bool CanResume(string id) {
         var run=store.FindRun(id);var cp=store.Checkpoint(id);
+        if(run is not null && store.Task(run.TaskId) is {Fusion:not null,Lifecycle:not TaskLifecycle.Active})return false;
         return run?.State is RunState.Paused or RunState.Blocked && cp is {ResumeSupported:true,ResumeTarget:not null}
             && store.Ticket(id).State is not ("Queued" or "Running")
             && run.Failure?.Code is not ("REWORK_BUDGET" or "HUMAN_REJECTED" or "INTERRUPTED" or "RESUME_INVALID");
