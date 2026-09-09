@@ -14,7 +14,7 @@ public sealed record RunCheckpoint(string RunId, RunState State, string? Current
     int NativeReuses = 0, bool ResumeSupported = true)
 {
     public static string Fingerprint(EngineeringTask task) => Convert.ToHexString(SHA256.HashData(
-        Encoding.UTF8.GetBytes(JsonSerializer.Serialize(new { task.Goal,task.Acceptance,task.Constraints,task.Risk,task.WorkspaceId }))));
+        Encoding.UTF8.GetBytes(JsonSerializer.Serialize(new { task.Goal,task.Acceptance,task.Constraints,task.Risk,task.WorkspaceId, ready=task.Fusion?.Frozen }))));
     public static string Category(string? code) => code switch {
         "PROJECT_POLICY" or "ROLE_BOUNDARY_VIOLATION" or "PROTECTED_FILE_CHANGED" => "PROJECT_POLICY",
         "PROJECT_CONFIGURATION" => "PROJECT_CONFIGURATION",

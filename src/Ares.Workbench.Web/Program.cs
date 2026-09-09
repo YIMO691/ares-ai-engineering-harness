@@ -35,7 +35,7 @@ app.Use(async(context,next)=>{
 app.UseStaticFiles();
 app.UseRouting();
 app.MapRazorPages();
-app.MapGet("/health",()=>Results.Json(new{status="ready",product="Ares Workbench",version="0.2"}));
+app.MapGet("/health",()=>Results.Json(new{status="ready",product="Ares Workbench",version="0.2 + Workflow Fusion"}));
 await app.Services.GetRequiredService<WorkbenchService>().RecoverInterruptedAsync();
 await app.RunAsync();
 public partial class Program;

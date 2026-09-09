@@ -29,7 +29,7 @@ public sealed class WorkflowCoordinator(ITaskStore tasks, IRunStore runs, IEvent
             definition.Validate();
             var task=tasks.Get(taskId);
             if(task.WorkspaceId!=workspace.WorkspaceId||task.Risk!=definition.Risk ||
-                task.Lifecycle is TaskLifecycle.Delivered or TaskLifecycle.Cancelled ||runs.HasActiveRun(taskId))
+                task.Lifecycle is TaskLifecycle.Delivered or TaskLifecycle.Cancelled or TaskLifecycle.Done ||runs.HasActiveRun(taskId))
                 throw new InvalidOperationException("Task cannot start this workflow.");
             var now=DateTimeOffset.UtcNow;
             var run=new WorkflowRun(runId??Guid.NewGuid().ToString("N"),taskId,definition.WorkflowId,definition.Version,backend.BackendId,
@@ -181,7 +181,7 @@ public sealed class WorkflowCoordinator(ITaskStore tasks, IRunStore runs, IEvent
                 ct.ThrowIfCancellationRequested();
                 run=Commit(run with { State=RunState.Completed,CurrentNode=null,PendingHuman=null });
                 var task=tasks.Get(run.TaskId);
-                tasks.Update(task with { Lifecycle=TaskLifecycle.Delivered,UpdatedAt=DateTimeOffset.UtcNow });
+                tasks.Update(task with { Lifecycle=task.Fusion is null?TaskLifecycle.Delivered:TaskLifecycle.AwaitingAcceptance,UpdatedAt=DateTimeOffset.UtcNow });
             }
             await Emit(run,"WorkflowCompleted");
             return null;

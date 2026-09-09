@@ -1,4 +1,4 @@
-param([Parameter(Mandatory)][string]$ScratchRoot,[Parameter(Mandatory)][string]$EvidenceRoot,[string]$Dotnet=(Get-Command dotnet -CommandType Application).Source,[string]$Git=(Get-Command git -CommandType Application).Source)
+param([Parameter(Mandatory)][string]$ScratchRoot,[Parameter(Mandatory)][string]$EvidenceRoot,[string]$Dotnet=(@(Get-Command dotnet -CommandType Application)[0]).Source,[string]$Git=(@(Get-Command git -CommandType Application)[0]).Source)
 $ErrorActionPreference='Stop'
 function OutputPath([string]$value){
  if(-not [IO.Path]::IsPathFullyQualified($value)){throw 'Absolute output required'}

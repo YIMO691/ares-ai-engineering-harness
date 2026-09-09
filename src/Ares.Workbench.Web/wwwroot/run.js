@@ -10,6 +10,7 @@
       if(!response.ok)throw new Error('HTTP '+response.status);
       const d=await response.json();
       for(const id of ['state','current','rework','lifecycle','workflow'])text(id,d[id]);
+      const acceptanceLink=document.getElementById("acceptance-link");if(acceptanceLink)acceptanceLink.hidden=!d.awaitingAcceptance;
       const cp=d.checkpoint;
       text('primary-status',d.primaryStatus);text('reviewer-status',d.reviewerStatus);
       text('invocations',cp?.codexInvocations??'历史记录');
@@ -41,7 +42,7 @@
         li.append(small,title,detail);list.append(li);
       }
       for(const id of ['grounding','plan','codex','test','review','human']){
-        const box=document.getElementById('output-'+id);
+        const box=document.getElementById('output-'+id);if(!box)continue;
         const nodes=d.nodes.filter(n=>n.id===id);
         if(['grounding','plan'].includes(id)&&d[id]){
           const prepare=d.nodes.filter(n=>n.id==='prepare'&&n.outcome==='Succeeded').at(-1);

@@ -4,9 +4,9 @@ Ares is a local software engineering workflow control plane around a mature codi
 
 It is not an IDE, a company-role simulation, or a replacement agent/session/tool runtime. Codex owns reasoning, native conversation context, search, editing, shell and sandbox execution. Ares exists to reduce the human effort of coordinating those steps, with measurable evidence.
 
-## v0.2 baseline
+## Current branch and baseline
 
-Local Windows Web UI; FAST/STANDARD/CRITICAL; one Primary native Codex session; an independent read-only Reviewer; build/test, bounded rework, Stop/Cancel, same-Run Blocked/Resume and approval/history. STANDARD currently prepares then implements; Workflow Fusion is the next feature, not part of the v0.2.0 baseline.
+The immutable v0.2.0 tag contains the sanitized original Workbench. This feature branch adds Workflow Fusion: DISCUSSING with Primary → Owner freezes Ready → same native session implements → deterministic verification and independent Reviewer → Owner acceptance. FAST/STANDARD/CRITICAL, rework, Stop/Cancel, Blocked/Resume, approval and history reuse the existing Workbench.
 
 This is a private single-user engineering tool. No proprietary target-project code, credentials or runtime records belong in this repository.
 
@@ -32,8 +32,8 @@ pwsh -NoProfile -File ./scripts/Test-Workbench.ps1 -ScratchRoot <absolute-task-s
 
 The script builds the solution and runs all tests, including a clearly labeled scripted-executor integration fixture. These tests do not impersonate a real Codex browser acceptance run. See [architecture](docs/architecture/ARCHITECTURE.md), [workflow](WORKFLOW.md), [contributing](CONTRIBUTING.md) and [security](SECURITY.md).
 
-## Limits and next target
+## Limits
 
 Single local user, serial queue. Stop terminates the current process tree and retains edits; Cancel cannot Resume. In-flight Run continuation is not restored after application restart. Repository/instruction fingerprint changes invalidate recovery. Allowed paths are business checks, not per-file OS ACLs.
 
-Next: [Workflow Fusion](ROADMAP.md), joining Owner discussion and implementation in the same Primary native thread, freezing concise Ready anchors and requiring final Owner acceptance. No positive ROI is claimed from demo or helper tests.
+Ready freezes project policy and Git/instruction state. A change requires returning to discussion and freezing a new version, not silently broadening an active Run. Final Owner Accept is required for Done; CRITICAL approval alone does not complete the Task. See [Workflow Fusion decisions](docs/decisions/0002-workflow-fusion.md). No positive ROI is claimed from demo or helper tests.

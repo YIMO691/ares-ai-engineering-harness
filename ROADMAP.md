@@ -1,8 +1,7 @@
 # Roadmap
 
-- v0.2 baseline: private clean repository, reproducible tests, current thin workflow and native continuation.
-- Workflow Fusion: DISCUSSING, concise versioned Ready anchors, same-session implementation, explicit final Owner acceptance.
-- Later, only after evaluation: small real-project pilot measuring Owner Touch, context transfer, latency, review value and recovery.
-- Knowledge/retrieval, Unity/config/proto adapters and specialist roles remain out of scope until repeated real tasks justify them.
+- v0.2.0: private, sanitized baseline; portable configuration and verification.
+- feature/workflow-fusion: DISCUSSING → versioned Ready → same native Primary implementation → verification/review → Owner acceptance.
+- Validation: legacy regression, Fusion lifecycle/native binding tests, real safe-repository Codex verification, and browser acceptance when a browser connection is available.
 
-Develop via issue → feature/fix branch → tests → PR → human review/merge. Do not automatically proceed to later milestones.
+No Knowledge/RAG platform, custom agent/session/tool runtime, Unity connector or further version is authorized by this work package. Do not infer ROI from synthetic fixtures or demo correctness.

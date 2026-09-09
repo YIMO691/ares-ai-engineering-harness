@@ -11,7 +11,7 @@ public sealed record ArtifactEntry(string ArtifactId, string RunId, string Kind,
     string DisplayName, DateTimeOffset CreatedAt);
 public sealed record ApprovalEntry(string ApprovalId, string RunId, string Status, bool? Decision,
     string Comment, DateTimeOffset CreatedAt, DateTimeOffset? DecidedAt);
-public sealed record QueueItem(string RunId, HumanDecision? Decision = null, bool Resume = false);
+public sealed record QueueItem(string RunId, HumanDecision? Decision = null, bool Resume = false, bool Discuss = false);
 public interface IWorkbenchQueue { void Enqueue(QueueItem item); }
 public interface IWorkbenchStore : ITaskStore, IRunStore, IEventSink
 {
@@ -46,7 +46,7 @@ public interface IRunHandlerFactory {
         => ValueTask.FromResult(workspace.GitRef);
 }
 
-public enum CodexRole { Grounding, Planner, Engineer, Reviewer, PrimaryPrepare, PrimaryImplement }
+public enum CodexRole { Grounding, Planner, Engineer, Reviewer, PrimaryPrepare, PrimaryImplement, PrimaryDiscuss }
 public sealed record CodexRoleRequest(CodexRole Role, NodeInvocation Invocation, string Prompt,
     ImmutableArray<string> ProtectedFiles, string? SessionRef = null);
 public interface ICodexRoleExecutor
