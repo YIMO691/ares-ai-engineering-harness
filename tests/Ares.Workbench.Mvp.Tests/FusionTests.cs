@@ -190,4 +190,12 @@ public class FusionTests
         Assert.Equal(TaskLifecycle.Discussing,task.Lifecycle);Assert.Equal("",task.Goal);
     }
 
+    [Fact]public void LoadedSqliteEngineIncludesCve20256965Fix() {
+        var h=new Harness();
+        using var connection=new Microsoft.Data.Sqlite.SqliteConnection("Data Source=:memory:");
+        connection.Open();using var command=connection.CreateCommand();command.CommandText="select sqlite_version()";
+        var version=Version.Parse((string)command.ExecuteScalar()!);
+        Assert.True(version>=new Version(3,50,2),"Loaded SQLite "+version+" predates CVE-2025-6965 fix");
+    }
+
 }
