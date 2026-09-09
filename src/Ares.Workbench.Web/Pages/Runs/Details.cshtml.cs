@@ -32,10 +32,11 @@ public class DetailsModel(WorkbenchService service,RuntimeSettings settings):Pag
             return new JsonResult(new{
                 state=run is null?(Ticket.State=="Queued"?"已排队":Ticket.State):UiText.State(run.State),
                 rawState=run?.State.ToString()??Ticket.State,current=UiText.Node(run?.CurrentNode),currentNode=run?.CurrentNode,
+                awaitingAcceptance=TaskItem.Lifecycle==TaskLifecycle.AwaitingAcceptance,
                 rework=run?.ReworkCount??0,
                 lifecycle=run?.State is RunState.Blocked or RunState.Paused?"Needs Attention · 需要处理":UiText.Task(TaskItem.Lifecycle),
                 failure=run?.Failure?.Message??Ticket.Error,
-                workflow=run?.WorkflowId??TaskItem.Risk.ToString().ToUpperInvariant()+"-THIN-v2",
+                workflow=run?.WorkflowId??TaskItem.Risk.ToString().ToUpperInvariant()+(TaskItem.Fusion is null?"-THIN-v2":"-FUSION-v1"),
                 nodes=(run?.Executions??[]).Select(e=>new{id=e.NodeId,attempt=e.Attempt,outcome=e.Result.Outcome.ToString(),output=e.Result.Output,failure=e.Result.Failure?.Message}),
                 grounding=Prepared(id,"grounding"),plan=Prepared(id,"plan"),
                 timeline=Store.Events(id).Where(e=>e.EventType!="BackendEvent").DistinctBy(e=>e.EventId)

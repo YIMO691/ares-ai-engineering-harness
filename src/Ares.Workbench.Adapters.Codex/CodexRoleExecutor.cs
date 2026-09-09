@@ -12,9 +12,9 @@ public sealed class CodexRoleExecutor(CodexConfiguration configuration,IEventSin
     public async ValueTask<NodeResult> ExecuteAsync(CodexRoleRequest request,CancellationToken ct)
     {
         var i=request.Invocation;
-        bool primary=request.Role is CodexRole.PrimaryPrepare or CodexRole.PrimaryImplement;
+        bool primary=request.Role is CodexRole.PrimaryPrepare or CodexRole.PrimaryImplement or CodexRole.PrimaryDiscuss;
         bool writable=request.Role is CodexRole.Engineer or CodexRole.PrimaryImplement;
-        bool nativeWrite=primary||writable;
+        bool nativeWrite=request.Role!=CodexRole.PrimaryDiscuss&&(primary||writable);
         bool reviewer=request.Role==CodexRole.Reviewer;
         var store=events as IWorkbenchStore;
         string label=primary?"Primary Codex":reviewer?"Independent Reviewer":request.Role.ToString();
@@ -27,8 +27,10 @@ public sealed class CodexRoleExecutor(CodexConfiguration configuration,IEventSin
         string reviewProperties=request.Role==CodexRole.Reviewer?",\"verdict\":{\"type\":\"string\",\"enum\":[\"PASS\",\"REWORK_REQUIRED\"]},\"findings\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"severity\":{\"type\":\"string\"},\"requirement\":{\"type\":\"string\"},\"issue\":{\"type\":\"string\"},\"evidence\":{\"type\":\"string\"},\"requested_fix\":{\"type\":\"string\"}},\"required\":[\"severity\",\"requirement\",\"issue\",\"evidence\",\"requested_fix\"],\"additionalProperties\":false}}":"";
         string prepareProperties=request.Role==CodexRole.PrimaryPrepare?",\"grounding\":{\"type\":\"string\"},\"plan\":{\"type\":\"string\"},\"required_write_paths\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}":"";
         string prepareRequired=request.Role==CodexRole.PrimaryPrepare?",\"grounding\",\"plan\",\"required_write_paths\"":"";
+        string discussionProperties=request.Role==CodexRole.PrimaryDiscuss ?
+            ",\"ready\":{\"type\":\"object\",\"properties\":{\"Goal\":{\"type\":\"string\"},\"Acceptance\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"NonGoals\":{\"type\":\"string\"},\"Boundary\":{\"type\":\"string\"},\"KeyDecisions\":{\"type\":\"string\"},\"Verification\":{\"type\":\"string\"},\"Unresolved\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}},\"required\":[\"Goal\",\"Acceptance\",\"NonGoals\",\"Boundary\",\"KeyDecisions\",\"Verification\",\"Unresolved\"],\"additionalProperties\":false}" : "";
         string categoryProperty=",\"blocked_category\":{\"type\":\"string\",\"enum\":[\"\",\"PROJECT_POLICY\",\"PROJECT_CONFIGURATION\",\"EXECUTOR_ENVIRONMENT\",\"OWNER_INPUT_REQUIRED\",\"EXTERNAL_COMMAND\"]}";
-        var schemaText="{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"completed\",\"blocked\"]},\"summary\":{\"type\":\"string\"},\"content\":{\"type\":\"string\"}"+reviewProperties+prepareProperties+categoryProperty+"},\"required\":[\"status\",\"summary\",\"content\",\"blocked_category\""+prepareRequired+(request.Role==CodexRole.Reviewer?",\"verdict\",\"findings\"":"")+"],\"additionalProperties\":false}";
+        var schemaText="{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"completed\",\"blocked\"]},\"summary\":{\"type\":\"string\"},\"content\":{\"type\":\"string\"}"+reviewProperties+prepareProperties+discussionProperties+categoryProperty+"},\"required\":[\"status\",\"summary\",\"content\",\"blocked_category\""+prepareRequired+(request.Role==CodexRole.PrimaryDiscuss?",\"ready\"":"")+(request.Role==CodexRole.Reviewer?",\"verdict\",\"findings\"":"")+"],\"additionalProperties\":false}";
         await System.IO.File.WriteAllTextAsync(schema,schemaText,ct);
         string result=FilePath(stem+".json");
         var args=new List<string>{"-a","never","-s",nativeWrite?"workspace-write":"read-only","-C",root,"exec"};
@@ -113,7 +115,7 @@ public sealed class CodexRoleExecutor(CodexConfiguration configuration,IEventSin
                 }
                 if(verdict!="PASS")return Failed("REVIEW_INVALID","Reviewer verdict 无效。");
             }
-            return NodeResult.Success(content,[..refs]);
+            return NodeResult.Success(JsonlEventSink.Redact(request.Role==CodexRole.PrimaryDiscuss?data.GetRawText():content),[..refs]);
         } catch(JsonException){return Failed("CODEX_OUTPUT_INVALID","无法解析角色输出，原始输出已保留。");}
         catch(KeyNotFoundException){return Failed("CODEX_OUTPUT_INVALID","角色输出缺少必需字段，原始输出已保留。");}
     }

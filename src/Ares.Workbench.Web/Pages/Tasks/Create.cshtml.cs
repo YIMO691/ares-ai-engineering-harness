@@ -20,7 +20,7 @@ public class CreateModel(WorkbenchService service):PageModel
     public IActionResult OnPost()
     {
         if(!ModelState.IsValid)return Page();
-        try{var task=service.CreateTask(ProjectId,Title,Goal,Lines(Acceptance),Lines(Constraints),Risk);return RedirectToPage("/Tasks/Details",new{id=task.TaskId});}
+        try{var task=service.CreateDiscussingTask(ProjectId,Title,Goal,Lines(Acceptance),Lines(Constraints),Risk);return RedirectToPage("/Tasks/Details",new{id=task.TaskId});}
         catch(Exception ex) when(ex is ArgumentException or KeyNotFoundException){ModelState.AddModelError("",ex.Message);return Page();}
     }
     private static string[] Lines(string? value)=>(value??"").Split('\n',StringSplitOptions.TrimEntries|StringSplitOptions.RemoveEmptyEntries);

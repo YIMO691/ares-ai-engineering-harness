@@ -10,6 +10,7 @@
       if(!response.ok)throw new Error('HTTP '+response.status);
       const d=await response.json();
       for(const id of ['state','current','rework','lifecycle','workflow'])text(id,d[id]);
+      const acceptanceLink=document.getElementById("acceptance-link");if(acceptanceLink)acceptanceLink.hidden=!d.awaitingAcceptance;
       const cp=d.checkpoint;
       text('primary-status',d.primaryStatus);text('reviewer-status',d.reviewerStatus);
       text('invocations',cp?.codexInvocations??'历史记录');
@@ -41,7 +42,7 @@
         li.append(small,title,detail);list.append(li);
       }
       for(const id of ['grounding','plan','codex','test','review','human']){
-        const box=document.getElementById('output-'+id);
+        const box=document.getElementById('output-'+id);if(!box)continue;
         const nodes=d.nodes.filter(n=>n.id===id);
         if(['grounding','plan'].includes(id)&&d[id]){
           const prepare=d.nodes.filter(n=>n.id==='prepare'&&n.outcome==='Succeeded').at(-1);
@@ -50,7 +51,7 @@
         const signature=JSON.stringify([nodes,d.current,skipped(id),id==='human'?d.approvals:[]]);
         if(rendered[id]===signature)continue;rendered[id]=signature;
         box.replaceChildren();
-        if(!nodes.length){const p=document.createElement('p');p.className='muted';p.textContent=skipped(id)?'此工作流跳过该步骤':(d.currentNode===id||d.currentNode==='prepare'&&['grounding','plan'].includes(id))?'Primary 准备中，结果由同一次调用生成…':'等待执行';box.append(p);}
+        if(!nodes.length){const p=document.createElement('p');p.className='muted';p.textContent=skipped(id)?'此工作流跳过该步骤':(d.currentNode===id||d.currentNode==='prepare'&&['grounding','plan'].includes(id))?'当前步骤正在执行，完成后显示结果…':'等待执行';box.append(p);}
         for(const node of nodes){
           const details=document.createElement('details'),summary=document.createElement('summary'),pre=document.createElement('pre');
           details.open=node===nodes.at(-1);summary.textContent='第 '+node.attempt+' 次 · '+node.outcome;

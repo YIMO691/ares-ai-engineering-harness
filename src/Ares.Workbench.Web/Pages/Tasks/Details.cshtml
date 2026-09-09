@@ -1,12 +1,55 @@
 @page "{id}"
 @model Ares.Workbench.Web.Pages.Tasks.DetailsModel
-@{ViewData["Title"]=Model.TaskItem.Title;var t=Model.TaskItem;var latest=Model.Store.Runs().Where(r=>r.TaskId==t.TaskId).OrderByDescending(r=>r.StartedAt).FirstOrDefault();}
-<div class="page-head"><div><p class="eyebrow">@Model.Project.Name · @t.Risk.ToString().ToUpperInvariant()</p><h1>@t.Title</h1><p><span class="badge">@(latest?.State is RunState.Blocked or RunState.Paused?"Needs Attention · 需要处理":UiText.Task(t.Lifecycle))</span> <small class="muted">@t.TaskId</small></p></div>
-@if(t.Lifecycle!=TaskLifecycle.Delivered){<form method="post" asp-page-handler="Run"><button type="submit">▶ 运行任务</button></form>}
+@{ViewData["Title"]=Model.TaskItem.Title;var t=Model.TaskItem;var f=t.Fusion;var latest=Model.Store.Runs().Where(r=>r.TaskId==t.TaskId).OrderByDescending(r=>r.StartedAt).FirstOrDefault();var busy=f?.DiscussionState is "Queued" or "Running";}
+<div class="page-head"><div><p class="eyebrow">@Model.Project.Name · @t.Risk.ToString().ToUpperInvariant()</p><h1>@t.Title</h1><p><span class="badge">@UiText.Task(t.Lifecycle)</span> <small class="muted">@t.TaskId</small></p></div>
+@if(f is null && t.Lifecycle!=TaskLifecycle.Delivered || t.Lifecycle==TaskLifecycle.Ready){<form method="post" asp-page-handler="Run"><button type="submit">▶ 运行任务</button></form>}
 </div><div asp-validation-summary="All" class="error"></div>
+@if(f is not null){
+<section><div class="section-head"><h2>与 Primary Codex 讨论</h2><span>@f.DiscussionState</span></div>
+<p class="hint">讨论只读；Ready 后同一会话继续实现。Reviewer 使用独立会话。</p>
+@if(f.PrimarySessionRef is not null){<details><summary>会话与审计</summary><p class="path">Primary native session: @f.PrimarySessionRef</p><p>Ready 版本：@f.Snapshots.Length · 当前修订：@f.Revision</p></details>}
+@foreach(var turn in f.Turns){<article class="discussion-turn"><strong>@turn.Speaker</strong> <small class="muted">@turn.At.LocalDateTime.ToString("HH:mm:ss")</small><p class="pre-wrap">@turn.Text</p></article>}
+@if(f.Turns.IsEmpty){<p class="empty">描述希望解决的问题，与 Primary 一起确定范围和验收标准。</p>}
+@if(f.Error is not null){<p class="error">@f.Error</p>}
+@if(t.Lifecycle==TaskLifecycle.Discussing){
+@if(busy){<p role="status">Primary 正在回复，此页会自动刷新。</p><form method="post" asp-page-handler="StopDiscussion"><button type="submit" class="secondary">停止讨论</button></form><script src="~/discussion.js"></script>}
+else{<form method="post" asp-page-handler="Discuss"><input type="hidden" asp-for="Revision"/><label>消息<textarea asp-for="Message" rows="3" maxlength="16000" required placeholder="补充需求、回答问题，或讨论实现方案"></textarea></label><button type="submit">发送给 Primary</button></form>}
+}
+</section>
+@if(t.Lifecycle==TaskLifecycle.Discussing && !busy){
+<section><h2>Ready · 确认关键约束</h2><p class="hint">这是 Primary 根据讨论更新的草稿，你可以修改。Ready 将冻结这六项并立即开始实现。</p>
+<form method="post"><input type="hidden" asp-for="Revision"/>
+<label>Goal · 目标<textarea asp-for="Goal" rows="2"></textarea></label>
+<label>Acceptance · 验收标准（每行一条）<textarea asp-for="Acceptance" rows="4"></textarea></label>
+<label>Non-goals · 本轮不做<textarea asp-for="NonGoals" rows="2"></textarea></label>
+<label>Boundary · 修改边界<textarea asp-for="Boundary" rows="2"></textarea></label>
+<label>Key Decisions · 关键决策<textarea asp-for="KeyDecisions" rows="2"></textarea></label>
+<label>Verification · 验证方式<textarea asp-for="Verification" rows="2"></textarea></label>
+<label>Unresolved · 待澄清问题（必须为空才可 Ready）<textarea asp-for="Unresolved" rows="2"></textarea></label>
+<div class="actions"><button type="submit" asp-page-handler="SaveDraft" class="secondary">保存草稿</button><button type="submit" asp-page-handler="Ready">Ready · 冻结并开始实现</button></div></form></section>
+}
+@if(t.Lifecycle==TaskLifecycle.Ready || t.Lifecycle==TaskLifecycle.Active && latest?.State is RunState.Blocked or RunState.Failed or RunState.Cancelled or RunState.Paused){
+<form method="post" asp-page-handler="Reopen"><input type="hidden" asp-for="Revision"/><button type="submit" class="secondary">返回讨论 · 重新确认 Ready</button></form>
+}
+@foreach(var snap in f.Snapshots.Reverse()){
+<details class="frozen-snapshot"><summary>Ready v@(snap.Version) · 已冻结 · @snap.FrozenAt.LocalDateTime.ToString("yyyy-MM-dd HH:mm:ss")</summary>
+<dl><dt>Goal</dt><dd>@snap.Anchors.Goal</dd><dt>Acceptance</dt><dd><ul>@foreach(var a in snap.Anchors.Acceptance){<li>@a</li>}</ul></dd>
+<dt>Non-goals</dt><dd>@snap.Anchors.NonGoals</dd><dt>Boundary</dt><dd>@snap.Anchors.Boundary</dd><dt>Key Decisions</dt><dd>@snap.Anchors.KeyDecisions</dd><dt>Verification</dt><dd>@snap.Anchors.Verification</dd></dl></details>
+}
+@if(t.Lifecycle==TaskLifecycle.AwaitingAcceptance && latest is not null){
+<section><h2>验收总结 · 等待 Owner 决定</h2><p>请核对验收项、实际变更、测试和 Reviewer 意见。Accept 后才会进入 Done。</p>
+<p class="pre-wrap">@latest.Executions.LastOrDefault(e=>e.NodeId=="deliver")?.Result.Output</p>
+<p><a href="/Runs/Details/@latest.RunId">查看完整 Diff、测试、Reviewer 和返工历史 →</a></p>
+<form method="post" asp-page-handler="Accept"><input type="hidden" name="runId" value="@latest.RunId"/><input type="hidden" name="readyVersion" value="@f.Frozen!.Version"/>
+<label>验收意见<textarea name="comment" rows="2" placeholder="Reject 时请说明未满足的验收项"></textarea></label>
+<button type="submit" name="accept" value="true">Accept · 完成任务</button> <button type="submit" name="accept" value="false" class="secondary">Reject · 返回讨论</button></form></section>
+}
+}
+else{
 <div class="two-cols"><section><h2>目标</h2><p class="pre-wrap">@t.Goal</p><h2>验收标准</h2><ul class="check-list">@foreach(var a in t.Acceptance){<li>@a</li>}</ul></section>
-<section><h2>执行边界</h2><p class="path">@Model.Project.RepoRoot</p><p>允许写入：@string.Join(", ",Model.Project.AllowedPaths)</p><ul>@foreach(var c in t.Constraints){<li>@c</li>}</ul><p class="hint">运行会直接修改本地允许路径，不自动提交或推送。</p></section></div>
+<section><h2>执行边界</h2><p class="path">@Model.Project.RepoRoot</p><p>允许写入：@string.Join(", ",Model.Project.AllowedPaths)</p><ul>@foreach(var c in t.Constraints){<li>@c</li>}</ul></section></div>
+}
 <section><div class="section-head"><h2>运行历史</h2><span>@Model.History.Count 次</span></div>
-@if(Model.History.Count==0){<p class="empty">点击“运行任务”，开始第一次执行。</p>}
+@if(Model.History.Count==0){<p class="empty">讨论完成并 Ready 后，这里显示执行历史。</p>}
 @foreach(var ticket in Model.History){var run=Model.Store.FindRun(ticket.RunId);<div class="history-row"><a href="/Runs/Details/@ticket.RunId">@ticket.CreatedAt.LocalDateTime.ToString("yyyy-MM-dd HH:mm:ss") · @(run is null?ticket.State:UiText.State(run.State)) →</a><span>@(run?.ReworkCount??0) 次返工</span></div>}
 </section>

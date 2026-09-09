@@ -5,6 +5,15 @@ namespace Ares.Workbench.Application;
 /// <summary>MVP definitions run on the existing coordinator and AF backend; Phase 1 definitions remain available.</summary>
 public static class MvpWorkflowCatalog
 {
+    public static WorkflowDefinition CreateFusion(Risk risk)
+    {
+        var old=CreateV02(risk);
+        var nodes=old.Nodes.Where(n=>n.NodeId!="prepare").ToImmutableArray();
+        var routes=old.Routes.Where(r=>r.From!="prepare").Append(new Route("test",NodeOutcome.ReworkRequired,"codex")).ToImmutableArray();
+        var definition=old with {WorkflowId=risk.ToString().ToUpperInvariant()+"-FUSION-v1",Version=1,
+            EntryNode="codex",Nodes=nodes,Routes=routes,CompletionConditions=[..old.CompletionConditions.Where(n=>n!="prepare")]};
+        definition.Validate();return definition;
+    }
     public static WorkflowDefinition Create(Risk risk)
     {
         string[] sequence = risk switch {

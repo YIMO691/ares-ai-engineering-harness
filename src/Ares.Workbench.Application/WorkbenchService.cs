@@ -4,7 +4,7 @@ using Ares.Workbench.Domain;
 namespace Ares.Workbench.Application;
 
 /// <summary>Product mutations and business checkpoints; execution remains in WorkflowCoordinator and Codex.</summary>
-public sealed class WorkbenchService(IWorkbenchStore store,IProjectWorkspace workspaces,
+public sealed partial class WorkbenchService(IWorkbenchStore store,IProjectWorkspace workspaces,
     IRunHandlerFactory handlers,IWorkflowBackend backend,IWorkbenchQueue queue)
 {
     private readonly object sync=new();
@@ -18,7 +18,8 @@ public sealed class WorkbenchService(IWorkbenchStore store,IProjectWorkspace wor
     private readonly Dictionary<string,RunningControl> executing=[];
     public IWorkbenchStore Read=>store;
     private static bool Active(WorkflowRun r)=>r.State is RunState.Created or RunState.Running or RunState.Waiting;
-    private bool ProjectBusy(string id)=>store.Tickets().Any(t=>t.Project.ProjectId==id && t.State is "Queued" or "Running")
+    private bool ProjectBusy(string id)=>store.Tasks().Any(t=>t.WorkspaceId==id&&t.Fusion?.DiscussionState is "Queued" or "Running")
+        ||store.Tickets().Any(t=>t.Project.ProjectId==id && t.State is "Queued" or "Running")
         ||store.Runs().Any(r=>Active(r)&&store.Task(r.TaskId).WorkspaceId==id);
     public ProjectProfile SaveProject(ProjectProfile profile)
     {
@@ -44,7 +45,11 @@ public sealed class WorkbenchService(IWorkbenchStore store,IProjectWorkspace wor
     {
         lock(sync) {
             var task=store.Task(taskId);var project=workspaces.Validate(store.Project(task.WorkspaceId));
-            if(task.Lifecycle is TaskLifecycle.Delivered or TaskLifecycle.Cancelled)throw new InvalidOperationException("该任务已结束，请新建任务。");
+            if(task.Lifecycle is TaskLifecycle.Delivered or TaskLifecycle.Cancelled or TaskLifecycle.Done)throw new InvalidOperationException("该任务已结束，请新建任务。");
+            if(task.Fusion is {} fusion) {
+                if(task.Lifecycle!=TaskLifecycle.Ready || fusion.Frozen is null)throw new InvalidOperationException("请先完成讨论并点击 Ready。");
+                ValidateFrozen(task,project);
+            }
             if(ProjectBusy(project.ProjectId))throw new InvalidOperationException("项目已有排队、运行或等待审批的任务。");
             var ticket=new RunTicket(Guid.NewGuid().ToString("N"),taskId,project,"Queued",DateTimeOffset.UtcNow);
             store.SaveTicket(ticket);queue.Enqueue(new(ticket.RunId));return ticket.RunId;
@@ -52,6 +57,7 @@ public sealed class WorkbenchService(IWorkbenchStore store,IProjectWorkspace wor
     }
     public bool CanResume(string id) {
         var run=store.FindRun(id);var cp=store.Checkpoint(id);
+        if(run is not null && store.Task(run.TaskId) is {Fusion:not null,Lifecycle:not TaskLifecycle.Active})return false;
         return run?.State is RunState.Paused or RunState.Blocked && cp is {ResumeSupported:true,ResumeTarget:not null}
             && store.Ticket(id).State is not ("Queued" or "Running")
             && run.Failure?.Code is not ("REWORK_BUDGET" or "HUMAN_REJECTED" or "INTERRUPTED" or "RESUME_INVALID");
@@ -63,10 +69,11 @@ public sealed class WorkbenchService(IWorkbenchStore store,IProjectWorkspace wor
             var ticket=store.Ticket(id);var task=store.Task(ticket.TaskId);var cp=store.Checkpoint(id)!;
             var project=workspaces.Validate(store.Project(task.WorkspaceId));
             if(ProjectBusy(project.ProjectId))throw new InvalidOperationException("项目当前已有执行或审批。");
-            if(task.Lifecycle is TaskLifecycle.Delivered or TaskLifecycle.Cancelled ||
+            if(task.Lifecycle is TaskLifecycle.Delivered or TaskLifecycle.Cancelled or TaskLifecycle.Done ||
                 cp.TaskFingerprint!=RunCheckpoint.Fingerprint(task) ||
                 !string.Equals(cp.RepoRoot,project.RepoRoot,StringComparison.OrdinalIgnoreCase))
                 throw new InvalidOperationException("Task 或仓库根目录已改变，必须 New Run。");
+            if(task.Fusion is not null)ValidateFrozen(task,project);
             var run=store.FindRun(id)!;
             if((ticket.Project.BuildCommand!=project.BuildCommand||ticket.Project.TestCommand!=project.TestCommand)
                 && run.CurrentNode is "review" or "human" or "deliver"
@@ -116,6 +123,7 @@ public sealed class WorkbenchService(IWorkbenchStore store,IProjectWorkspace wor
     }
     public async Task ProcessAsync(QueueItem item,CancellationToken ct)
     {
+        if(item.Discuss){await ProcessDiscussionAsync(item.RunId,ct);return;}
         if(item.Decision is not null) {
             try {
                 if(!waiting.TryGetValue(item.RunId,out var coordinator))throw new InvalidOperationException("Waiting execution unavailable.");
@@ -141,18 +149,22 @@ public sealed class WorkbenchService(IWorkbenchStore store,IProjectWorkspace wor
             var workspace=workspaces.Create(project,item.RunId);
             var task=store.Task(ticket.TaskId);
             var stamp=await handlers.WorkspaceStampAsync(project,workspace,linked.Token);
+            if(task.Fusion is {} fusion) {
+                ValidateFrozen(task,project);
+                if(fusion.Frozen!.WorkspaceStamp!=stamp)throw new ResumeInvalidException();
+            }
             if(item.Resume) {
                 var cp=store.Checkpoint(item.RunId)??throw new InvalidOperationException("Checkpoint unavailable.");
                 if(cp.TaskFingerprint!=RunCheckpoint.Fingerprint(task)||!string.Equals(cp.RepoRoot,project.RepoRoot,StringComparison.OrdinalIgnoreCase)||(cp.WorkspaceStamp!=stamp && !(cp.WorkspaceStamp.Length==0 && store.FindRun(item.RunId)!.Executions.IsEmpty)))
                     throw new ResumeInvalidException();
                 if(cp.WorkspaceStamp.Length==0)store.UpdateCheckpoint(item.RunId,c=>c with {WorkspaceStamp=stamp});
             } else {
-                store.SaveCheckpoint(new(item.RunId,RunState.Created,null,null,null,null,[],0,null,null,DateTimeOffset.UtcNow,
-                    RunCheckpoint.Fingerprint(task),project.RepoRoot,stamp));
+                store.SaveCheckpoint(new RunCheckpoint(item.RunId,RunState.Created,null,null,null,null,[],0,null,null,DateTimeOffset.UtcNow,
+                    RunCheckpoint.Fingerprint(task),project.RepoRoot,stamp) with {PrimarySessionRef=task.Fusion?.PrimarySessionRef});
             }
             var parts=handlers.Create(project,workspace);
             var coordinator=new WorkflowCoordinator(store,store,store,backend,parts.Contexts,parts.Handlers,()=>control.Pause,sync);
-            var definition=MvpWorkflowCatalog.CreateV02(task.Risk);
+            var definition=Definition(task);
             var run=item.Resume?await coordinator.ResumeAsync(item.RunId,definition,workspace,linked.Token):
                 await coordinator.StartAsync(ticket.TaskId,definition,workspace,linked.Token,item.RunId);
             if(run.State==RunState.Waiting) {
@@ -168,14 +180,14 @@ public sealed class WorkbenchService(IWorkbenchStore store,IProjectWorkspace wor
             store.SaveTicket(ticket with {State=cancelled&&!control.Pause?"Cancelled":"Finished",Error=message});
             if(current is null) {
                 // A prerequisite failure is a visible business Run, so the Owner can repair and resume it.
-                var task=store.Task(ticket.TaskId);var definition=MvpWorkflowCatalog.CreateV02(task.Risk);var now=DateTimeOffset.UtcNow;
+                var task=store.Task(ticket.TaskId);var definition=Definition(task);var now=DateTimeOffset.UtcNow;
                 var state=cancelled?(control.Pause?RunState.Paused:RunState.Cancelled):RunState.Blocked;
                 current=new(item.RunId,ticket.TaskId,definition.WorkflowId,definition.Version,backend.BackendId,state,
                     definition.EntryNode,0,now,now,0,[],null,new(cancelled&&control.Pause?"STOPPED":code,message));
                 ((IRunStore)store).Add(current);
                 ((ITaskStore)store).Update(task with {Lifecycle=TaskLifecycle.Active,UpdatedAt=now});
-                store.SaveCheckpoint(new RunCheckpoint(item.RunId,state,definition.EntryNode,definition.EntryNode,message,
-                    RunCheckpoint.Category(code),[],0,null,null,now,RunCheckpoint.Fingerprint(task),ticket.Project.RepoRoot,"").WithRun(current));
+                store.SaveCheckpoint((new RunCheckpoint(item.RunId,state,definition.EntryNode,definition.EntryNode,message,
+                    RunCheckpoint.Category(code),[],0,null,null,now,RunCheckpoint.Fingerprint(task),ticket.Project.RepoRoot,"") with {PrimarySessionRef=task.Fusion?.PrimarySessionRef}).WithRun(current));
             }
             if(current is not null && current.State!=RunState.Completed) {
                 ((IRunStore)store).Update(current with {State=cancelled?(control.Pause?RunState.Paused:RunState.Cancelled):RunState.Blocked,
@@ -186,9 +198,14 @@ public sealed class WorkbenchService(IWorkbenchStore store,IProjectWorkspace wor
                 new Dictionary<string,string>{{"message",message}}.ToImmutableDictionary()),CancellationToken.None);
         } finally {lock(sync)executing.Remove(item.RunId);}
     }
+    private static WorkflowDefinition Definition(EngineeringTask task)=>task.Fusion is null?MvpWorkflowCatalog.CreateV02(task.Risk):MvpWorkflowCatalog.CreateFusion(task.Risk);
     private sealed class ResumeInvalidException:Exception;
     public async Task RecoverInterruptedAsync()
     {
+        foreach(var task in store.Tasks().Where(t=>t.Fusion?.DiscussionState is "Queued" or "Running")) {
+            var fusion=task.Fusion!;
+            SaveFusion(task,fusion with {DiscussionState="Blocked",Error="应用重启中断讨论；发送下一条消息续接已记录的原生 session。",PrimarySessionRef=store.Checkpoint(task.TaskId)?.PrimarySessionRef??fusion.PrimarySessionRef});
+        }
         foreach(var run in store.Runs().Where(r=>Active(r)||r.State==RunState.Paused)) {
             ((IRunStore)store).Update(run with {State=RunState.Blocked,PendingHuman=null,Failure=new("INTERRUPTED","应用已重启；本版本不恢复中断执行，请 New Run。"),UpdatedAt=DateTimeOffset.UtcNow,Version=run.Version+1});
             foreach(var approval in store.Approvals(run.RunId).Where(a=>a.Status=="Waiting"))

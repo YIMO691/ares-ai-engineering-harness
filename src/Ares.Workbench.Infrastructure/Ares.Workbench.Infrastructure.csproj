@@ -1,1 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk"><ItemGroup><ProjectReference Include="../Ares.Workbench.Application/Ares.Workbench.Application.csproj" /></ItemGroup><ItemGroup><PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.0" /></ItemGroup></Project>
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup><ProjectReference Include="../Ares.Workbench.Application/Ares.Workbench.Application.csproj" /></ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.0" />
+    <!-- Override the vulnerable transitive 2.1.11 native bundle; keep the compatible 2.1 patch line. -->
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.1.13" />
+  </ItemGroup>
+</Project>

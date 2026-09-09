@@ -1,13 +1,13 @@
 @page
 @model Ares.Workbench.Web.Pages.Tasks.CreateModel
 @{ViewData["Title"]="新建任务";}
-<div class="page-head"><div><p class="eyebrow">NEW TASK</p><h1>明确目标，开始工作</h1><p>验收标准会同时交给 Planner、Engineer 和 Reviewer。</p></div><a href="/Tasks">返回任务</a></div>
+<div class="page-head"><div><p class="eyebrow">NEW TASK</p><h1>从讨论开始任务</h1><p>与同一个 Primary Codex 澄清需求，Ready 后继续实现；Reviewer 独立审查。</p></div><a href="/Tasks">返回任务</a></div>
 @if(Model.Projects.Count==0){<section class="empty"><h2>请先添加项目</h2><a class="button" href="/Projects/Edit">添加项目</a></section>}
 else {<form method="post" class="form-card"><div asp-validation-summary="All" class="error"></div>
 <div class="two-cols"><label>项目<select asp-for="ProjectId">@foreach(var p in Model.Projects){<option value="@p.ProjectId">@p.Name</option>}</select></label>
-<label>工作流<select asp-for="Risk"><option value="Standard">STANDARD · 理解 → 计划 → 实现 → 测试 → 审查</option><option value="Fast">FAST · 实现 → 测试</option><option value="Critical">CRITICAL · STANDARD + Owner 审批</option></select></label></div>
+<label>工作流<select asp-for="Risk"><option value="Standard">STANDARD · 讨论 → Ready → 实现 → 测试 → 审查 → 验收</option><option value="Fast">FAST · 讨论 → Ready → 实现 → 测试 → 验收</option><option value="Critical">CRITICAL · STANDARD + Owner 审批</option></select></label></div>
 <label>任务标题<input asp-for="Title" required placeholder="例如：修复 LabelFormatter 空白输入"/></label>
-<label>目标<textarea asp-for="Goal" rows="3" required placeholder="描述希望得到的行为"></textarea></label>
-<label>验收标准<textarea asp-for="Acceptance" rows="5" required placeholder="每行一条可验证的要求"></textarea></label>
+<label>目标<textarea asp-for="Goal" rows="3" placeholder="描述希望得到的行为"></textarea></label>
+<label>验收标准<textarea asp-for="Acceptance" rows="5" placeholder="每行一条可验证的要求"></textarea></label>
 <label>约束 <span class="muted">可选</span><textarea asp-for="Constraints" rows="3" placeholder="例如：保留内部空格，不修改公共接口"></textarea></label>
-<button type="submit">创建任务</button></form>}
+<button type="submit">创建讨论任务</button></form>}

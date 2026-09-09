@@ -2,7 +2,7 @@ using System.Collections.Immutable;
 namespace Ares.Workbench.Domain;
 
 public enum Risk { Fast, Standard, Critical }
-public enum TaskLifecycle { Draft, Active, Delivered, Cancelled }
+public enum TaskLifecycle { Draft, Active, Delivered, Cancelled, Discussing, Ready, AwaitingAcceptance, Done }
 public enum RunState { Created, Running, Waiting, Blocked, Completed, Failed, Cancelled, Paused }
 public enum NodeKind { Deterministic, Agent, Codex, Human }
 public enum NodeOutcome { Succeeded, Failed, ReworkRequired, Waiting, Cancelled, Interrupted }
@@ -11,7 +11,10 @@ public enum EffectStatus { NotStarted, Completed, Unknown }
 
 public sealed record EngineeringTask(string TaskId, string Title, string Goal,
     ImmutableArray<string> Acceptance, ImmutableArray<string> Constraints, Risk Risk,
-    string WorkspaceId, TaskLifecycle Lifecycle, DateTimeOffset CreatedAt, DateTimeOffset UpdatedAt);
+    string WorkspaceId, TaskLifecycle Lifecycle, DateTimeOffset CreatedAt, DateTimeOffset UpdatedAt)
+{
+    public FusionTask? Fusion { get; init; }
+}
 public sealed record RetryPolicy(int MaxRetries = 0);
 public sealed record ReworkPolicy(int MaxReworks, string TargetNode);
 public sealed record NodeDefinition(string NodeId, NodeKind Kind, string InputContract,

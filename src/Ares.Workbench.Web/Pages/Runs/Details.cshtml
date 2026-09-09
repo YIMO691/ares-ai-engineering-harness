@@ -4,6 +4,7 @@
 <div id="run-view" data-run="@Model.Ticket.RunId">
 <div class="page-head"><div><p class="eyebrow">RUN WORKSPACE · <span id="workflow">@Model.TaskItem.Risk.ToString().ToUpperInvariant()</span></p><h1>@Model.TaskItem.Title</h1><p class="muted">Run ID <code>@Model.Ticket.RunId</code></p></div><a href="/Tasks/Details/@Model.TaskItem.TaskId">返回任务 →</a></div>
 <div asp-validation-summary="All" class="error"></div>
+@if(Model.TaskItem.Fusion is not null){<section id="acceptance-link" hidden><h2>执行验证完成 · 等待 Owner 验收</h2><a class="button" href="/Tasks/Details/@Model.TaskItem.TaskId">查看验收总结并 Accept / Reject →</a></section>}
 <div class="stats run-stats"><div><span>运行状态</span><strong id="state">@(Model.Run is null?"已排队":UiText.State(Model.Run.State))</strong></div><div><span>当前步骤</span><strong id="current">@UiText.Node(Model.Run?.CurrentNode)</strong></div><div><span>返工次数 / 上限</span><strong><b id="rework">@(Model.Run?.ReworkCount??0)</b> / 2</strong></div><div><span>任务</span><strong id="lifecycle">@UiText.Task(Model.TaskItem.Lifecycle)</strong></div></div>
 <section class="execution-controls"><h2>执行控制</h2>
 <div class="control-buttons">
@@ -19,13 +20,13 @@
 <dt>Category</dt><dd id="blocked-category"></dd><dt>What Owner Must Fix</dt><dd id="owner-fix"></dd>
 <dt>Resume Target</dt><dd id="resume-target"></dd></dl><a href="/Projects/Edit/@Model.Ticket.Project.ProjectId">编辑 Project →</a></section>
 <div id="failure" class="error" hidden></div>
-<div class="step-strip">@foreach(var id in new[]{"grounding","plan","codex","test","review","human","deliver"}){<span data-step="@id">@UiText.Node(id).Split(" · ")[0]</span>}</div>
+<div class="step-strip">@foreach(var id in (Model.TaskItem.Fusion is null?new[]{"grounding","plan","codex","test","review","human","deliver"}:new[]{"codex","test","review","human","deliver"})){<span data-step="@id">@UiText.Node(id).Split(" · ")[0]</span>}</div>
 <p id="poll-status" class="muted">每 2 秒更新 · 输出在对应角色结束后显示</p>
 <section id="approval" hidden><h2>Approval · 等待 Owner 决定</h2><p>请查看下方 diff、测试与 Review 后，决定是否交付。</p>
 <form method="post" asp-page-handler="Approval"><input asp-for="RequestId" type="hidden"/><input asp-for="RunVersion" type="hidden"/><label>审批备注<input asp-for="Comment" placeholder="记录你的决定依据"/></label><button type="submit" name="Approve" value="true">Approve · 批准交付</button><button class="danger" type="submit" name="Approve" value="false">Reject · 阻止交付</button></form></section>
 <div class="run-columns"><section><h2>执行时间线</h2><ol id="timeline" class="timeline"></ol></section>
 <div>
-@foreach(var (id,label) in new[]{("grounding","Grounding · 项目理解"),("plan","Plan · Primary 实施计划"),("codex","Primary Codex · 实现 / 返工"),("test","Test · 确定性验证"),("review","Reviewer · Findings"),("human","Approval · 审批记录")}){<section><h2>@label</h2><div id="output-@id" class="role-output"><p class="muted">等待执行</p></div></section>}
+@foreach(var (id,label) in new[]{("grounding","Grounding · 项目理解"),("plan","Plan · Primary 实施计划"),("codex","Primary Codex · 实现 / 返工"),("test","Test · 确定性验证"),("review","Reviewer · Findings"),("human","Approval · 审批记录")}.Where(x=>Model.TaskItem.Fusion is null || x.Item1 is not ("grounding" or "plan"))){<section><h2>@label</h2><div id="output-@id" class="role-output"><p class="muted">等待执行</p></div></section>}
 <section><h2>Git Diff / Artifacts</h2><p class="hint">查看每轮 diff、完整角色输出、测试和进程记录。</p><ul id="artifacts" class="artifact-list"></ul><pre id="diff-preview">等待代码修改</pre></section>
 </div></div></div>
 @section Scripts {<script src="/run.js" asp-append-version="true"></script>}
