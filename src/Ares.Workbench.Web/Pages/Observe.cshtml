@@ -1,0 +1,72 @@
+@page "/Observe/{id?}"
+@model Ares.Workbench.Web.Pages.ObserveModel
+@{ViewData["Title"]="执行观察台";}
+<div class="page-head"><div><p class="eyebrow">CODEX DIRECT · OBSERVER</p><h1>执行观察台</h1><p>在原 Codex 对话中推进任务，在这里查看进度与证据。</p></div><a href="/Observe">全部任务</a></div>
+@if(Model.TaskItem is not {} t){
+<section><h2>项目与任务</h2>
+@if(Model.Store.Tasks().Count==0){<p class="empty">还没有任务。让 Codex 通过 Ares CLI 记录当前任务，然后按需打开此页。</p>}
+@foreach(var p in Model.Store.Projects()){
+<h3>@p.Name</h3><p class="path">@p.RepoRoot</p>
+<table><thead><tr><th>任务</th><th>流程</th><th>当前状态</th><th>最近记录</th></tr></thead><tbody>
+@foreach(var item in Model.Store.Tasks().Where(x=>x.WorkspaceId==p.ProjectId).OrderByDescending(x=>x.UpdatedAt)){
+<tr><td><a href="/Observe/@item.TaskId">@item.Title</a></td><td>@item.Risk</td><td>@ObserveModel.TaskStage(item)</td><td>@item.UpdatedAt.LocalDateTime.ToString("MM-dd HH:mm:ss")</td></tr>}
+</tbody></table>}
+</section>
+}else{
+var d=t.Direct;var a=d?.Agreement;
+<section><p class="eyebrow">@Model.Store.Project(t.WorkspaceId).Name · @t.Risk</p><h2>@t.Title</h2>
+<p><span class="badge">@ObserveModel.TaskStage(t)</span> · 最近记录 @t.UpdatedAt.LocalDateTime.ToString("yyyy-MM-dd HH:mm:ss")</p>
+@if(d is not null){
+<p>Primary：@d.PrimaryLabel</p>
+<p class="hint">Primary 进度来自主动记录；原生工具细节未采集。验证中的步骤见下方记录。关闭网页不影响执行。</p>
+@if(d.Note is not null){<p class="pre-wrap">@d.Note</p>}
+@if(d.Stage==DirectStage.AwaitingAcceptance){<p>@(d.RequiresDocuments&&d.Alignment is null?"测试和审查已通过，等待当前 Codex 完成文档与证据的交付对齐。":"请在原 Codex 对话中反馈或验收。测试、审查通过后仍需你的实际验收决定。")</p>}
+<details><summary>任务关联</summary><p>Task：@t.TaskId</p><p>约定版本：@(a?.Version??0) · 修订：@d.Revision</p><p>原生会话引用：@(d.NativeSessionRef??"未提供；未自动接管或创建替代 Primary")</p></details>
+}else{
+<p>历史任务 · 只读记录</p><h3>目标</h3><p class="pre-wrap">@t.Goal</p><ul>@foreach(var criterion in t.Acceptance){<li>@criterion</li>}</ul>
+@if(t.Fusion is {} legacy){<details><summary>历史讨论</summary>@foreach(var turn in legacy.Turns){<p class="pre-wrap"><strong>@turn.Speaker</strong>：@turn.Text</p>}</details>}
+}
+</section>
+@if(a is not null){
+<section><h2>我们约定做什么 · v@(a.Version)</h2><p class="pre-wrap">@a.Anchors.Goal</p>
+<table><thead><tr><th>验收项</th><th>验证方式</th></tr></thead><tbody>
+@foreach(var check in a.Checks){<tr><td>@t.Acceptance[check.Criterion-1]</td><td>@(check.Kind=="manual"?"人工确认":"自动检查") · @check.Method</td></tr>}
+</tbody></table>
+<p class="path">Build：@a.BuildCommand<br/>Test：@a.TestCommand</p>
+<p class="hint">自动检查映射表示计划运行的检查，不等于逐项已证明通过。请结合实际测试、审查和人工验收。</p>
+<details><summary>范围与决定</summary><dl><dt>本轮不做</dt><dd>@a.Anchors.NonGoals</dd><dt>修改边界</dt><dd>@a.Anchors.Boundary</dd><dt>关键决定</dt><dd>@a.Anchors.KeyDecisions</dd><dt>验证方案</dt><dd>@a.Anchors.Verification</dd><dt>Owner 授权记录</dt><dd>@a.Authorization.Quote · @a.Authorization.Source</dd></dl></details>
+</section>}
+@if(d?.Documents is {} docs){
+<section><h2>讨论文档 · @docs.Brief.Level · v@docs.Version</h2>
+<p>需求来源：@docs.Brief.Source</p><p>执行规范：@docs.SopVersion</p>
+<ul>@foreach(var file in docs.Files){<li><a href="/TaskFile?id=@t.TaskId&role=@file.Role" target="_blank" rel="noopener">@file.Role</a></li>}</ul>
+<details><summary>工程上下文与依据</summary>@foreach(var fact in docs.Brief.Context){<p>@fact.Observation<br/><span class="path">@fact.Source</span></p>}</details>
+<p>交付对齐：@(d.Alignment is null?"尚未完成；验收前需要关联逐项证据":"已记录 · "+d.Alignment.At.LocalDateTime.ToString("MM-dd HH:mm:ss"))</p>
+<p class="hint">文档记录讨论结论与工程依据，完整原生对话未复制。源码修改后的文档、约定与证据需要重新对齐。</p></section>
+}
+@if(d?.Lens is {} lens){
+<section><h2>代码变化解释 · @lens.Status</h2><p class="pre-wrap">@lens.Scope</p>
+<ul>@foreach(var file in lens.Files){<li><a href="/TaskFile?id=@t.TaskId&role=@file.Role&lens=true" target="_blank" rel="noopener">@file.Role</a></li>}</ul>
+<p class="hint">报告对应上述验证快照；之后的外部编辑可能使其过期。验证建议不代表测试通过，分析结果不改变审批。</p></section>
+}
+@if(d?.LastReport is {} report){<section><h2>Primary 实施报告</h2><p class="pre-wrap">@report</p></section>}
+@foreach(var run in Model.Runs){
+<section><div class="section-head"><h2>验证 · @run.StartedAt.LocalDateTime.ToString("MM-dd HH:mm:ss")</h2><span>@UiText.State(run.State)</span></div>
+<p>当前步骤：@run.CurrentNode · @(run.UpdatedAt.LocalDateTime.ToString("HH:mm:ss"))</p>
+@if(run.Failure is {} failure){<p class="error">@failure.Code · @failure.Message</p>}
+@foreach(var step in run.Executions){<details><summary>@step.NodeId · @step.Result.Outcome · @((step.FinishedAt-step.StartedAt).TotalSeconds.ToString("F1")) s</summary><p class="pre-wrap">@step.Result.Output</p></details>}
+<details><summary>实际 Diff、报告与日志</summary><ul>
+@foreach(var item in Model.Store.Artifacts(run.RunId)){<li><a href="/Artifacts?runId=@run.RunId&artifactId=@item.ArtifactId" target="_blank" rel="noopener">@item.DisplayName</a></li>}
+</ul></details>
+@foreach(var decision in Model.Store.Approvals(run.RunId)){<p class="pre-wrap">@decision.Status · @decision.Comment</p>}
+</section>}
+<section><h2>执行时间线</h2>
+@if(Model.Timeline.Count==0){<p class="empty">暂无事件。</p>}
+@foreach(var e in Model.Timeline.Reverse()){
+<details><summary>@e.OccurredAt.LocalDateTime.ToString("MM-dd HH:mm:ss") · @e.EventType @(e.NodeId is null?"":"· "+e.NodeId)</summary>
+@foreach(var pair in e.Payload){<p class="pre-wrap"><strong>@pair.Key</strong>：@pair.Value</p>}
+</details>}
+</section>
+}
+<p class="hint">页面每 10 秒刷新。所有决定请继续在原 Codex 对话中完成。</p>
+<script src="/observer.js"></script>

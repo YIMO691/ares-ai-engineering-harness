@@ -1,0 +1,22 @@
+name: Validate workflow package
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Validate Markdown, links, and workflow invariants
+        shell: pwsh
+        run: ./scripts/validate-workflow.ps1

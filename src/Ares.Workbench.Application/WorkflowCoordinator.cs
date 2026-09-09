@@ -181,7 +181,7 @@ public sealed class WorkflowCoordinator(ITaskStore tasks, IRunStore runs, IEvent
                 ct.ThrowIfCancellationRequested();
                 run=Commit(run with { State=RunState.Completed,CurrentNode=null,PendingHuman=null });
                 var task=tasks.Get(run.TaskId);
-                tasks.Update(task with { Lifecycle=task.Fusion is null?TaskLifecycle.Delivered:TaskLifecycle.AwaitingAcceptance,UpdatedAt=DateTimeOffset.UtcNow });
+                tasks.Update(task with { Lifecycle=task.Fusion is null && task.Direct is null?TaskLifecycle.Delivered:TaskLifecycle.AwaitingAcceptance,UpdatedAt=DateTimeOffset.UtcNow });
             }
             await Emit(run,"WorkflowCompleted");
             return null;

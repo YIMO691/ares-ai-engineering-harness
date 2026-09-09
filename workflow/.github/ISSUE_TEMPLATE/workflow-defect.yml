@@ -1,0 +1,55 @@
+name: 规范或模板缺陷
+description: 报告错误链接、规则冲突、模板不可用或 Gate 判定缺口
+title: "[Defect]: "
+labels:
+  - bug
+  - triage
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: 缺陷区域
+      options:
+        - README / 导航
+        - SOP / Gate
+        - 任务分级
+        - 文档模板
+        - 示例
+        - AI 操作层
+        - GitHub / CI
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: 文件或链接
+      placeholder: 例如 SOP.md 第 8 节
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 当前行为
+      description: 说明错误、冲突或无法执行的地方。
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望行为
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 复现步骤或证据
+      description: 请勿提交凭据、个人数据或其他敏感信息。
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 提交确认
+      options:
+        - label: 我已搜索现有 Issue，未发现相同缺陷。
+          required: true

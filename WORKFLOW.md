@@ -1,3 +1,5 @@
+> 新任务入口：[统一研发流程](docs/UNIFIED_WORKFLOW.md)。下文保留原流程和历史兼容说明。
+
 # Engineering workflow
 
 ## Workflow Fusion

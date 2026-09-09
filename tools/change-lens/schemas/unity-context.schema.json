@@ -1,0 +1,235 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aeh-change-lens.dev/schemas/unity-context.schema.json",
+  "title": "Digest-bound Unity compilation context",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "completeness", "unity_version", "generated_project", "assembly", "applicability",
+    "package_manifest", "defines",
+    "metadata_references", "project_references", "source_files", "limitations", "context_digest"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "completeness": { "enum": ["COMPLETE", "PARTIAL", "MISSING"] },
+    "unity_version": { "type": ["string", "null"] },
+    "generated_project": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "kind", "path", "sha256", "origin_sha256", "manifest_path", "manifest_sha256"
+      ],
+      "properties": {
+        "kind": { "enum": ["GENERATED_CSPROJ", "COMPILE_MANIFEST"] },
+        "path": {
+          "type": "string",
+          "pattern": "^(?![/\\\\])(?!.*(?:^|[/\\\\])\\.\\.(?:[/\\\\]|$)).+\\.csproj$"
+        },
+        "sha256": { "$ref": "common.schema.json#/$defs/sha256" },
+        "origin_sha256": { "$ref": "common.schema.json#/$defs/sha256" },
+        "manifest_path": {
+          "type": ["string", "null"],
+          "pattern": "^(?![/\\\\])(?!.*(?:^|[/\\\\])\\.\\.(?:[/\\\\]|$)).+\\.json$"
+        },
+        "manifest_sha256": {
+          "oneOf": [
+            { "$ref": "common.schema.json#/$defs/sha256" },
+            { "type": "null" }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "kind": { "const": "GENERATED_CSPROJ" } } },
+          "then": {
+            "properties": {
+              "manifest_path": { "type": "null" },
+              "manifest_sha256": { "type": "null" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "kind": { "const": "COMPILE_MANIFEST" } } },
+          "then": {
+            "properties": {
+              "manifest_path": { "type": "string" },
+              "manifest_sha256": { "$ref": "common.schema.json#/$defs/sha256" }
+            }
+          }
+        }
+      ]
+    },
+    "assembly": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name", "path", "sha256", "root_namespace", "references",
+            "include_platforms", "exclude_platforms", "define_constraints",
+            "version_defines", "no_engine_references"
+          ],
+          "properties": {
+            "name": { "type": "string", "minLength": 1 },
+            "path": { "type": "string", "minLength": 1 },
+            "sha256": { "$ref": "common.schema.json#/$defs/sha256" },
+            "root_namespace": { "type": "string" },
+            "references": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+            "include_platforms": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+            "exclude_platforms": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+            "define_constraints": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+            "version_defines": {
+              "type": "array", "uniqueItems": true,
+              "items": {
+                "type": "object", "additionalProperties": false,
+                "required": ["resource", "expression", "define"],
+                "properties": {
+                  "resource": { "type": "string" },
+                  "expression": { "type": "string" },
+                  "define": { "type": "string" }
+                }
+              }
+            },
+            "no_engine_references": { "type": "boolean" }
+          }
+        }
+      ]
+    },
+    "applicability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status", "active_platforms", "platform_status", "define_constraints", "version_defines"
+      ],
+      "properties": {
+        "status": { "enum": ["APPLICABLE", "EXCLUDED", "UNKNOWN"] },
+        "active_platforms": {
+          "type": "array", "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "platform_status": { "enum": ["APPLICABLE", "EXCLUDED", "UNKNOWN", "INVALID"] },
+        "define_constraints": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["expression", "terms", "valid", "satisfied"],
+            "properties": {
+              "expression": { "type": "string" },
+              "terms": {
+                "type": "array", "minItems": 1,
+                "items": { "type": "string" }
+              },
+              "valid": { "type": "boolean" },
+              "satisfied": { "type": ["boolean", "null"] }
+            }
+          }
+        },
+        "version_defines": {
+          "type": "array", "uniqueItems": true,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["resource", "expression", "define", "resource_version", "status"],
+            "properties": {
+              "resource": { "type": "string" },
+              "expression": { "type": "string" },
+              "define": { "type": "string" },
+              "resource_version": { "type": ["string", "null"] },
+              "status": { "enum": ["DEFINED", "NOT_DEFINED", "INVALID", "UNKNOWN"] }
+            }
+          }
+        }
+      }
+    },
+    "package_manifest": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["path", "sha256", "packages"],
+          "properties": {
+            "path": { "const": "Packages/packages-lock.json" },
+            "sha256": { "$ref": "common.schema.json#/$defs/sha256" },
+            "packages": {
+              "type": "array", "uniqueItems": true,
+              "items": {
+                "type": "object", "additionalProperties": false,
+                "required": ["name", "version", "source"],
+                "properties": {
+                  "name": { "type": "string", "minLength": 1 },
+                  "version": { "type": "string", "minLength": 1 },
+                  "source": { "type": "string", "minLength": 1 }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "defines": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "metadata_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256", "kind"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "sha256": { "$ref": "common.schema.json#/$defs/sha256" },
+          "kind": { "enum": ["UNITY", "EXTERNAL"] }
+        }
+      }
+    },
+    "project_references": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "include", "assembly_name", "reference_output_assembly",
+          "output_item_type", "status", "script_assembly"
+        ],
+        "properties": {
+          "include": { "type": "string", "minLength": 1 },
+          "assembly_name": { "type": "string", "minLength": 1 },
+          "reference_output_assembly": { "type": "boolean" },
+          "output_item_type": { "type": ["string", "null"] },
+          "status": {
+            "enum": [
+              "BOUND_ATTESTED", "BOUND_UNVERIFIED", "MISSING",
+              "OUTSIDE_UNITY_ROOT", "ANALYZER_ONLY"
+            ]
+          },
+          "script_assembly": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["path", "sha256", "kind"],
+                "properties": {
+                  "path": { "type": "string", "minLength": 1 },
+                  "sha256": { "$ref": "common.schema.json#/$defs/sha256" },
+                  "kind": { "enum": ["PROJECT_ATTESTED", "PROJECT_UNVERIFIED"] }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "source_files": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^(?![/\\\\])(?!.*(?:^|[/\\\\])\\.\\.(?:[/\\\\]|$)).+$"
+      }
+    },
+    "limitations": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "context_digest": { "$ref": "common.schema.json#/$defs/sha256" }
+  }
+}

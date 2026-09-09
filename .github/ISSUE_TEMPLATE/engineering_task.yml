@@ -1,0 +1,43 @@
+name: Engineering task
+description: Track discussion, frozen intent, verification and delivery
+title: "[Task] "
+body:
+  - type: textarea
+    id: source_context
+    attributes:
+      label: Source and observed context
+      description: Safe source/version references and facts; no commercial source, credentials or runtime evidence.
+    validations:
+      required: true
+  - type: textarea
+    id: intent
+    attributes:
+      label: Goal, acceptance, non-goals and boundary
+      description: Number observable acceptance items and keep unresolved questions explicit.
+    validations:
+      required: true
+  - type: textarea
+    id: documents
+    attributes:
+      label: Task and discussion documents
+      description: Task ID; L1/L2/L3 and reason; document version or safe reference; key decisions and verification plan.
+  - type: dropdown
+    id: workflow
+    attributes:
+      label: Verification workflow
+      options:
+        - STANDARD
+        - FAST
+        - CRITICAL
+    validations:
+      required: true
+  - type: textarea
+    id: authorization
+    attributes:
+      label: Ready and actual authorization
+      description: Record the actual Owner instruction and scope when given. Creating an Issue does not grant implementation or merge authorization.
+  - type: textarea
+    id: delivery
+    attributes:
+      label: Delivery and recovery
+      description: PR; checks and independent review; rework or blockers; Align summary and known limits. Update with actual results.

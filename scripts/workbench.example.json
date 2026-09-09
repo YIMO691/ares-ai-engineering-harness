@@ -8,6 +8,11 @@
     "DotnetExecutable": "<absolute DotnetExecutable path>",
     "GitExecutable": "<absolute GitExecutable path>",
     "NugetPackages": "",
-    "Model": "gpt-6-astra"
+    "Model": "gpt-6-astra",
+    "ObserverOnly": true,
+    "DocumentsRoot": "D:/AgentWorkspace/Ares/10_WORK/active",
+    "PythonExecutable": "<absolute-python.exe>",
+    "ChangeLensRoot": "<absolute-harness-repository>/tools/change-lens",
+    "ChangeLensWorker": "<ScratchRoot>/lens-build/bin/ChangeLens.Analyzer/release/ChangeLens.Analyzer.dll"
   }
 }

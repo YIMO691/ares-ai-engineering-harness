@@ -4,9 +4,9 @@ using Ares.Workbench.Application;
 using Ares.Workbench.Adapters.Codex;
 using Ares.Workbench.Domain;
 using Ares.Workbench.Infrastructure;
-namespace Ares.Workbench.Web;
+namespace Ares.Workbench.Adapters.Codex;
 
-public sealed class RunHandlerFactory(RuntimeSettings settings,IWorkbenchStore events) : IRunHandlerFactory
+public sealed class RunHandlerFactory(RuntimeSettings settings,IWorkbenchStore events) : IRunHandlerFactory, IDirectEvidence
 {
     private sealed class Contexts(ProjectProfile project) : IContextBuilder
     {
@@ -29,7 +29,7 @@ public sealed class RunHandlerFactory(RuntimeSettings settings,IWorkbenchStore e
         var values=new List<string>();
         foreach(var args in new[]{new[]{"rev-parse","HEAD"},new[]{"rev-parse","--abbrev-ref","HEAD"}}) {
             var result=await new ProcessRunner([settings.GitExecutable],[workspace.RepoRoot]).RunAsync(
-                new(settings.GitExecutable,[..args],workspace.RepoRoot,TimeSpan.FromSeconds(30),env),ct);
+                new(settings.GitExecutable,["-c","safe.directory="+workspace.RepoRoot,..args],workspace.RepoRoot,TimeSpan.FromSeconds(30),env),ct);
             if(!result.Passed)throw new InvalidOperationException("Git prerequisite failed: "+result.Stderr);
             values.Add(result.Stdout.Trim());
         }
@@ -39,6 +39,16 @@ public sealed class RunHandlerFactory(RuntimeSettings settings,IWorkbenchStore e
         }
         return string.Join("|",values);
     }
+    private ProjectCommands Commands(ProjectProfile project,Workspace workspace) {
+        var id=Path.GetFileName(workspace.ArtifactRoot);
+        return new(project,workspace,settings.GitExecutable,settings.DotnetExecutable,
+            LocalPaths.Output(Path.Combine(settings.ScratchRoot,id,"build")),settings.EnvironmentFor(id));
+    }
+    public async ValueTask<SourceSnapshot> SnapshotAsync(ProjectProfile project,Workspace workspace,CancellationToken ct) =>
+        new(await WorkspaceStampAsync(project,workspace,ct),(await Commands(project,workspace).Snapshot(ct)).ToImmutableDictionary(StringComparer.OrdinalIgnoreCase));
+    public ValueTask<string> DiffAsync(ProjectProfile project,Workspace workspace,CancellationToken ct) =>
+        new(Commands(project,workspace).Diff(ct));
+    public bool Writable(ProjectProfile project,Workspace workspace,string path)=>Commands(project,workspace).Writable(path);
     public RunHandlers Create(ProjectProfile project,Workspace workspace)
     {
         string id=Path.GetFileName(workspace.ArtifactRoot);
@@ -75,7 +85,11 @@ public sealed class RunHandlerFactory(RuntimeSettings settings,IWorkbenchStore e
             var cp=events.Checkpoint(i.Run.RunId);
             var session=role==CodexRole.Reviewer?cp?.ReviewerSessionRef:cp?.PrimarySessionRef;
             var prompt=instructions+"\nCURRENT TASK AND PROJECT POLICY:\n"+JsonSerializer.Serialize(new {
-                task=i.Task with {Fusion=null},ready=i.Task.Fusion?.Frozen,
+                task=i.Task with {Fusion=null,Direct=null},ready=i.Task.Fusion?.Frozen,
+                direct_agreement=i.Task.Direct?.Agreement is {} da?new {da.Version,da.Anchors,da.Checks}:null,
+                external_primary_report=i.Task.Direct?.LastReport,
+                discussion_documents=i.Task.Direct?.Documents?.Files.Select(f=>new {f.Role,f.Sha256,Content=Compact(f.Content,16000)}),
+                alignment_instruction=i.Task.Direct?.RequiresDocuments==true?"Check task document intent, design, scope and acceptance against implementation and test evidence. Report drift; distinguish missing manual verification.":null,
                 last_owner_rejection=role==CodexRole.PrimaryDiscuss?i.Task.Fusion?.Turns.LastOrDefault(t=>t.Speaker=="Owner"&&t.Text.StartsWith("Reject:"))?.Text:null,
                 current_draft=role==CodexRole.PrimaryDiscuss?i.Task.Fusion?.Draft:null,
                 owner_message=role==CodexRole.PrimaryDiscuss?i.Task.Fusion?.Turns.LastOrDefault(t=>t.Speaker=="Owner")?.Text:null,
@@ -114,7 +128,9 @@ public sealed class RunHandlerFactory(RuntimeSettings settings,IWorkbenchStore e
                 artifacts.Add(text);artifacts.Add(json);
                 output.AppendLine(kind+": "+(p.Passed?"PASS":"FAIL")).AppendLine(p.Stdout).AppendLine(p.Stderr);
                 if(p.Cancelled)return new(NodeOutcome.Cancelled,"node-result/v1","Verification interrupted.",[..artifacts]);
-                if(!p.Passed && i.Task.Fusion is not null && p.ExitCode!=0 && !p.TimedOut && p.Failure is null)
+                if(!p.Passed && System.Text.RegularExpressions.Regex.IsMatch(p.Stdout+"\n"+p.Stderr,@"\b(NU1301|NU1900)\b"))
+                    return NodeResult.Fail("EXECUTOR_ENVIRONMENT","Dependency service or vulnerability-feed access failed; repair connectivity and retry verification.") with {ArtifactRefs=[..artifacts]};
+                if(!p.Passed && (i.Task.Fusion is not null || i.Task.Direct is not null) && p.ExitCode!=0 && !p.TimedOut && p.Failure is null)
                     return NodeResult.Rework("Verification failed. Fix the actual diagnostics without weakening acceptance:\n"+output,[..artifacts]);
                 if(!p.Passed)return NodeResult.Fail("VERIFICATION_FAILED",kind+" 命令失败；请查看测试输出。",false,EffectStatus.Unknown) with {ArtifactRefs=[..artifacts]};
             }

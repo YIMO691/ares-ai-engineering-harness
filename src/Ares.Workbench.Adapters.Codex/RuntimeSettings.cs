@@ -1,9 +1,13 @@
 using System.Collections.Immutable;
 using Ares.Workbench.Infrastructure;
-namespace Ares.Workbench.Web;
+namespace Ares.Workbench.Adapters.Codex;
 public sealed class RuntimeSettings
 {
     public string DataRoot {get;set;} = "";
+    public string DocumentsRoot {get;set;} = "D:/AgentWorkspace/Ares/10_WORK/active";
+    public string PythonExecutable {get;set;} = "";
+    public string ChangeLensRoot {get;set;} = "";
+    public string ChangeLensWorker {get;set;} = "";
     public string ScratchRoot {get;set;} = "";
     public string CodexHome {get;set;} = "";
     public string NugetPackages {get;set;} = "";
@@ -12,6 +16,11 @@ public sealed class RuntimeSettings
     public string DotnetExecutable {get;set;} = "";
     public string GitExecutable {get;set;} = "";
     public string Model {get;set;} = "gpt-6-astra";
+    public bool ObserverOnly {get;set;} = true;
+    public void ValidateObserver() {
+        if(string.IsNullOrWhiteSpace(DataRoot))throw new InvalidOperationException("Configure Workbench DataRoot.");
+        DataRoot=LocalPaths.Output(DataRoot);Directory.CreateDirectory(DataRoot);
+    }
     public void Validate()
     {
         if(new[]{DataRoot,ScratchRoot,CodexHome}.Any(string.IsNullOrWhiteSpace))throw new InvalidOperationException("Configure Workbench DataRoot, ScratchRoot and CodexHome in your local settings file.");

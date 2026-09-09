@@ -30,7 +30,7 @@ public class DetailsModel(WorkbenchService service):PageModel
             Verification=a.Verification;Unresolved=string.Join("\n",a.Unresolved);
         }
     }
-    public IActionResult OnGet(string id){try{Load(id,true);return Page();}catch(KeyNotFoundException){return NotFound();}}
+    public IActionResult OnGet(string id){try{Load(id,true);if(TaskItem.Direct is not null)return RedirectToPage("/Observe",new{id});return Page();}catch(KeyNotFoundException){return NotFound();}}
     private IActionResult Handle(string id,Action action)
     {
         try{action();return RedirectToPage(new{id});}

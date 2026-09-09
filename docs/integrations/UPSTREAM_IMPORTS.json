@@ -1,0 +1,868 @@
+[
+  {
+    "repository": "https://github.com/YIMO691/Workflow-SOP",
+    "commit": "bd1a20e661440d44d448d2f713aa69e18b260bea",
+    "destination": "workflow",
+    "import_type": "source snapshot; upstream history retained by immutable repository reference",
+    "files": [
+      {
+        "source_path": ".editorconfig",
+        "target_path": "workflow/.editorconfig",
+        "source_sha256": "9a5a4db51520bf1a1acff1260f84030323ab31df8e89f8d5193d36ee5a54b8d0"
+      },
+      {
+        "source_path": ".gitattributes",
+        "target_path": "workflow/.gitattributes",
+        "source_sha256": "797ad524e6d78363c7f46c461be307b4ead6cb1e9ff01916e36fca5d06f17ca6"
+      },
+      {
+        "source_path": ".github/CODEOWNERS",
+        "target_path": "workflow/.github/CODEOWNERS",
+        "source_sha256": "01fbac87cb3e6f0d2fb158aae8e823755a19864cdba92580408aa8f9013d6eda"
+      },
+      {
+        "source_path": ".github/ISSUE_TEMPLATE/config.yml",
+        "target_path": "workflow/.github/ISSUE_TEMPLATE/config.yml",
+        "source_sha256": "8b09e7df09fc7534371988062769ee427af2954a02c04c763e8a8005be0f2be4"
+      },
+      {
+        "source_path": ".github/ISSUE_TEMPLATE/usage-question.yml",
+        "target_path": "workflow/.github/ISSUE_TEMPLATE/usage-question.yml",
+        "source_sha256": "b72fd6c72ef09dc5d3cab993ffbf6e35ef20aa22994f72af1314cb57988da65a"
+      },
+      {
+        "source_path": ".github/ISSUE_TEMPLATE/workflow-defect.yml",
+        "target_path": "workflow/.github/ISSUE_TEMPLATE/workflow-defect.yml",
+        "source_sha256": "5e3583cb5bb7d5692d5e9042422858d4563cff37c071ce95fd8e3bdd60c4be4e"
+      },
+      {
+        "source_path": ".github/ISSUE_TEMPLATE/workflow-improvement.yml",
+        "target_path": "workflow/.github/ISSUE_TEMPLATE/workflow-improvement.yml",
+        "source_sha256": "e879ccb7edfeed5fff01f69a7a3a756e026caf0fc52a80ba8435cf41a5c1ff8c"
+      },
+      {
+        "source_path": ".github/PULL_REQUEST_TEMPLATE.md",
+        "target_path": "workflow/.github/PULL_REQUEST_TEMPLATE.md",
+        "source_sha256": "b6a8326a6810239b0b5542a7719df26a520208672d3996f9361ae85a9c0d8b4e"
+      },
+      {
+        "source_path": ".github/workflows/validate.yml",
+        "target_path": "workflow/.github/workflows/validate.yml",
+        "source_sha256": "40163872f3df8633fbc7f1e849ad3d1e3edeae2a51a041a43c05b308b1f0bd91"
+      },
+      {
+        "source_path": ".gitignore",
+        "target_path": "workflow/.gitignore",
+        "source_sha256": "b5e38d507a769c983d41b2bf3d4487181ebf0746efb880e226a189d17d294a13"
+      },
+      {
+        "source_path": "AGENTS.md",
+        "target_path": "workflow/UPSTREAM-AGENTS.md",
+        "source_sha256": "703e62ffa141b6cd0c55fad35509a8df31f450c026575a366c571eecd53d8bcb"
+      },
+      {
+        "source_path": "AI-PLAYBOOK.md",
+        "target_path": "workflow/AI-PLAYBOOK.md",
+        "source_sha256": "5d837810e53ee7059bdfb2e7a4ffd01013c19c912373dc1fea10b3729c7b3167"
+      },
+      {
+        "source_path": "CHANGELOG.md",
+        "target_path": "workflow/CHANGELOG.md",
+        "source_sha256": "1ed44830dd0fce0e194109dde9414bd70c293b447d57dcfead9900e68a9c463d"
+      },
+      {
+        "source_path": "CODE_OF_CONDUCT.md",
+        "target_path": "workflow/CODE_OF_CONDUCT.md",
+        "source_sha256": "bc0c5902fb906d2f33f574c1dbb4901ab326c27bf9aa45c434fa50c64b46659c"
+      },
+      {
+        "source_path": "CONTRIBUTING.md",
+        "target_path": "workflow/CONTRIBUTING.md",
+        "source_sha256": "776f4106d50dd4023c9879f40fe417d8821745ec62599b7cb2b3d656023adf8e"
+      },
+      {
+        "source_path": "README.md",
+        "target_path": "workflow/README.md",
+        "source_sha256": "c5621ca7e4b63cf05c306b7c77fbc5b293fbd4f70e03baeb7e4b1f31a36eafdf"
+      },
+      {
+        "source_path": "SECURITY.md",
+        "target_path": "workflow/SECURITY.md",
+        "source_sha256": "0462965a79720707dec730e00ae831f2d8b6afc7ae8349f5cb650f2296ef3c55"
+      },
+      {
+        "source_path": "SOP.md",
+        "target_path": "workflow/SOP.md",
+        "source_sha256": "b7cdb21c9147c63a6f001d5af7e301785be611ebe56af29e89919589c8e64499"
+      },
+      {
+        "source_path": "START-HERE.md",
+        "target_path": "workflow/START-HERE.md",
+        "source_sha256": "cb6d773872b4553362fa2b7e1a18a835c07099f278ffe54d3bf37d8c8dae72f9"
+      },
+      {
+        "source_path": "SUPPORT.md",
+        "target_path": "workflow/SUPPORT.md",
+        "source_sha256": "fe1300468a1ad3e9c38199a1e44f8ee1ff99b3a23316db01ab89f778d2179b01"
+      },
+      {
+        "source_path": "TASK-LEVELS.md",
+        "target_path": "workflow/TASK-LEVELS.md",
+        "source_sha256": "29c4d66ec8457f171aa7a7049541ed9ed5b9b7e06b7bfbaedd53b10832e151c6"
+      },
+      {
+        "source_path": "examples/L1-bugfix.md",
+        "target_path": "workflow/examples/L1-bugfix.md",
+        "source_sha256": "09cc18a2346317f4cdfab09ab4ca540fd9a0416a7f839a1508dbe4cc22b96dfa"
+      },
+      {
+        "source_path": "examples/L2-standard-feature.md",
+        "target_path": "workflow/examples/L2-standard-feature.md",
+        "source_sha256": "dc05cb35a7094f7133b1f8a29a102e1c282e75eb39b774191eae4fafb317999d"
+      },
+      {
+        "source_path": "examples/L3-complex-feature/ALIGNMENT-GATE.md",
+        "target_path": "workflow/examples/L3-complex-feature/ALIGNMENT-GATE.md",
+        "source_sha256": "ff6e49166182cc94b119150841ee42816aa276106004b51b11bbbd424c5426ed"
+      },
+      {
+        "source_path": "examples/L3-complex-feature/DELIVERY.md",
+        "target_path": "workflow/examples/L3-complex-feature/DELIVERY.md",
+        "source_sha256": "68d636c522ad6893ea22a2f819faf65dba4905d23e70e35e00a52ad8d283a352"
+      },
+      {
+        "source_path": "examples/L3-complex-feature/PRD.md",
+        "target_path": "workflow/examples/L3-complex-feature/PRD.md",
+        "source_sha256": "c886caf44a57caf57c8d6b1211e2e9cde450622220f25cde4fcce2feff3af069"
+      },
+      {
+        "source_path": "examples/L3-complex-feature/README.md",
+        "target_path": "workflow/examples/L3-complex-feature/README.md",
+        "source_sha256": "77a5df2bc2f21905ddeb1cfb5332c44e0e6a46ea4c74a879ce10f3bdf2e32ec3"
+      },
+      {
+        "source_path": "examples/L3-complex-feature/SDD.md",
+        "target_path": "workflow/examples/L3-complex-feature/SDD.md",
+        "source_sha256": "1e43c63a81af3b8e17d9383923cbb56c96c01589bdddddf4b27caac2355d4753"
+      },
+      {
+        "source_path": "examples/L3-complex-feature/TEST-PLAN.md",
+        "target_path": "workflow/examples/L3-complex-feature/TEST-PLAN.md",
+        "source_sha256": "69c9ec924edde4a0e3f6022a9f575a9c26ec964f0b826c67d78c8b045a18298f"
+      },
+      {
+        "source_path": "examples/L3-complex-feature/adr/0001-use-async-export-job.md",
+        "target_path": "workflow/examples/L3-complex-feature/adr/0001-use-async-export-job.md",
+        "source_sha256": "eedb8b618b0985ca875203033dfa3bb208d17cbd04dd33f79080980a2500c4a8"
+      },
+      {
+        "source_path": "pilots/AI-OPERATION-LAYER/SPEC.md",
+        "target_path": "workflow/pilots/AI-OPERATION-LAYER/SPEC.md",
+        "source_sha256": "a634192619b3e047a0a8fd4f17fdd68da7bf1732edc08ee373b9be0104726276"
+      },
+      {
+        "source_path": "pilots/DOC-ALIGNMENT-GATE/00-TASK.md",
+        "target_path": "workflow/pilots/DOC-ALIGNMENT-GATE/00-TASK.md",
+        "source_sha256": "8baeb690a40d34b58b10b37867c887f66948e877a37cc374b04400f66fb486bf"
+      },
+      {
+        "source_path": "pilots/DOC-ALIGNMENT-GATE/ALIGNMENT-RESULT.md",
+        "target_path": "workflow/pilots/DOC-ALIGNMENT-GATE/ALIGNMENT-RESULT.md",
+        "source_sha256": "0ab12f274b9e5cb0197c638daf69b976aa27957acf37cb93ee367398a62b329c"
+      },
+      {
+        "source_path": "pilots/DOC-ALIGNMENT-GATE/PILOT-REPORT.md",
+        "target_path": "workflow/pilots/DOC-ALIGNMENT-GATE/PILOT-REPORT.md",
+        "source_sha256": "24fb38352ac59d0800733a2f41d39f05793e10ef8997fc2c235b31e989c90ca9"
+      },
+      {
+        "source_path": "pilots/DOC-ALIGNMENT-GATE/PRD.md",
+        "target_path": "workflow/pilots/DOC-ALIGNMENT-GATE/PRD.md",
+        "source_sha256": "9ad3f17de17e2dda9dbc9591c469a4ba1110fadab760dc4483ecafc90d91522b"
+      },
+      {
+        "source_path": "pilots/DOC-ALIGNMENT-GATE/SDD.md",
+        "target_path": "workflow/pilots/DOC-ALIGNMENT-GATE/SDD.md",
+        "source_sha256": "a2ae77b3ed0c5bd2bc0c3702a48142be7c69779b5bb7a0c350fdb943657d0073"
+      },
+      {
+        "source_path": "pilots/DOC-ALIGNMENT-GATE/TEST-PLAN.md",
+        "target_path": "workflow/pilots/DOC-ALIGNMENT-GATE/TEST-PLAN.md",
+        "source_sha256": "843531c3a95abf58ce6e5dffed158a763e489d7ef4805fe057ad515389852166"
+      },
+      {
+        "source_path": "pilots/DOC-ALIGNMENT-GATE/adr/0001-use-scoped-authority.md",
+        "target_path": "workflow/pilots/DOC-ALIGNMENT-GATE/adr/0001-use-scoped-authority.md",
+        "source_sha256": "0413b9ebaca4078f5695d125eec48135962e5630c02b77165038e41ebc3291cf"
+      },
+      {
+        "source_path": "prompts/ALIGN-GATE.md",
+        "target_path": "workflow/prompts/ALIGN-GATE.md",
+        "source_sha256": "7a3ddeca8b377c2d729d533620e45f6fef73fdafab8d8dc0e7f09225479ea5e9"
+      },
+      {
+        "source_path": "prompts/CONTINUE-TASK.md",
+        "target_path": "workflow/prompts/CONTINUE-TASK.md",
+        "source_sha256": "6ee75f4e2e8a22743caf52802c37903d1a6152c3868d28525cc40b460ed228cf"
+      },
+      {
+        "source_path": "prompts/NEW-TASK.md",
+        "target_path": "workflow/prompts/NEW-TASK.md",
+        "source_sha256": "e9f44d1052628c9552ab071a20fa54a44cb0c86db913cdd1ec9ea66186f32a32"
+      },
+      {
+        "source_path": "scripts/validate-workflow.ps1",
+        "target_path": "workflow/scripts/validate-workflow.ps1",
+        "source_sha256": "c123d587aab666a2457c3c8a92e4e22d2a0b45bc68aea64ce6806854e18ae0bc"
+      },
+      {
+        "source_path": "templates/ADR.md",
+        "target_path": "workflow/templates/ADR.md",
+        "source_sha256": "0e11f9c80ca1fd70e68597015f3be9e57d25f5a1ced26c0a58b9546184afa0c7"
+      },
+      {
+        "source_path": "templates/ALIGNMENT-GATE.md",
+        "target_path": "workflow/templates/ALIGNMENT-GATE.md",
+        "source_sha256": "70c4604d195b7ea4b43fc35f4c1913acdc5b728ff293e1345c376758041046c8"
+      },
+      {
+        "source_path": "templates/DELIVERY-CHECKLIST.md",
+        "target_path": "workflow/templates/DELIVERY-CHECKLIST.md",
+        "source_sha256": "36515ecf62f6fa999a93b88f9e31e2f606797827a3427da112bd94e195a49285"
+      },
+      {
+        "source_path": "templates/DELIVERY.md",
+        "target_path": "workflow/templates/DELIVERY.md",
+        "source_sha256": "35869a9276b30eeea75163549c00fd8200302b920a011c5338fbe7a42968191c"
+      },
+      {
+        "source_path": "templates/FORMAL-FEATURE/README.md",
+        "target_path": "workflow/templates/FORMAL-FEATURE/README.md",
+        "source_sha256": "058f232b7a249927f182f0e9a435a330970d7ef29d61380b5f8b41ad02b71fde"
+      },
+      {
+        "source_path": "templates/PRD.md",
+        "target_path": "workflow/templates/PRD.md",
+        "source_sha256": "d22ebc1b08cc57b532daa71301f79974cd9e7cee5321cab7ee1fdd0de4ec536e"
+      },
+      {
+        "source_path": "templates/SDD.md",
+        "target_path": "workflow/templates/SDD.md",
+        "source_sha256": "b3486051380dde0b579ec994f7af6a252dfbed602797cab31e440a0ae64375c7"
+      },
+      {
+        "source_path": "templates/SPEC.md",
+        "target_path": "workflow/templates/SPEC.md",
+        "source_sha256": "28c36852bd887f7d48a68d006ec2144f095a16227407f7619ccdb60c21560806"
+      },
+      {
+        "source_path": "templates/TASK.md",
+        "target_path": "workflow/templates/TASK.md",
+        "source_sha256": "a311ae1d0ac8601bcf978d414c8a5b87aea506002761366b2a14a30283b97e3e"
+      },
+      {
+        "source_path": "templates/TEST-PLAN.md",
+        "target_path": "workflow/templates/TEST-PLAN.md",
+        "source_sha256": "01f100f11943d81ae05168c11771d0fff6427f19f9fb454055569ddfc75cdd7a"
+      }
+    ]
+  },
+  {
+    "repository": "https://github.com/YIMO691/aeh-change-lens",
+    "commit": "1036bd04b0badc16a0c80cb6d9d92ec43c952ab8",
+    "destination": "tools/change-lens",
+    "import_type": "source snapshot; upstream history retained by immutable repository reference",
+    "files": [
+      {
+        "source_path": ".gitattributes",
+        "target_path": "tools/change-lens/.gitattributes",
+        "source_sha256": "55edf47721f7dd87c10ddfb616f0a16072c6fdc2602ca15a070b7dd8363db890"
+      },
+      {
+        "source_path": ".github/ISSUE_TEMPLATE/bug_report.yml",
+        "target_path": "tools/change-lens/.github/ISSUE_TEMPLATE/bug_report.yml",
+        "source_sha256": "6069efdf7f2c531a712d22da821d8331601b4cbfa2c1c86647679229c014ddc7"
+      },
+      {
+        "source_path": ".github/ISSUE_TEMPLATE/config.yml",
+        "target_path": "tools/change-lens/.github/ISSUE_TEMPLATE/config.yml",
+        "source_sha256": "61e945fc0357c68886f8a405645fe7ec64e64984836f3637c0806da410d15f18"
+      },
+      {
+        "source_path": ".github/ISSUE_TEMPLATE/feature_request.yml",
+        "target_path": "tools/change-lens/.github/ISSUE_TEMPLATE/feature_request.yml",
+        "source_sha256": "966aeb3c00b837cbdbf9f5dee590e5433cc2fd17b63b75d25e30a639d9aed38e"
+      },
+      {
+        "source_path": ".github/PULL_REQUEST_TEMPLATE.md",
+        "target_path": "tools/change-lens/.github/PULL_REQUEST_TEMPLATE.md",
+        "source_sha256": "5b464cdc683c02da02e9fd7e563465e1a4745aeb7c8dc86c42bcc7edae2e542f"
+      },
+      {
+        "source_path": ".github/workflows/contracts.yml",
+        "target_path": "tools/change-lens/.github/workflows/contracts.yml",
+        "source_sha256": "dcf931c80fefcaae6700428b03704ea5c6b2d7c6bb026f539b8befbea78f8767"
+      },
+      {
+        "source_path": ".gitignore",
+        "target_path": "tools/change-lens/.gitignore",
+        "source_sha256": "a6a71e50d6035d417d858918e66ec10833b9a395ce1501d4b6257d752bd6a931"
+      },
+      {
+        "source_path": "CODE_OF_CONDUCT.md",
+        "target_path": "tools/change-lens/CODE_OF_CONDUCT.md",
+        "source_sha256": "030cfc5cf4383ae4825c79439a4fcd81a0c0e24a27acfbe0121434776287900c"
+      },
+      {
+        "source_path": "CONTRIBUTING.md",
+        "target_path": "tools/change-lens/CONTRIBUTING.md",
+        "source_sha256": "fc4398274ea237b27471ee7a24ece51da203c4727eb1a205411c55e2e2aaeb76"
+      },
+      {
+        "source_path": "LICENSE",
+        "target_path": "tools/change-lens/LICENSE",
+        "source_sha256": "bfb28a3e1b161a6207dcbb7b2aabcc34a5b28d54c73d515cd7b24c96aa2f40a2"
+      },
+      {
+        "source_path": "README.en.md",
+        "target_path": "tools/change-lens/README.en.md",
+        "source_sha256": "5e7867d4cc0f46ed71034a3f3ca9540f648a16170e4287db9293e344855a338c"
+      },
+      {
+        "source_path": "README.md",
+        "target_path": "tools/change-lens/README.md",
+        "source_sha256": "2fc47c158e5a9cb07f69ddbb78e2a4dbc1ba68953e89e3947cb0cef0dc48f9c9"
+      },
+      {
+        "source_path": "SECURITY.md",
+        "target_path": "tools/change-lens/SECURITY.md",
+        "source_sha256": "bf1da6615e93a42aa558942950d6864765c34a44f63d92aca1ba577af86f592e"
+      },
+      {
+        "source_path": "SUPPORT.md",
+        "target_path": "tools/change-lens/SUPPORT.md",
+        "source_sha256": "ad3418a247f93219d3b89c056b2a79bab78f210e54ed39ea5f3f5327ff623559"
+      },
+      {
+        "source_path": "contracts/p0-oracles.yaml",
+        "target_path": "tools/change-lens/contracts/p0-oracles.yaml",
+        "source_sha256": "a80e35076d7a40bc27bcdd4b2ab614db10ac28fbc8d0a2e19e9dc7babf338031"
+      },
+      {
+        "source_path": "contracts/privacy-export-policy.yaml",
+        "target_path": "tools/change-lens/contracts/privacy-export-policy.yaml",
+        "source_sha256": "56ec67927f16b9c523bcb6f9ff7b5ac25be2f911a912ac152da61c54a0ebb17b"
+      },
+      {
+        "source_path": "contracts/relation-catalog.yaml",
+        "target_path": "tools/change-lens/contracts/relation-catalog.yaml",
+        "source_sha256": "d14ae402038b89e6b0af2da36490232edffcd53c8ac11b3db37ca02b1a398340"
+      },
+      {
+        "source_path": "contracts/terminology.yaml",
+        "target_path": "tools/change-lens/contracts/terminology.yaml",
+        "source_sha256": "f7b84d06b0e18f5049fcec81762f1a9bd83801e1e7a9c7ed878ec7850e85fe46"
+      },
+      {
+        "source_path": "docs/CAPABILITY_MATRIX.en.md",
+        "target_path": "tools/change-lens/docs/CAPABILITY_MATRIX.en.md",
+        "source_sha256": "4a4d4e96628c0f55923ad4746ea0d50f68fbc7eabb644cad0bf71e0fcb8d9d9f"
+      },
+      {
+        "source_path": "docs/CAPABILITY_MATRIX.zh-CN.md",
+        "target_path": "tools/change-lens/docs/CAPABILITY_MATRIX.zh-CN.md",
+        "source_sha256": "b842ee23c5ef4cee4a0a715b2783bd03808690f8a0a42c844bc398fd88557e73"
+      },
+      {
+        "source_path": "docs/CHANGE_STORY.en.md",
+        "target_path": "tools/change-lens/docs/CHANGE_STORY.en.md",
+        "source_sha256": "d7dfbe8961942ca0aa0e804906953a0ad7b3f9372ac538955df8a898c0c71d46"
+      },
+      {
+        "source_path": "docs/CHANGE_STORY.zh-CN.md",
+        "target_path": "tools/change-lens/docs/CHANGE_STORY.zh-CN.md",
+        "source_sha256": "52482c04f25183d16ca3ba455a8cf33b74198b84202a745ece2d7627de7eb5bc"
+      },
+      {
+        "source_path": "docs/DEPENDENCY_LICENSE_REVIEW.md",
+        "target_path": "tools/change-lens/docs/DEPENDENCY_LICENSE_REVIEW.md",
+        "source_sha256": "cc917808b9a79155753af012dcc3883a342731ed4f41b9d2a720b254e3193a1d"
+      },
+      {
+        "source_path": "docs/GRAPH_DIFF.en.md",
+        "target_path": "tools/change-lens/docs/GRAPH_DIFF.en.md",
+        "source_sha256": "a6d96942828ed0208abb8f633a39845b18668bad3a516eae23a72c789b119710"
+      },
+      {
+        "source_path": "docs/GRAPH_DIFF.zh-CN.md",
+        "target_path": "tools/change-lens/docs/GRAPH_DIFF.zh-CN.md",
+        "source_sha256": "9b5d262be34895a71dc217fd0106708813a1cb93bcaaae760ac42dee968b4fcc"
+      },
+      {
+        "source_path": "docs/IMPLEMENTATION_PLAN.en.md",
+        "target_path": "tools/change-lens/docs/IMPLEMENTATION_PLAN.en.md",
+        "source_sha256": "a4ef65375a7eb2fbc6f283c3fad3afac581e4e2b7b21002dc0f537bdea72ef5f"
+      },
+      {
+        "source_path": "docs/IMPLEMENTATION_PLAN.zh-CN.md",
+        "target_path": "tools/change-lens/docs/IMPLEMENTATION_PLAN.zh-CN.md",
+        "source_sha256": "0fbec426ec96305c507f4b7d0b0690ee9863917ce72890b6fa260a36a5fdb12e"
+      },
+      {
+        "source_path": "docs/README.md",
+        "target_path": "tools/change-lens/docs/README.md",
+        "source_sha256": "7c580dcd343f04eb73738b626f414e4b2531a38fb0de960cce92eda8dbb11943"
+      },
+      {
+        "source_path": "docs/ROSLYN_WORKER.en.md",
+        "target_path": "tools/change-lens/docs/ROSLYN_WORKER.en.md",
+        "source_sha256": "85288fbd5f9a2c1fe9d936802a6366ba3826391811c111ec366b18c878821442"
+      },
+      {
+        "source_path": "docs/ROSLYN_WORKER.zh-CN.md",
+        "target_path": "tools/change-lens/docs/ROSLYN_WORKER.zh-CN.md",
+        "source_sha256": "993f2711471f7aac18eeac7dd8389e1f9c44c90378b98ebea2018a5f3e355452"
+      },
+      {
+        "source_path": "docs/SNAPSHOT_CONTRACT.en.md",
+        "target_path": "tools/change-lens/docs/SNAPSHOT_CONTRACT.en.md",
+        "source_sha256": "28f44a24aef3624215461fd951025e182578693f12577fe6aa6a8bd17a6b12e7"
+      },
+      {
+        "source_path": "docs/SNAPSHOT_CONTRACT.zh-CN.md",
+        "target_path": "tools/change-lens/docs/SNAPSHOT_CONTRACT.zh-CN.md",
+        "source_sha256": "2ea90892770c327c3f2669efafb44656e9a1bb7589e5c2a4d3f891bc3cef49a7"
+      },
+      {
+        "source_path": "examples/analyzer-diff.json",
+        "target_path": "tools/change-lens/examples/analyzer-diff.json",
+        "source_sha256": "89f3688ef68b4547a9124bb976ef58a0f0083cc9f28e1e1a3ad0b8576a389c4f"
+      },
+      {
+        "source_path": "examples/analyzer-request.json",
+        "target_path": "tools/change-lens/examples/analyzer-request.json",
+        "source_sha256": "5540b182c8965b7320465a1c5c982ec5deca30bd0169de24ebb88a66c4bd756c"
+      },
+      {
+        "source_path": "examples/analyzer-result.json",
+        "target_path": "tools/change-lens/examples/analyzer-result.json",
+        "source_sha256": "465b6913cf59756b09c7a87865f0763d1c7557c3d94dd4f858a3379d0dc3349b"
+      },
+      {
+        "source_path": "examples/explain-bundle.json",
+        "target_path": "tools/change-lens/examples/explain-bundle.json",
+        "source_sha256": "b0e1a99dfce51779bae2d671901d9b2f189f1dfeeb42f34f587c1b6eb04dd804"
+      },
+      {
+        "source_path": "examples/intent-evidence.json",
+        "target_path": "tools/change-lens/examples/intent-evidence.json",
+        "source_sha256": "405d75444f20fe1a2b45176fc61f72be309fdb4e16a735c52d7c01bceb542a49"
+      },
+      {
+        "source_path": "fixtures/unity-minimal/README.md",
+        "target_path": "tools/change-lens/fixtures/unity-minimal/README.md",
+        "source_sha256": "8d8dc767bbb74f42d1f29a770d02a3e9c7959a559941157cadf3b5ef7bd72a66"
+      },
+      {
+        "source_path": "fixtures/unity-minimal/base/Assets/Scripts/Gameplay/ChangeLens.Gameplay.asmdef",
+        "target_path": "tools/change-lens/fixtures/unity-minimal/base/Assets/Scripts/Gameplay/ChangeLens.Gameplay.asmdef",
+        "source_sha256": "6a4d849b1eb6d76e1c17d6415e890b2ad83d12c8f5e9a69689124f982527b45c"
+      },
+      {
+        "source_path": "fixtures/unity-minimal/base/Assets/Scripts/Gameplay/RewardController.cs",
+        "target_path": "tools/change-lens/fixtures/unity-minimal/base/Assets/Scripts/Gameplay/RewardController.cs",
+        "source_sha256": "086760f5e59af54d420f8a271cf2b926b62df5a64785d0ff098c544f8042c786"
+      },
+      {
+        "source_path": "fixtures/unity-minimal/base/Assets/Scripts/Gameplay/Wallet.cs",
+        "target_path": "tools/change-lens/fixtures/unity-minimal/base/Assets/Scripts/Gameplay/Wallet.cs",
+        "source_sha256": "c7775d069785c4cd69e773ec49c589057934242253e8cc31c1251d7136d5ce98"
+      },
+      {
+        "source_path": "fixtures/unity-minimal/base/ProjectSettings/ProjectVersion.txt",
+        "target_path": "tools/change-lens/fixtures/unity-minimal/base/ProjectSettings/ProjectVersion.txt",
+        "source_sha256": "a2b1aeff1fe33abfbe077061841bd9e2706dcdb8d2a33dd18ee56cb34a082f9a"
+      },
+      {
+        "source_path": "fixtures/unity-minimal/expected-change.yaml",
+        "target_path": "tools/change-lens/fixtures/unity-minimal/expected-change.yaml",
+        "source_sha256": "1137191f1758e7e45b1deaa7fdcac5fe8f246b419358ba9528fb6da133bebb1d"
+      },
+      {
+        "source_path": "fixtures/unity-minimal/expected-graph-diff.yaml",
+        "target_path": "tools/change-lens/fixtures/unity-minimal/expected-graph-diff.yaml",
+        "source_sha256": "77c272233d47d2ef70e24b55a3b9c9fd1497dfce6f4202d51b64f75c5f568633"
+      },
+      {
+        "source_path": "fixtures/unity-minimal/mapping-hints.json",
+        "target_path": "tools/change-lens/fixtures/unity-minimal/mapping-hints.json",
+        "source_sha256": "2735687cd89add1b7ace0d521fb85eabb368d3d39e5bd1d5e9549b95b8fda4ce"
+      },
+      {
+        "source_path": "fixtures/unity-minimal/stale-case.yaml",
+        "target_path": "tools/change-lens/fixtures/unity-minimal/stale-case.yaml",
+        "source_sha256": "cb07875c6aea26103bfb0cd76258c2e0d83656bea023687c8bef0724f1badddd"
+      },
+      {
+        "source_path": "fixtures/unity-minimal/target/Assets/Scripts/Gameplay/ChangeLens.Gameplay.asmdef",
+        "target_path": "tools/change-lens/fixtures/unity-minimal/target/Assets/Scripts/Gameplay/ChangeLens.Gameplay.asmdef",
+        "source_sha256": "6a4d849b1eb6d76e1c17d6415e890b2ad83d12c8f5e9a69689124f982527b45c"
+      },
+      {
+        "source_path": "fixtures/unity-minimal/target/Assets/Scripts/Gameplay/RewardController.cs",
+        "target_path": "tools/change-lens/fixtures/unity-minimal/target/Assets/Scripts/Gameplay/RewardController.cs",
+        "source_sha256": "8a63f2bc14690597d2749af52ebb0d118a730fc9ca4c138cdb278fa5d9a2d216"
+      },
+      {
+        "source_path": "fixtures/unity-minimal/target/Assets/Scripts/Gameplay/RewardPolicy.cs",
+        "target_path": "tools/change-lens/fixtures/unity-minimal/target/Assets/Scripts/Gameplay/RewardPolicy.cs",
+        "source_sha256": "fe2a80cbcd9468e4d25d9569c5fa31a724c43901e6eb5cc1a7c416bbd075bd1f"
+      },
+      {
+        "source_path": "fixtures/unity-minimal/target/Assets/Scripts/Gameplay/Wallet.cs",
+        "target_path": "tools/change-lens/fixtures/unity-minimal/target/Assets/Scripts/Gameplay/Wallet.cs",
+        "source_sha256": "c7775d069785c4cd69e773ec49c589057934242253e8cc31c1251d7136d5ce98"
+      },
+      {
+        "source_path": "fixtures/unity-minimal/target/ProjectSettings/ProjectVersion.txt",
+        "target_path": "tools/change-lens/fixtures/unity-minimal/target/ProjectSettings/ProjectVersion.txt",
+        "source_sha256": "a2b1aeff1fe33abfbe077061841bd9e2706dcdb8d2a33dd18ee56cb34a082f9a"
+      },
+      {
+        "source_path": "governance/gates/CL-GATE-00.md",
+        "target_path": "tools/change-lens/governance/gates/CL-GATE-00.md",
+        "source_sha256": "26c41fd1ce60b4e881b52538cdf92c2fce5a6388c972cc1701ce9dcef509e9ef"
+      },
+      {
+        "source_path": "governance/gates/CL-GATE-01.md",
+        "target_path": "tools/change-lens/governance/gates/CL-GATE-01.md",
+        "source_sha256": "3d0447d5a44f42aa8c8b1fc3527e52456c6608529b16a80d2069cc272cf4720f"
+      },
+      {
+        "source_path": "governance/gates/CL-GATE-02-progress.md",
+        "target_path": "tools/change-lens/governance/gates/CL-GATE-02-progress.md",
+        "source_sha256": "6c37797c39c33253a9e52edb61982db47270ffa07c40f1b47acc41a54dfd3fb8"
+      },
+      {
+        "source_path": "governance/proposal.yaml",
+        "target_path": "tools/change-lens/governance/proposal.yaml",
+        "source_sha256": "4686ec11f642efaf8d16aeab749c6b4c7dfb3f28f45070f5b9a966689415c665"
+      },
+      {
+        "source_path": "integrations/codex/aeh-change-lens/SKILL.md",
+        "target_path": "tools/change-lens/integrations/codex/aeh-change-lens/SKILL.md",
+        "source_sha256": "5851dc6ef314fa40a4077f461cfca077a290533a2983a92fead4e1187cdab7a0"
+      },
+      {
+        "source_path": "integrations/codex/aeh-change-lens/agents/openai.yaml",
+        "target_path": "tools/change-lens/integrations/codex/aeh-change-lens/agents/openai.yaml",
+        "source_sha256": "4b93d79a0e808c556affe9473d1fcc0d530d1a8a3290e51edf5efab348e5c83e"
+      },
+      {
+        "source_path": "integrations/codex/aeh-change-lens/references/workflow.md",
+        "target_path": "tools/change-lens/integrations/codex/aeh-change-lens/references/workflow.md",
+        "source_sha256": "575a7e37c2af1e0b2e01b998ca2e4b2b2f05a67de65c90796b10f9e0de3979af"
+      },
+      {
+        "source_path": "integrations/codex/install_skill.ps1",
+        "target_path": "tools/change-lens/integrations/codex/install_skill.ps1",
+        "source_sha256": "15896423f95eb5064bd20315f165d74f1bb762abf0f35be36caf718952af9cb6"
+      },
+      {
+        "source_path": "pyproject.toml",
+        "target_path": "tools/change-lens/pyproject.toml",
+        "source_sha256": "b28f93b96dc8a4987ef1ce6320374d90ace3ceca41755e20aef8246ee3154f19"
+      },
+      {
+        "source_path": "run_change_lens.py",
+        "target_path": "tools/change-lens/run_change_lens.py",
+        "source_sha256": "cbc82e6b7b5e93e71c82700c07f093c03ff91ba6315c78a3d7266bf20fffc0b6"
+      },
+      {
+        "source_path": "schemas/analyzer-diff.schema.json",
+        "target_path": "tools/change-lens/schemas/analyzer-diff.schema.json",
+        "source_sha256": "76f7fd0b81b1fa47a6417b31397701d14ff1af6b22901559dec2512ee88a3891"
+      },
+      {
+        "source_path": "schemas/analyzer-request.schema.json",
+        "target_path": "tools/change-lens/schemas/analyzer-request.schema.json",
+        "source_sha256": "be598650d35edbffcb812ae4346b44a25723ef372914d02587d5cbf3ce3aca4d"
+      },
+      {
+        "source_path": "schemas/analyzer-result.schema.json",
+        "target_path": "tools/change-lens/schemas/analyzer-result.schema.json",
+        "source_sha256": "af987aaf4f53637a371ba93a12129dece9b76e660f40e2f42ee8d10c636fa285"
+      },
+      {
+        "source_path": "schemas/analyzer-worker-input.schema.json",
+        "target_path": "tools/change-lens/schemas/analyzer-worker-input.schema.json",
+        "source_sha256": "ffed8c808cb29286dab01da6bb0f3d5cbbda92f67a1c0b9728e2cfd0c4107ac9"
+      },
+      {
+        "source_path": "schemas/build-provenance.schema.json",
+        "target_path": "tools/change-lens/schemas/build-provenance.schema.json",
+        "source_sha256": "c33e99bcd530e9158c0a6ecba32008581a3571d308e3492426447924747a420f"
+      },
+      {
+        "source_path": "schemas/change-analysis.schema.json",
+        "target_path": "tools/change-lens/schemas/change-analysis.schema.json",
+        "source_sha256": "35e8a44b1422a38cd58a7760361a1a170654483a6ca9d428d1d7393d5d23dc1e"
+      },
+      {
+        "source_path": "schemas/change-story.schema.json",
+        "target_path": "tools/change-lens/schemas/change-story.schema.json",
+        "source_sha256": "47c3d3b1387db2787fcd8ec0f8486b69d8cb2d361e30e5438b015e38c3976688"
+      },
+      {
+        "source_path": "schemas/common.schema.json",
+        "target_path": "tools/change-lens/schemas/common.schema.json",
+        "source_sha256": "d437e568dacaca677bdd7f183af48bef05b7556cd30d8cb9aa9e5d0ef399b1ce"
+      },
+      {
+        "source_path": "schemas/compile-manifest.schema.json",
+        "target_path": "tools/change-lens/schemas/compile-manifest.schema.json",
+        "source_sha256": "9485a48a25df4f7acdc0dc776be3a86697c53f43ddb69b3d97e3874613d46d4a"
+      },
+      {
+        "source_path": "schemas/explain-bundle.schema.json",
+        "target_path": "tools/change-lens/schemas/explain-bundle.schema.json",
+        "source_sha256": "90368d19c290b38a0b4dca5ec04bba58835cb19382a9389fab6b5397943fcf3d"
+      },
+      {
+        "source_path": "schemas/intent-evidence.schema.json",
+        "target_path": "tools/change-lens/schemas/intent-evidence.schema.json",
+        "source_sha256": "b536f89431a3af40089ef33c4a85f5f5b5389046f563e2d7a9aec464a3c73dd2"
+      },
+      {
+        "source_path": "schemas/snapshot.schema.json",
+        "target_path": "tools/change-lens/schemas/snapshot.schema.json",
+        "source_sha256": "a88cb9f6046539928458f220a1be0b47822b55f29dff89c3917dba51805ae155"
+      },
+      {
+        "source_path": "schemas/unity-assembly-graph.schema.json",
+        "target_path": "tools/change-lens/schemas/unity-assembly-graph.schema.json",
+        "source_sha256": "01e060f0ec488e1fea5b963af36d4e4c53a3792427e57b8d07af48a8317f1164"
+      },
+      {
+        "source_path": "schemas/unity-context.schema.json",
+        "target_path": "tools/change-lens/schemas/unity-context.schema.json",
+        "source_sha256": "985805e4c81301149d1f34295c3a9c36dd8c2f77d100d7d4c518fe9acb9c68cc"
+      },
+      {
+        "source_path": "src/aeh_change_lens/__init__.py",
+        "target_path": "tools/change-lens/src/aeh_change_lens/__init__.py",
+        "source_sha256": "ce9d9359c99b49ad7ba38d157681717d9644f940d7b2c9382f5c452a59b1a488"
+      },
+      {
+        "source_path": "src/aeh_change_lens/cli.py",
+        "target_path": "tools/change-lens/src/aeh_change_lens/cli.py",
+        "source_sha256": "56f5cce5ab994f17b2151d58c59224e6103b5546bf503882ab776c04fd055720"
+      },
+      {
+        "source_path": "src/aeh_change_lens/languages/__init__.py",
+        "target_path": "tools/change-lens/src/aeh_change_lens/languages/__init__.py",
+        "source_sha256": "65abc013d17ff54eb4eaf69203967f8eaaa92cf167c296459367a119d4d1a8b8"
+      },
+      {
+        "source_path": "src/aeh_change_lens/languages/csharp/__init__.py",
+        "target_path": "tools/change-lens/src/aeh_change_lens/languages/csharp/__init__.py",
+        "source_sha256": "fecacc600223067381a87949d8902380e9936f27e7c89b7be055775d7b43335c"
+      },
+      {
+        "source_path": "src/aeh_change_lens/languages/csharp/build_provenance.py",
+        "target_path": "tools/change-lens/src/aeh_change_lens/languages/csharp/build_provenance.py",
+        "source_sha256": "bbbcc0f8d92643e6fc8d2de0c99d83135baf9fca2bacc1b0bb15adb85209f6d8"
+      },
+      {
+        "source_path": "src/aeh_change_lens/languages/csharp/compile_manifest.py",
+        "target_path": "tools/change-lens/src/aeh_change_lens/languages/csharp/compile_manifest.py",
+        "source_sha256": "018c184deff9951de85e8ad769c2bcac62eaba49a26145a5a87905c3910efb13"
+      },
+      {
+        "source_path": "src/aeh_change_lens/languages/csharp/graph_diff.py",
+        "target_path": "tools/change-lens/src/aeh_change_lens/languages/csharp/graph_diff.py",
+        "source_sha256": "6ec9889710aa967b6d50ae8d1868a866c20f43d425d28c2acd707b67f2d1a082"
+      },
+      {
+        "source_path": "src/aeh_change_lens/languages/csharp/revision_analysis.py",
+        "target_path": "tools/change-lens/src/aeh_change_lens/languages/csharp/revision_analysis.py",
+        "source_sha256": "cf51a87240875b1f390f1282e115ba3c2f28f1a3ba520a923b48f1c3d863912d"
+      },
+      {
+        "source_path": "src/aeh_change_lens/languages/csharp/unity_context.py",
+        "target_path": "tools/change-lens/src/aeh_change_lens/languages/csharp/unity_context.py",
+        "source_sha256": "82aa3f428f1b7fd086a1fa7a5e1c9f8355fb61eb75c647d151ff63416a101bfc"
+      },
+      {
+        "source_path": "src/aeh_change_lens/languages/csharp/worker_input.py",
+        "target_path": "tools/change-lens/src/aeh_change_lens/languages/csharp/worker_input.py",
+        "source_sha256": "efe1e9ccd42c2f59d42be51dcdce7737049d4f3a06c1566bc6c1ddac517713f9"
+      },
+      {
+        "source_path": "src/aeh_change_lens/reporting/__init__.py",
+        "target_path": "tools/change-lens/src/aeh_change_lens/reporting/__init__.py",
+        "source_sha256": "19c388b3f98d2dd250e4251fdb9d5d8304757ac0f627e664de528fcc1c827f36"
+      },
+      {
+        "source_path": "src/aeh_change_lens/reporting/change_story.py",
+        "target_path": "tools/change-lens/src/aeh_change_lens/reporting/change_story.py",
+        "source_sha256": "91398cb4f59d18cd08a295b0246833fae20f7a618898e67189522d1a064ccb35"
+      },
+      {
+        "source_path": "src/aeh_change_lens/snapshot/__init__.py",
+        "target_path": "tools/change-lens/src/aeh_change_lens/snapshot/__init__.py",
+        "source_sha256": "35b9340745a7b07f78f98a80f66c245ea6f6c84ac56f0ad6835349285592a181"
+      },
+      {
+        "source_path": "src/aeh_change_lens/snapshot/errors.py",
+        "target_path": "tools/change-lens/src/aeh_change_lens/snapshot/errors.py",
+        "source_sha256": "513d121e5c351ab6fa96a11981d352b76480a4a03a79a82d5a8efdd561db028e"
+      },
+      {
+        "source_path": "src/aeh_change_lens/snapshot/models.py",
+        "target_path": "tools/change-lens/src/aeh_change_lens/snapshot/models.py",
+        "source_sha256": "f29d01713cecdb67f297e4da71897bf60acfd1af3b522e551770940512e11d08"
+      },
+      {
+        "source_path": "src/aeh_change_lens/snapshot/resolver.py",
+        "target_path": "tools/change-lens/src/aeh_change_lens/snapshot/resolver.py",
+        "source_sha256": "3293ed854501de53d887af5f3fbaa3a56e4e261b014ba72028ab4fe86f6ae20e"
+      },
+      {
+        "source_path": "src/aeh_change_lens/snapshot/security.py",
+        "target_path": "tools/change-lens/src/aeh_change_lens/snapshot/security.py",
+        "source_sha256": "788c42775993066fe62545490fae84f2254f0f3cc606c1a346f9be8d29cf1f43"
+      },
+      {
+        "source_path": "tests/__init__.py",
+        "target_path": "tools/change-lens/tests/__init__.py",
+        "source_sha256": "8583536d297c2b831bd51c63a32b6a9a744b1768ece9be548da214fd29fc0197"
+      },
+      {
+        "source_path": "tests/analyzer/FlowPatterns.cs",
+        "target_path": "tools/change-lens/tests/analyzer/FlowPatterns.cs",
+        "source_sha256": "18a16acaf151b93c1f7ed047b7147a529db6c95e691c55d09caf0624c2ef83e3"
+      },
+      {
+        "source_path": "tests/analyzer/UnityStubs.cs",
+        "target_path": "tools/change-lens/tests/analyzer/UnityStubs.cs",
+        "source_sha256": "81bd6aed13585bb40ac92c7407aab8f30647456ee3fcfacb2abe55ed5e458c9f"
+      },
+      {
+        "source_path": "tests/analyzer/__init__.py",
+        "target_path": "tools/change-lens/tests/analyzer/__init__.py",
+        "source_sha256": "fbfaa4f609f147d7adb338695ba091c15c38a29f17eee339b85eefb9d828c86a"
+      },
+      {
+        "source_path": "tests/analyzer/test_graph_diff.py",
+        "target_path": "tools/change-lens/tests/analyzer/test_graph_diff.py",
+        "source_sha256": "566593245706b64dfdca08013d3252b473812f6d80f90470be5313206206d791"
+      },
+      {
+        "source_path": "tests/analyzer/test_revision_analysis.py",
+        "target_path": "tools/change-lens/tests/analyzer/test_revision_analysis.py",
+        "source_sha256": "82bd0fc8b627eb7f7a30605e62453c3117b9269e6ec13f8548d8583cf2af8b05"
+      },
+      {
+        "source_path": "tests/analyzer/test_worker.py",
+        "target_path": "tools/change-lens/tests/analyzer/test_worker.py",
+        "source_sha256": "439855f61f11ca456c55da329d9497043501c15a8cf94933c06d21db3e61ad54"
+      },
+      {
+        "source_path": "tests/context/__init__.py",
+        "target_path": "tools/change-lens/tests/context/__init__.py",
+        "source_sha256": "a410334240870539fea107b94769928b0864d41c37559281dc6bbe42788659e2"
+      },
+      {
+        "source_path": "tests/context/test_build_provenance.py",
+        "target_path": "tools/change-lens/tests/context/test_build_provenance.py",
+        "source_sha256": "8dfe7840feef87d9778ad44cd7056e88cbae9e09263cc31b260a9bcc487d381d"
+      },
+      {
+        "source_path": "tests/context/test_compile_manifest.py",
+        "target_path": "tools/change-lens/tests/context/test_compile_manifest.py",
+        "source_sha256": "8d9138aa590160ab8e3441d3b287b91f7d444872b96a0ace30893031b2821417"
+      },
+      {
+        "source_path": "tests/context/test_unity_context.py",
+        "target_path": "tools/change-lens/tests/context/test_unity_context.py",
+        "source_sha256": "0c66a6552a9f58ae6401c70746d00596bcabe88f5939fac7da905e4657884990"
+      },
+      {
+        "source_path": "tests/context/test_worker_input.py",
+        "target_path": "tools/change-lens/tests/context/test_worker_input.py",
+        "source_sha256": "e8c01773fa648182a6f0f0be7d68cfc246f5161cfcc7ae42399cd435e0f73e00"
+      },
+      {
+        "source_path": "tests/contract/__init__.py",
+        "target_path": "tools/change-lens/tests/contract/__init__.py",
+        "source_sha256": "a45d8cf99fad1672bb1181bfa4498fe660fc21d2d4bc3715d5cebda052f82b4e"
+      },
+      {
+        "source_path": "tests/contract/test_contracts.py",
+        "target_path": "tools/change-lens/tests/contract/test_contracts.py",
+        "source_sha256": "d30308c33309aab9ddc0fbbeb88b4593ae139c45486c39861d4173a0b05abb68"
+      },
+      {
+        "source_path": "tests/contract/test_repository_docs.py",
+        "target_path": "tools/change-lens/tests/contract/test_repository_docs.py",
+        "source_sha256": "cc2096a20ac5bdf9f26d7405eea3c7a2ff0d9c7a004a589e96c3fcbbea334a13"
+      },
+      {
+        "source_path": "tests/integration/__init__.py",
+        "target_path": "tools/change-lens/tests/integration/__init__.py",
+        "source_sha256": "9c75925ec474aefdc1e407237303df95948023279aaa2f22a1f45fcc5cbd81fe"
+      },
+      {
+        "source_path": "tests/integration/test_codex_skill.py",
+        "target_path": "tools/change-lens/tests/integration/test_codex_skill.py",
+        "source_sha256": "d1c53391dfd08341a03717626c241db6dac6c6ff2dca3e815d8fbb67bfa036e8"
+      },
+      {
+        "source_path": "tests/reporting/__init__.py",
+        "target_path": "tools/change-lens/tests/reporting/__init__.py",
+        "source_sha256": "caba3986731f85f42c359b80ce47ea60cb78bdb1fdc992574d71bb2a2552e557"
+      },
+      {
+        "source_path": "tests/reporting/test_change_story.py",
+        "target_path": "tools/change-lens/tests/reporting/test_change_story.py",
+        "source_sha256": "d7a067003f98cb07a3e446af147e3b4ae39f2dd6d93479e80c7f1211f950968d"
+      },
+      {
+        "source_path": "tests/snapshot/__init__.py",
+        "target_path": "tools/change-lens/tests/snapshot/__init__.py",
+        "source_sha256": "f340e436472027c595df9f72e658cefcfe538ddba867db8ee604ccaafd9b5af8"
+      },
+      {
+        "source_path": "tests/snapshot/test_resolver.py",
+        "target_path": "tools/change-lens/tests/snapshot/test_resolver.py",
+        "source_sha256": "d1488ba43a1cd8d32c57dd2ba6083e4ed0ea0751fa6e3de6bed615cd1ac0c45b"
+      },
+      {
+        "source_path": "worker/ChangeLens.Analyzer/ChangeLens.Analyzer.csproj",
+        "target_path": "tools/change-lens/worker/ChangeLens.Analyzer/ChangeLens.Analyzer.csproj",
+        "source_sha256": "168c190067c4a96f3d83dedcd12f92cc803a3d3935e9e7ee00b5c179e1edc8df"
+      },
+      {
+        "source_path": "worker/ChangeLens.Analyzer/Contracts.cs",
+        "target_path": "tools/change-lens/worker/ChangeLens.Analyzer/Contracts.cs",
+        "source_sha256": "106a865e83cad83b8d9c73d38fc52e73806bf9229a3e22c3a609a0c265f321b9"
+      },
+      {
+        "source_path": "worker/ChangeLens.Analyzer/Program.cs",
+        "target_path": "tools/change-lens/worker/ChangeLens.Analyzer/Program.cs",
+        "source_sha256": "80ab66e079ca48d1c747b8df1d40d19cdeb7a9613c060d2e1450aa31c4a59f8e"
+      },
+      {
+        "source_path": "worker/ChangeLens.Analyzer/RoslynAnalyzer.cs",
+        "target_path": "tools/change-lens/worker/ChangeLens.Analyzer/RoslynAnalyzer.cs",
+        "source_sha256": "4d83cc07cfed91d8044e07afe49f9bf8b3a5e6ace0f5cfdce288620821d21308"
+      },
+      {
+        "source_path": "worker/ChangeLens.Analyzer/packages.lock.json",
+        "target_path": "tools/change-lens/worker/ChangeLens.Analyzer/packages.lock.json",
+        "source_sha256": "e8acd6b5942dc9176a78f5e8a6e39a0570a1be676a18bf36ec4b55c949d1516c"
+      }
+    ]
+  }
+]

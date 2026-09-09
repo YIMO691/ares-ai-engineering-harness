@@ -28,7 +28,7 @@ public sealed class ProcessRunner(IEnumerable<string> allowedExecutables,IEnumer
         foreach(var arg in request.Arguments)psi.ArgumentList.Add(arg);
         // Preserve required OS/path settings, but do not inherit credentials into build/test children.
         foreach(var key in psi.Environment.Keys.ToArray())
-            if(System.Text.RegularExpressions.Regex.IsMatch(key,"KEY|TOKEN|SECRET|PASSWORD",System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+            if(System.Text.RegularExpressions.Regex.IsMatch(key,"KEY|TOKEN|SECRET|PASSWORD|^GIT_CONFIG_(COUNT|KEY_[0-9]+|VALUE_[0-9]+|PARAMETERS)$",System.Text.RegularExpressions.RegexOptions.IgnoreCase))
                 psi.Environment.Remove(key);
         foreach(var pair in request.Environment)psi.Environment[pair.Key]=pair.Value;
         return psi;
