@@ -1,21 +1,33 @@
-name: Bug report
-description: Reproducible workflow or UI defect
+name: 缺陷报告
+description: 提供可复现的问题、预期行为和安全验证摘要
 title: "[Bug] "
 body:
-  - type: textarea
-    id: problem
+  - type: markdown
     attributes:
-      label: Problem and expected behavior
+      value: 不上传商业源码、原始策划、认证、SQLite 或运行 evidence。安全漏洞请按 SECURITY.md 私下反馈。
+  - type: input
+    id: version
+    attributes:
+      label: 版本与入口
+      description: 当前 commit 或 tag，以及 Direct CLI / Observer / 旧 Web Fusion 入口。
     validations:
       required: true
   - type: textarea
     id: reproduction
     attributes:
-      label: Minimal safe reproduction
-      description: Do not include credentials, commercial source or runtime databases.
+      label: 最小复现步骤
+      description: 描述可安全复现的操作、必要前提和出现频率。
+    validations:
+      required: true
+  - type: textarea
+    id: expected_actual
+    attributes:
+      label: 预期与实际结果
+      description: 分别说明应发生什么、实际发生什么以及影响。
     validations:
       required: true
   - type: textarea
     id: evidence
     attributes:
-      label: Sanitized evidence and environment
+      label: 环境与验证摘要
+      description: 相关组件版本、Task/Run ID、安全错误摘要及已尝试操作；不附原始日志或数据库。

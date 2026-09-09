@@ -1,5 +1,7 @@
 # C01–C10 — Frozen Boundaries for Phase 1
 
+> 历史 Phase 1 设计快照：下文保留当时契约，不是当前新任务执行说明。当前行为见 [工作流](../WORKFLOW.md) 与 [文档导航](README.md)。
+
 > 字段仅为 Phase 1 最小候选。实现时可做小幅命名调整，但不得改变责任归属。
 
 # C01 Task

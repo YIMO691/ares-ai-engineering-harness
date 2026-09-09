@@ -1,6 +1,12 @@
 # 0002: Freeze business decisions, continue native context
 
-Status: implemented on feature/workflow-fusion; baseline v0.2.0 is unchanged.
+Status: implemented; retained for legacy Web Fusion. The new-task entry is superseded by [ADR 0003](0003-codex-direct-observer.md). Baseline v0.2.0 is unchanged.
+
+## Context
+
+The earlier Web entry coordinated native discussion and implementation. The following decision describes that compatibility path.
+
+## Decision
 
 Owner discussion and implementation share one Primary Codex native thread. The host captures the official thread.started ID and requires equality when resuming. Reviewer has a separate read-only native thread. No conversation reconstruction, hidden agent, new session runtime or tool/sandbox implementation is introduced.
 
@@ -10,4 +16,6 @@ Ready checks nonempty anchors/acceptance, empty unresolved questions, a successf
 
 Deterministic command failures with diagnostics and Reviewer rework follow the existing bounded rework mechanism. Environment faults remain Blocked. Owner final acceptance is separate from both automated success and CRITICAL approval.
 
-The current Windows allowed_paths check detects unauthorized source changes; it is not a per-file OS sandbox. Actual tool permissions remain with Codex's native sandbox. No stronger isolation claim is made.
+## Consequences
+
+The Windows allowed_paths check detects unauthorized source changes; it is not a per-file OS sandbox. Actual tool permissions remain with Codex's native sandbox. No stronger isolation claim is made.

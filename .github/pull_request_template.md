@@ -1,29 +1,42 @@
-## Problem and behavior
+<!-- 根据实际事实填写；不适用项说明原因，不保留占位符或默认勾选。 -->
 
-## Scope and acceptance
+## 问题与变更
 
-- Issue / Task ID; L1/L2/L3 and FAST/STANDARD/CRITICAL:
-- Document version or safe reference; Goal / Acceptance / Non-goals / Boundary / Key Decisions / Verification:
-- Actual implementation authorization:
+<!-- 具体触发场景、原有问题和修改后的行为。 -->
 
-## Validation
-- Commands/results:
-- Browser/native-session evidence:
-- Known limits:
-- Independent Reviewer outcome and reviewed revision (FAST: not required; otherwise state any gap):
-- Changes since review and follow-up verification:
+## 范围与约定
 
-## Align and delivery
+- 关联 Issue / Task ID：
+- 文档等级与检查强度：L1/L2/L3；FAST/STANDARD/CRITICAL
+- 文档版本或安全引用：
+- Goal / Acceptance / Non-goals / Boundary / Key Decisions / Verification：
+- 实际实施授权及来源：
 
-- Acceptance items → current evidence summary:
-- Design/document drift, rework and unresolved items:
-- Rollback method:
-- Actual Owner acceptance / merge authorization (do not infer from CI):
+## 验证与审查
 
-## Boundary
-- No target-project source, secrets, local config or runtime records included.
-- No custom agent/session/search/edit/shell/sandbox runtime.
-- Reviewer remains independent; merge requires explicit Owner authorization and successful final-revision CI.
-- Record sanitized evidence summaries; do not upload local runtime evidence.
+| 检查 | 提交或 Run | 实际结果与限制 |
+|---|---|---|
+| 构建 / 测试 / 文档检查 | | |
+| 独立 Reviewer（FAST 可不要求） | | |
+| 适用的人工 / 浏览器 / 原生验证 | | |
 
-Closes #<issue-number> (remove if not applicable)
+- 审查后改动及补充验证：
+- 跳过、失败、PARTIAL 或未验证范围：
+
+## Align 与交付
+
+- AC → 当前证据摘要：
+- 设计/文档偏移、返工和遗留：
+- 回滚方式：
+- 实际 Owner 验收：
+- 本次合并授权及来源：
+
+## 提交检查
+
+- [ ] 文档与当前行为一致；历史内容已标明适用范围。
+- [ ] 出站文件不含商业源码、认证、本地配置、SQLite、artifacts/evidence 或运行记录。
+- [ ] 原生能力保持由 Codex 承担，Reviewer 与 Primary 保持独立。
+- [ ] 验证和审查范围如实记录，没有把局部样例或替身测试当作完整验收。
+- [ ] 合并前最终 revision 的 CI 已通过，并取得本次明确合并授权。
+
+<!-- 需要自动关闭关联 Issue 时填写 Closes #编号；没有关联则删除本行。 -->

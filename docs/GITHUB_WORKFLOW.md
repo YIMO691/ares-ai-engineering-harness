@@ -34,6 +34,17 @@ PR 说明真实独立审查及范围。原生 Reviewer 的结论写入 PR 摘要
 
 这些是执行规范，不能声称等同于已启用 GitHub 服务端分支保护。服务端设置以实际仓库状态为准。
 
+## 文档与模板格式依据
+
+按 GitHub 官方支持的文件位置与语法组织文档；项目选择中文为主、保留代码标识符。README 的章节按本项目需要设置，不声称存在适用于所有工程文档的唯一官方正文模板。
+
+- [README 指南](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes)：说明项目、用途、启动、支持和维护者，仓库内采用相对链接。
+- [贡献指南](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/setting-guidelines-for-repository-contributors)：CONTRIBUTING.md 说明如何参与。
+- [Issue Forms 语法](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms)：在 .github/ISSUE_TEMPLATE 使用 YAML 字段和校验。
+- [PR 模板](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/creating-a-pull-request-template-for-your-repository)：本仓库使用 .github/pull_request_template.md。
+
+模板中的输入、勾选和授权必须来自实际事实，不能默认填成通过。根模板用于本仓库；导入组件的模板作为来源保留。
+
 ## 完成与恢复
 
 合并后检查远程 main 包含 merge commit，本地 main 只做 fast-forward 同步，记录 PR、commit、CI 和限制。合并授权仅用于对应 GitHub 变更，不能代替业务样例最终验收。

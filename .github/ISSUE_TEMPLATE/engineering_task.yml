@@ -1,43 +1,48 @@
-name: Engineering task
-description: Track discussion, frozen intent, verification and delivery
+name: 工程任务
+description: 留存讨论、文档、Ready、验证和交付信息
 title: "[Task] "
 body:
+  - type: markdown
+    attributes:
+      value: Owner 直接与 Codex 讨论，由 Codex 整理记录。建 Issue 不代表已授权实施、验收或合并。只填写安全摘要。
   - type: textarea
     id: source_context
     attributes:
-      label: Source and observed context
-      description: Safe source/version references and facts; no commercial source, credentials or runtime evidence.
+      label: 原始需求与工程上下文
+      description: 安全的来源/版本引用、已观察事实及依据；不粘贴商业源码或受限原文。
     validations:
       required: true
   - type: textarea
     id: intent
     attributes:
-      label: Goal, acceptance, non-goals and boundary
-      description: Number observable acceptance items and keep unresolved questions explicit.
+      label: Goal / Acceptance / Non-goals / Boundary
+      description: 编号记录可观察验收项，并明确非目标、边界与待确认问题。
     validations:
       required: true
   - type: textarea
     id: documents
     attributes:
-      label: Task and discussion documents
-      description: Task ID; L1/L2/L3 and reason; document version or safe reference; key decisions and verification plan.
+      label: Task 与讨论文档
+      description: Task ID；L1/L2/L3 及理由；文档版本或安全引用；Key Decisions 与 Verification。不要复制本地原始证据。
   - type: dropdown
     id: workflow
     attributes:
-      label: Verification workflow
+      label: 检查强度
+      description: 与 L1/L2/L3 独立选择；未决定时保留待确认。
       options:
-        - STANDARD
+        - 待确认
         - FAST
+        - STANDARD
         - CRITICAL
     validations:
       required: true
   - type: textarea
     id: authorization
     attributes:
-      label: Ready and actual authorization
-      description: Record the actual Owner instruction and scope when given. Creating an Issue does not grant implementation or merge authorization.
+      label: Ready 与实际授权
+      description: 记录确已发生的 Owner 指令、来源和范围。CRITICAL 边界授权、最终验收与 GitHub 合并分别记录。
   - type: textarea
     id: delivery
     attributes:
-      label: Delivery and recovery
-      description: PR; checks and independent review; rework or blockers; Align summary and known limits. Update with actual results.
+      label: 验证、Align 与交付
+      description: PR；当前检查与独立审查的 revision/范围；返工或阻塞；AC 证据摘要、偏移与限制；实际验收结果。

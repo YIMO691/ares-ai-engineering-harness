@@ -30,19 +30,23 @@ Set Workbench:ObserverOnly=false only for legacy Web execution. Legacy host and 
 
 | Operation | Request fields | Meaning |
 |---|---|---|
+| projects / list | None | List registered projects / tasks |
 | project | Project | Register project root, allowed paths, instruction files, exact build/test commands |
 | create | ProjectId, Title, Risk, PrimaryLabel, optional NativeSessionRef | Record existing external Primary; starts Discussing |
-| status | TaskId | Read task revision, runs and milestones |
-| agree | TaskId, Revision, Anchors, Checks, Owner | Freeze the discussed agreement and actual project policy |
+| document | TaskId, Revision, Brief | Record a versioned discussion document set before Ready |
+| status | TaskId | Read revision, runs, events, artifacts and approvals |
+| agree | TaskId, Revision, Owner; optional Anchors/Checks | Derive intent from the recorded Brief and freeze documents, agreement and policy |
 | begin | TaskId, Revision; Owner for CRITICAL | Record external implementation start; no Codex process launched |
 | submit | TaskId, Revision, Message | Report actual changes and capture current source fingerprint |
 | verify | TaskId, Revision | Run build/test and, except FAST, independent native Reviewer |
 | feedback | TaskId, Revision, Message, optional Owner | Request defect repair under the same agreement |
-| reopen | TaskId, Revision, Message, Owner | Reopen a changed scope, then agree a new version |
-| accept | TaskId, Revision, Owner | Record explicit Owner acceptance after current verification |
+| reopen | TaskId, Revision, Message, Owner | Reopen scope, reconcile document version, then agree again |
+| align | TaskId, Revision, Alignment | Bind each AC to current evidence and reconcile delivery documents |
+| lens | TaskId, Revision, UnityPath, Assembly, optional AllowSyntaxPartial | Attach a read-only change report with actual status |
+| accept | TaskId, Revision, Owner | Record actual acceptance after current verification and required Align |
 | recover | TaskId, Revision, Owner | Acknowledge a crashed verification command after checking surviving processes |
 
-Every mutation uses the latest Revision. Exit codes: 0 success, 3 business blocker/rework, 2 invalid command or execution error. Do not interpret exit 0 from begin/submit as completed verification.
+Every mutation uses the latest Revision. Exit codes: 0 success, 3 business blocker/rework, 2 invalid command or execution error. Do not interpret exit 0 from begin/submit as completed verification. A successfully recorded lens attempt may still have Status=FAILED; read the attached status.
 
 Owner is {"Quote":"actual instruction","Source":"conversation/message reference"}. This is an attribution recorded by the Primary, not independent authentication of the human. Never invent acceptance or infer it from authorization to implement. NativeSessionRef is an optional observed reference; Ares does not attach to or resume that Primary.
 
@@ -66,7 +70,7 @@ The writer lease serializes CLI commands. A task holds the project's business wr
 
 ## Extension boundary
 
-Future Git/PR/CI, document, resource and build-result views can link by project/task/attempt ID and evidence references. Add a concrete second source before introducing a plugin framework. Keep runtime data, source snapshots and auth out of Git.
+Documents and Change Lens are integrated. Future Git/PR/CI, resource and build-result views can link by project/task/attempt ID and evidence references. Add a concrete second source before introducing a plugin framework. Keep runtime data, source snapshots and auth out of Git.
 
 ## Verification
 
