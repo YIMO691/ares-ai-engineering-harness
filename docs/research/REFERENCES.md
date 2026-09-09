@@ -6,3 +6,5 @@
 Owner-supplied design material drew on Kiro, Symphony, Microsoft Agent Framework, OpenHands and SWE-agent. Those are design influences, not claims that Ares reproduces their runtimes or verified every product behavior. The supplied Kiro research explicitly left product black-box experiments incomplete. Its private input report is not redistributed here.
 
 Adopt intent visibility, limited context, clear authority and independent verification; do not copy a full IDE or agent runtime.
+
+- [Mini Lab prototype lessons and historical evaluation cases](../history/MINI_LAB.md): historical reference only; no old runtime dependency or newly claimed real-model benchmark result.
