@@ -1,5 +1,7 @@
 # ARES AGENT ENGINEERING WORKBENCH BASELINE v1.0
 
+> 历史 Phase 1 设计快照：下文保留当时契约，不是当前新任务执行说明。当前行为见 [工作流](../WORKFLOW.md) 与 [文档导航](README.md)。
+
 > 状态：`FROZEN_FOR_PHASE1_IMPLEMENTATION`
 > 基于 2026-09-07 Architecture Alignment Candidate，并应用本工作包 D1–D6 修订。
 
@@ -79,7 +81,7 @@ C09 ContextPackage
 C10 Event
 ```
 
-详细 Phase 1 boundary 见 `specs/CORE_CONTRACT_BOUNDARIES.md`。
+详细 Phase 1 boundary 见 [CORE_CONTRACT_BOUNDARIES.md](CORE_CONTRACT_BOUNDARIES.md)。
 
 # 5. Routes
 

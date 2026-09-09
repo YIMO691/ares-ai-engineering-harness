@@ -1,15 +1,30 @@
-name: Feature request
-description: A concrete engineering workflow improvement
+name: 功能建议
+description: 说明实际问题、目标、范围与可观察验收
+title: "[Feature] "
 body:
   - type: textarea
-    id: goal
+    id: problem
     attributes:
-      label: Problem, goal and acceptance
+      label: 使用场景与问题
+      description: 提供实际来源和当前行为的安全摘要。
+    validations:
+      required: true
+  - type: textarea
+    id: goal_acceptance
+    attributes:
+      label: 目标与验收
+      description: 用可观察结果描述成功条件，不先扩展平台能力。
     validations:
       required: true
   - type: textarea
     id: boundary
     attributes:
-      label: Scope, non-goals and native capability considered
+      label: 范围、非目标与边界
+      description: 说明允许改变和不希望改变的内容。
     validations:
       required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 现有能力与待确认问题
+      description: 是否可复用现有 SOP、Harness 或 Codex 原生能力；保留未确认决定。

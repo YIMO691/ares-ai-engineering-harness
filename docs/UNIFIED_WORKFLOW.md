@@ -98,6 +98,10 @@ lens 请求增加 UnityPath、Assembly、AllowSyntaxPartial（默认 false）。
 
 Observer 展示讨论文档、阶段、对齐结果、实际证据与变化报告。文档/报告被更改返回 409；报告绑定检查快照，不宣称实时监控外部编辑。网页不是任务执行入口。
 
+## 文档适用范围
+
+当前说明与 [工作流概览](../WORKFLOW.md)、[CLI 操作表](CODEX_DIRECT.md) 对齐。旧 Web Fusion、Phase 1 契约和上游来源各自标明适用范围；导航见 [文档索引](README.md)。GitHub 记录使用 [协作规范](GITHUB_WORKFLOW.md) 和仓库模板，不把原始过程文件上传。
+
 ## 来源与验证
 
 [导入清单](integrations/UPSTREAM_IMPORTS.json) 保留原仓库、固定 commit 和原文件哈希。导入采用源码快照，历史可从固定来源追溯；不是将旧提交伪造成当前开发记录。
