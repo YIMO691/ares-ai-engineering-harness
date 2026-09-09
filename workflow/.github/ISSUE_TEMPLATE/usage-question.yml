@@ -1,0 +1,32 @@
+name: 使用问题
+description: 询问任务分级、模板选择、Gate 或 AI 操作方式
+title: "[Question]: "
+labels:
+  - question
+  - triage
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: 想完成什么
+      description: 描述目标和当前任务，不需要先使用专业术语。
+    validations:
+      required: true
+  - type: textarea
+    id: attempted
+    attributes:
+      label: 已经尝试什么
+      description: 说明读过的入口、选择的等级、模板或 AI 提示词。
+    validations:
+      required: true
+  - type: textarea
+    id: blocker
+    attributes:
+      label: 当前困惑或阻断
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: 可共享上下文
+      description: 可以提供匿名化示例。请勿提交秘密、生产数据或个人信息。

@@ -6,7 +6,7 @@ namespace Ares.Workbench.Application;
 /// <summary>Business gates for an external Primary; never starts or resumes that Primary.</summary>
 /// <remarks>The CLI holds an exclusive writer lease. Web observer performs no mutations.</remarks>
 public sealed class DirectWorkflowService(IWorkbenchStore store, IProjectWorkspace workspaces,
-    IRunHandlerFactory handlers, IDirectEvidence evidence, IWorkflowBackend backend)
+    IRunHandlerFactory handlers, IDirectEvidence evidence, IWorkflowBackend backend, IDirectDocuments? documents = null)
 {
     private sealed class Handler(Func<NodeInvocation,CancellationToken,ValueTask<NodeResult>> call):INodeHandler {
         public ValueTask<NodeResult> ExecuteAsync(NodeInvocation i,CancellationToken ct)=>call(i,ct);
@@ -31,32 +31,42 @@ public sealed class DirectWorkflowService(IWorkbenchStore store, IProjectWorkspa
             throw new InvalidOperationException("Another task owns this project. Finish it or explicitly release its work before starting.");
     }
     private ProjectProfile FrozenProject(EngineeringTask t) {
+        if(t.Direct?.RequiresDocuments==true) {
+            if(t.Direct.Documents is null||documents is null)throw new InvalidOperationException("Task documents are required.");
+            documents.Validate(t.Direct.Documents);
+        }
         var p=workspaces.Validate(store.Project(t.WorkspaceId));
         if(t.Direct?.Agreement is not {} a||a.ProjectFingerprint!=ProjectFingerprint(p))
             throw new InvalidOperationException("Project policy or verification commands changed. Reopen the agreement and confirm the difference.");
         return p;
     }
-    public EngineeringTask Create(string projectId,string title,Risk risk,string primaryLabel,string? sessionRef) {
+    public EngineeringTask Create(string projectId,string title,Risk risk,string primaryLabel,string? sessionRef,bool requiresDocuments=false) {
         var p=workspaces.Validate(store.Project(projectId));
         if(string.IsNullOrWhiteSpace(title)||string.IsNullOrWhiteSpace(primaryLabel)||!Enum.IsDefined(risk))
             throw new ArgumentException("Title, external Primary identity and workflow are required.");
         var now=DateTimeOffset.UtcNow;
         var t=new EngineeringTask(Guid.NewGuid().ToString("N"),title.Trim(),"",[],[],risk,p.ProjectId,TaskLifecycle.Discussing,now,now) {
-            Direct=new(primaryLabel,sessionRef,DirectStage.Discussing,0,[])
+            Direct=new(primaryLabel,sessionRef,DirectStage.Discussing,0,[],RequiresDocuments:requiresDocuments)
         };
         ((ITaskStore)store).Add(t);return t;
     }
     public async Task<EngineeringTask> Agree(string id,long revision,ReadyAnchors anchors,ImmutableArray<AcceptanceCheck> checks,OwnerEvidence owner,CancellationToken ct) {
         var t=Editable(id,revision,DirectStage.Discussing);anchors.Validate();owner.Validate();NoOtherWriter(t);
+        if(t.Direct!.RequiresDocuments) {
+            var set=t.Direct.Documents??throw new InvalidOperationException("Record discussion documents before Ready.");
+            (documents??throw new InvalidOperationException("Document store unavailable.")).Validate(set);
+            if(JsonSerializer.Serialize(anchors)!=JsonSerializer.Serialize(set.Brief.Anchors)||JsonSerializer.Serialize(checks)!=JsonSerializer.Serialize(set.Brief.Checks))
+                throw new InvalidOperationException("Ready must use the recorded document's intent and acceptance mapping.");
+        }
         if(checks.IsDefault||checks.Length!=anchors.Acceptance.Length||checks.Select(c=>c.Criterion).Distinct().Count()!=checks.Length||
             checks.Any(c=>c.Criterion<1||c.Criterion>anchors.Acceptance.Length||c.Kind is not ("automatic" or "manual")||
                 string.IsNullOrWhiteSpace(c.Method)||c.Kind=="automatic"&&c.Method is not ("build" or "test")))
             throw new ArgumentException("Map every acceptance criterion once: automatic build/test, or manual with an explicit method.");
         var p=workspaces.Validate(store.Project(t.WorkspaceId));var w=workspaces.Create(p,t.TaskId);
         var snapshot=await evidence.SnapshotAsync(p,w,ct);
-        var a=new DirectAgreement(t.Direct!.Agreements.Length+1,anchors,checks,ProjectFingerprint(p),snapshot.WorkspaceStamp,snapshot.Files,owner,DateTimeOffset.UtcNow,p.BuildCommand,p.TestCommand);
+        var a=new DirectAgreement(t.Direct!.Agreements.Length+1,anchors,checks,ProjectFingerprint(p),snapshot.WorkspaceStamp,snapshot.Files,owner,DateTimeOffset.UtcNow,p.BuildCommand,p.TestCommand,t.Direct.Documents);
         t=Save(t with {Goal=anchors.Goal,Acceptance=anchors.Acceptance,Constraints=[anchors.NonGoals,anchors.Boundary]},
-            t.Direct with {Agreements=t.Direct!.Agreements.Add(a),Stage=DirectStage.Ready,LastReport=null,SubmittedStamp=null,Note=null,RiskApproval=null},TaskLifecycle.Ready);
+            t.Direct with {Agreements=t.Direct!.Agreements.Add(a),Stage=DirectStage.Ready,LastReport=null,SubmittedStamp=null,Note=null,RiskApproval=null,Alignment=null,Lens=null},TaskLifecycle.Ready);
         await Audit(t,"DirectAgreementFrozen",JsonSerializer.Serialize(a));return t;
     }
     public async Task<EngineeringTask> Begin(string id,long revision,OwnerEvidence? riskApproval,CancellationToken ct) {
@@ -66,7 +76,7 @@ public sealed class DirectWorkflowService(IWorkbenchStore store, IProjectWorkspa
         if(t.Direct.Stage==DirectStage.Ready && snapshot.Fingerprint!=new SourceSnapshot(t.Direct.Agreement.WorkspaceStamp,t.Direct.Agreement.BaselineFiles).Fingerprint)
             throw new InvalidOperationException("Source changed after the agreement; reconcile it and freeze a new version before implementation.");
         if(t.Risk==Risk.Critical && t.Direct!.RiskApproval is null){(riskApproval??throw new ArgumentException("CRITICAL needs explicit approval of the frozen write boundary before implementation.")).Validate();}
-        t=Save(t,t.Direct with {Stage=DirectStage.Implementing,LastReport=null,SubmittedStamp=null,
+        t=Save(t,t.Direct with {Stage=DirectStage.Implementing,LastReport=null,SubmittedStamp=null,Alignment=null,Lens=null,
             RiskApproval=riskApproval??t.Direct!.RiskApproval,Note="External Primary owns implementation; native tool progress is not collected."},TaskLifecycle.Active);
         await Audit(t,"ExternalPrimaryStarted",JsonSerializer.Serialize(new {t.Direct!.PrimaryLabel,t.Direct!.NativeSessionRef,t.Direct!.RiskApproval}));return t;
     }
@@ -105,7 +115,7 @@ public sealed class DirectWorkflowService(IWorkbenchStore store, IProjectWorkspa
         store.SaveTicket(new(runId,t.TaskId,p,"Running",DateTimeOffset.UtcNow));
         store.SaveCheckpoint(new(runId,RunState.Created,"submitted",null,null,null,[],0,null,null,DateTimeOffset.UtcNow,
             RunCheckpoint.Fingerprint(t),p.RepoRoot,snapshot.Fingerprint));
-        t=Save(t,t.Direct with {Stage=DirectStage.Checking,LastRunId=runId,Note=null},TaskLifecycle.Active);
+        t=Save(t,t.Direct with {Stage=DirectStage.Checking,LastRunId=runId,Note=null,Alignment=null,Lens=null,VerifiedEvidence=[]},TaskLifecycle.Active);
         await Audit(t,"DirectVerificationStarted",runId);
         var parts=handlers.Create(p,w);var map=parts.Handlers.ToDictionary(x=>x.Key,x=>x.Value);
         map["submitted"]=new Handler(async(i,token)=>{
@@ -119,7 +129,8 @@ public sealed class DirectWorkflowService(IWorkbenchStore store, IProjectWorkspa
         map["deliver"]=new Handler(async(i,token)=>{
             var now=await evidence.SnapshotAsync(p,w,token);
             if(now.Fingerprint!=snapshot.Fingerprint)return NodeResult.Fail("SOURCE_CHANGED","Source changed during verification; all checks must be repeated.");
-            var text="Verification complete; awaiting Owner acceptance.\n\n"+
+            if(t.Direct!.RequiresDocuments)(documents??throw new InvalidOperationException("Document store unavailable.")).Validate(t.Direct.Documents!);
+            var text=(t.Direct.RequiresDocuments?"Verification complete; Align with task documents before Owner acceptance.":"Verification complete; awaiting Owner acceptance.")+"\n\n"+
                 string.Join("\n",t.Direct!.Agreement!.Checks.Select(c=>$"- {c.Criterion}. {t.Acceptance[c.Criterion-1]} — {c.Kind}: {c.Method}"))+
                 "\n\nAutomatic mappings identify checks run; they do not by themselves prove every criterion. Manual criteria require Owner confirmation.";
             var path=Path.Combine(w.ArtifactRoot,"delivery.md");await File.WriteAllTextAsync(path,text,token);
@@ -131,7 +142,10 @@ public sealed class DirectWorkflowService(IWorkbenchStore store, IProjectWorkspa
             t=store.Task(id);
             var stage=run.State==RunState.Completed?DirectStage.AwaitingAcceptance:
                 run.Failure?.Code=="PRIMARY_REWORK_REQUIRED"?DirectStage.Rework:DirectStage.Blocked;
-            t=Save(t,t.Direct! with {Stage=stage,Note=run.Failure?.Message},
+            var verified=t.Direct!.RequiresDocuments&&run.State==RunState.Completed
+                ?documents!.CaptureEvidence(run.Executions.Where(x=>x.NodeId is "test" or "review").SelectMany(x=>x.Result.ArtifactRefs))
+                :ImmutableArray<DocumentFile>.Empty;
+            t=Save(t,t.Direct! with {Stage=stage,Note=run.Failure?.Message,VerifiedEvidence=verified},
                 stage==DirectStage.AwaitingAcceptance?TaskLifecycle.AwaitingAcceptance:TaskLifecycle.Active);
             store.SaveTicket(store.Ticket(runId) with {State="Finished",Error=run.Failure?.Message});
             await Audit(t,"DirectVerificationFinished",runId+": "+stage);return t;
@@ -149,6 +163,9 @@ public sealed class DirectWorkflowService(IWorkbenchStore store, IProjectWorkspa
         var t=Editable(id,revision,DirectStage.AwaitingAcceptance);owner.Validate();var p=FrozenProject(t);
         var run=store.FindRun(t.Direct!.LastRunId!);
         if(run?.State!=RunState.Completed)throw new InvalidOperationException("Latest verification is not complete.");
+        if(t.Direct.RequiresDocuments && (t.Direct.Alignment is not {} aligned || aligned.RunId!=run.RunId || aligned.SourceStamp!=t.Direct.SubmittedStamp))
+            throw new InvalidOperationException("Align each acceptance item with actual evidence and current documents before accepting.");
+        if(t.Direct.RequiresDocuments)documents!.ValidateEvidence(t.Direct.VerifiedEvidence);
         var current=await evidence.SnapshotAsync(p,workspaces.Create(p,t.TaskId),ct);
         if(current.Fingerprint!=t.Direct!.SubmittedStamp)throw new InvalidOperationException("Source changed after verification; repeat checks before accepting.");
         t=Save(t,t.Direct with {Stage=DirectStage.Done,Note=owner.Quote,AcceptanceDecision=owner},TaskLifecycle.Done);
@@ -160,9 +177,60 @@ public sealed class DirectWorkflowService(IWorkbenchStore store, IProjectWorkspa
         var t=Editable(id,revision,DirectStage.Ready,DirectStage.Implementing,DirectStage.Submitted,DirectStage.Rework,DirectStage.Blocked,DirectStage.AwaitingAcceptance);
         if(string.IsNullOrWhiteSpace(message))throw new ArgumentException("Explain the defect or scope change.");
         if(scopeChange)(owner??throw new ArgumentException("Scope changes require the Owner instruction.")).Validate();
-        t=Save(t,t.Direct! with {Stage=scopeChange?DirectStage.Discussing:DirectStage.Rework,Note=message,SubmittedStamp=null},
+        t=Save(t,t.Direct! with {Stage=scopeChange?DirectStage.Discussing:DirectStage.Rework,Note=message,SubmittedStamp=null,Alignment=null,Lens=null},
             scopeChange?TaskLifecycle.Discussing:TaskLifecycle.Active);
         await Audit(t,scopeChange?"DirectScopeReopened":"DirectReworkRequested",JsonSerializer.Serialize(new {message,owner}));return t;
+    }
+    public async Task<EngineeringTask> Document(string id,long revision,EngineeringBrief brief) {
+        var t=Editable(id,revision,DirectStage.Discussing);
+        var set=(documents??throw new InvalidOperationException("Document store unavailable.")).Write(id,t.Title,(t.Direct!.Documents?.Version??0)+1,brief);
+        t=Save(t,t.Direct with {RequiresDocuments=true,Documents=set,Alignment=null,Lens=null},TaskLifecycle.Discussing);
+        await Audit(t,"DiscussionDocumentsRecorded",JsonSerializer.Serialize(set));return t;
+    }
+    public async Task<EngineeringTask> Align(string id,long revision,AlignmentInput input,CancellationToken ct) {
+        var t=Editable(id,revision,DirectStage.AwaitingAcceptance);var p=FrozenProject(t);
+        if(!t.Direct!.RequiresDocuments||t.Direct.Documents is null)throw new InvalidOperationException("Align requires task documents.");
+        var run=store.FindRun(t.Direct.LastRunId!)??throw new InvalidOperationException("Verification missing.");
+        if(run.State!=RunState.Completed)throw new InvalidOperationException("Verification incomplete.");
+        var snapshot=await evidence.SnapshotAsync(p,workspaces.Create(p,id),ct);
+        if(snapshot.Fingerprint!=t.Direct.SubmittedStamp)throw new InvalidOperationException("Source changed; repeat verification.");
+        if(input.Unresolved.IsDefault||!input.Unresolved.IsEmpty||string.IsNullOrWhiteSpace(input.DesignConformance)
+            ||string.IsNullOrWhiteSpace(input.Deviations)||string.IsNullOrWhiteSpace(input.Cleanup)
+            ||input.Criteria.IsDefault||input.Criteria.Length!=t.Acceptance.Length||input.Criteria.Select(x=>x.Criterion).Distinct().Count()!=t.Acceptance.Length)
+            throw new ArgumentException("Align needs every criterion, design/deviation/cleanup results and no unresolved conflict.");
+        documents!.ValidateEvidence(t.Direct.VerifiedEvidence);
+        var artifacts=store.Artifacts(run.RunId);
+        foreach(var c in input.Criteria) {
+            var check=t.Direct.Agreement!.Checks.FirstOrDefault(x=>x.Criterion==c.Criterion)??throw new ArgumentException("Unknown acceptance criterion.");
+            if(string.IsNullOrWhiteSpace(c.Result))throw new ArgumentException("Record the actual criterion result.");
+            if(check.Kind=="manual") {
+                (c.ManualConfirmation??throw new ArgumentException("Manual criteria require actual Owner confirmation.")).Validate();
+            } else {
+                if(c.ArtifactIds.IsDefaultOrEmpty)throw new ArgumentException("Automatic criteria require current-run build/test evidence.");
+                foreach(var refId in c.ArtifactIds) {
+                    var artifact=artifacts.FirstOrDefault(x=>x.ArtifactId==refId)??throw new ArgumentException("Evidence is not registered in the current run.");
+                    if(!run.Executions.Any(x=>x.NodeId=="test"&&x.Result.Outcome==NodeOutcome.Succeeded&&x.Result.ArtifactRefs.Any(path=>Path.GetFileName(path)==artifact.DisplayName))
+                        ||!artifact.DisplayName.StartsWith(check.Method+"-",StringComparison.Ordinal))
+                        throw new ArgumentException("Evidence does not belong to the successful mapped check.");
+                }
+            }
+        }
+        var report="## 交付对齐 / Align\n\nRun: "+run.RunId+"\n\n"+
+            string.Join("\n",input.Criteria.Select(c=>$"- AC-{c.Criterion:00}: {c.Result} · evidence: {string.Join(", ",c.ArtifactIds.IsDefault?[]:c.ArtifactIds)}"+
+                (c.ManualConfirmation is {} o?$" · Owner: {o.Quote} / {o.Source}":"")))+
+            "\n\n设计与契约："+input.DesignConformance+"\n\n偏移处理："+input.Deviations+"\n\n清理与遗留："+input.Cleanup+
+            "\n\n这些逐项结果由 Primary 整理，证据归属由 Harness 校验；独立 Reviewer 与工具输出见原始运行记录。等待 Owner 最终验收。\n";
+        var set=documents!.Deliver(t.Direct.Documents,report);
+        t=Save(t,t.Direct with {Documents=set,Alignment=new(run.RunId,snapshot.Fingerprint,input,DateTimeOffset.UtcNow),Note="Align recorded; awaiting actual Owner acceptance."},TaskLifecycle.AwaitingAcceptance);
+        await Audit(t,"DeliveryAligned",JsonSerializer.Serialize(new {t.Direct!.Alignment,Documents=set}));return t;
+    }
+    public async Task<EngineeringTask> RecordLens(string id,long revision,LensRecord record,CancellationToken ct) {
+        var t=Editable(id,revision,DirectStage.AwaitingAcceptance);
+        var p=FrozenProject(t);var current=await evidence.SnapshotAsync(p,workspaces.Create(p,id),ct);
+        if(record.RunId!=t.Direct!.LastRunId||record.SourceStamp!=t.Direct.SubmittedStamp||current.Fingerprint!=record.SourceStamp)
+            throw new InvalidOperationException("Change Lens evidence is stale or belongs to a different run.");
+        t=Save(t,t.Direct with {Lens=record},t.Lifecycle);
+        await Audit(t,"ChangeLensAttached",JsonSerializer.Serialize(record));return t;
     }
     public async Task<EngineeringTask> Recover(string id,long revision,OwnerEvidence acknowledgement) {
         var t=Editable(id,revision,DirectStage.Checking);acknowledgement.Validate();

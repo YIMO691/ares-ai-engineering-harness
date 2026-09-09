@@ -7,7 +7,7 @@ using Ares.Workbench.Adapters.Codex;
 using Ares.Workbench.Adapters.AgentFramework;
 namespace Ares.Workbench.Cli;
 
-public static class DirectCli
+public static partial class DirectCli
 {
     private static readonly JsonSerializerOptions Json=new(SqliteWorkbenchStore.Json){PropertyNameCaseInsensitive=true};
     public sealed record Request {
@@ -23,11 +23,16 @@ public static class DirectCli
         public ImmutableArray<AcceptanceCheck> Checks {get;init;}=[];
         public OwnerEvidence? Owner {get;init;}
         public string Message {get;init;}="";
+        public EngineeringBrief? Brief {get;init;}
+        public AlignmentInput? Alignment {get;init;}
+        public string UnityPath {get;init;}="";
+        public string Assembly {get;init;}="";
+        public bool AllowSyntaxPartial {get;init;}
     }
     public static async Task<int> Run(string[] args) {
         Console.OutputEncoding=System.Text.Encoding.UTF8;
         if(args.Length is <2 or >3) {
-            Console.Error.WriteLine("Usage: direct <settings.json> <projects|project|create|list|status|agree|begin|submit|verify|feedback|reopen|accept|recover> [request.json]");
+            Console.Error.WriteLine("Usage: direct <settings.json> <projects|project|create|document|list|status|agree|begin|submit|verify|feedback|reopen|align|lens|accept|recover> [request.json]");
             return 2;
         }
         using var cancellation=new CancellationTokenSource();
@@ -48,6 +53,8 @@ public static class DirectCli
                     "projects"=>store.Projects(),
                     "list"=>store.Tasks(),
                     _=>new {task=store.Task(request.TaskId),runs=store.Runs().Where(r=>r.TaskId==request.TaskId),events=store.Events(request.TaskId),
+                        artifacts=store.Runs().Where(r=>r.TaskId==request.TaskId).SelectMany(r=>store.Artifacts(r.RunId)),
+                        approvals=store.Runs().Where(r=>r.TaskId==request.TaskId).SelectMany(r=>store.Approvals(r.RunId)),
                         observation="Primary milestones are reported by the external Codex; native tool telemetry is not collected."}
                 };
                 Console.WriteLine(JsonSerializer.Serialize(output,Json));return 0;
@@ -65,12 +72,15 @@ public static class DirectCli
             // Native executables and auth are only used by verification, never by the observer.
             if(operation=="verify")settings.Validate();
             var factory=new RunHandlerFactory(settings,store);
-            var service=new DirectWorkflowService(store,workspaces,factory,factory,new MicrosoftAgentFrameworkBackend());
+            var service=new DirectWorkflowService(store,workspaces,factory,factory,new MicrosoftAgentFrameworkBackend(),new DirectDocuments(settings.DocumentsRoot));
             var token=cancellation.Token;
             var t=operation switch {
-                "create"=>service.Create(request.ProjectId,request.Title,request.Risk,request.PrimaryLabel,request.NativeSessionRef),
-                "agree"=>await service.Agree(request.TaskId,request.Revision,request.Anchors??throw new ArgumentException("Anchors required."),
-                    request.Checks,request.Owner??throw new ArgumentException("Owner authorization required."),token),
+                "create"=>service.Create(request.ProjectId,request.Title,request.Risk,request.PrimaryLabel,request.NativeSessionRef,true),
+                "agree"=>await service.Agree(request.TaskId,request.Revision,request.Anchors??store.Task(request.TaskId).Direct?.Documents?.Brief.Anchors??throw new ArgumentException("Record discussion documents first."),
+                    request.Checks.IsDefaultOrEmpty?store.Task(request.TaskId).Direct?.Documents?.Brief.Checks??[]:request.Checks,request.Owner??throw new ArgumentException("Owner authorization required."),token),
+                "document"=>await service.Document(request.TaskId,request.Revision,request.Brief??throw new ArgumentException("Brief required.")),
+                "align"=>await service.Align(request.TaskId,request.Revision,request.Alignment??throw new ArgumentException("Alignment required."),token),
+                "lens"=>await AttachLens(service,store,settings,request,token),
                 "begin"=>await service.Begin(request.TaskId,request.Revision,request.Owner,token),
                 "submit"=>await service.Submit(request.TaskId,request.Revision,request.Message,token),
                 "verify"=>await service.Verify(request.TaskId,request.Revision,token),

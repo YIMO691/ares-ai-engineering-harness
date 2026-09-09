@@ -12,10 +12,12 @@ public sealed record OwnerEvidence(string Quote, string Source) {
 public sealed record AcceptanceCheck(int Criterion, string Kind, string Method);
 public sealed record DirectAgreement(int Version, ReadyAnchors Anchors, ImmutableArray<AcceptanceCheck> Checks,
     string ProjectFingerprint, string WorkspaceStamp, ImmutableDictionary<string,string> BaselineFiles,
-    OwnerEvidence Authorization, DateTimeOffset At, string BuildCommand = "", string TestCommand = "");
+    OwnerEvidence Authorization, DateTimeOffset At, string BuildCommand = "", string TestCommand = "", DocumentSet? Documents = null);
 public sealed record DirectTask(string PrimaryLabel, string? NativeSessionRef,
     DirectStage Stage, long Revision, ImmutableArray<DirectAgreement> Agreements,
     string? LastReport = null, string? SubmittedStamp = null, string? LastRunId = null,
-    string? Note = null, OwnerEvidence? RiskApproval = null, OwnerEvidence? AcceptanceDecision = null) {
+    string? Note = null, OwnerEvidence? RiskApproval = null, OwnerEvidence? AcceptanceDecision = null,
+    bool RequiresDocuments = false, DocumentSet? Documents = null, AlignmentRecord? Alignment = null, LensRecord? Lens = null, ImmutableArray<DocumentFile> VerifiedEvidence = default) {
+    public ImmutableArray<DocumentFile> VerifiedEvidence {get;init;}=VerifiedEvidence.IsDefault?[]:VerifiedEvidence;
     public DirectAgreement? Agreement => Agreements.IsDefaultOrEmpty ? null : Agreements[^1];
 }

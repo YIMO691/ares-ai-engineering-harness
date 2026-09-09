@@ -1,5 +1,7 @@
 # Codex direct collaboration
 
+New tasks use the [integrated workflow](UNIFIED_WORKFLOW.md): document before agree, align before accept. This page preserves underlying commands and recovery.
+
 The Owner talks directly to the existing native Codex Primary. Ares records business agreements and evidence and runs deterministic checks plus independent read-only review. Web is an optional observer. No native conversation/session/tool runtime is implemented here.
 
 ## Start locally

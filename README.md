@@ -1,13 +1,15 @@
 # Ares AI Engineering Harness
 
-> Local feature: Codex direct collaboration and an optional Web observer.
-> Discuss and implement in the existing native Codex conversation. Ares CLI records the agreement and runs verification plus independent review; Web shows the same evidence on demand.
-> Start with [Codex direct workflow](docs/CODEX_DIRECT.md). Legacy Web execution remains opt-in with `ObserverOnly=false`; new Web startup defaults to read-only observation.
+在一个本地项目中完成需求讨论、工程文档、开发验证、独立审查和变化解释。Owner 与当前 Codex 直接协作，Web 是可选只读观察台。
 
+- [统一流程与使用入口](docs/UNIFIED_WORKFLOW.md)
+- [公司 SOP 与模板](workflow/README.md) · [Ares 执行规范](workflow/ARES_PROFILE.md)
+- [Change Lens](tools/change-lens/README.md)：只读变化解释，保留开发预览与 PARTIAL 边界
+- [原直接协作说明](docs/CODEX_DIRECT.md)
 
-Ares is a local software engineering workflow control plane around a mature coding agent. It coordinates tasks, policy, deterministic verification, independent review, recovery and human decisions.
+新任务：讨论 → 文档 → Ready → 当前 Codex 实施 → 测试/独立 Reviewer → Align → Owner 验收。复用原生工具，不自建 Agent/Session Runtime，不自动接入外部知识库。
 
-It is not an IDE, a company-role simulation, or a replacement agent/session/tool runtime. Codex owns reasoning, native conversation context, search, editing, shell and sandbox execution. Ares exists to reduce the human effort of coordinating those steps, with measurable evidence.
+本仓库保持私有；商业源码、认证、SQLite 和运行证据不纳入 Git。SOP 与 Change Lens 按固定版本导入，原仓库未删除或归档，许可与来源保留。
 
 ## Current Workbench and historical baseline
 

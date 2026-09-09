@@ -1,8 +1,9 @@
 param(
  [Parameter(Mandatory)][string]$SettingsFile,
- [Parameter(Mandatory)][ValidateSet('projects','project','create','list','status','agree','begin','submit','verify','feedback','reopen','accept','recover')][string]$Operation,
+ [Parameter(Mandatory)][ValidateSet('projects','project','create','document','align','lens','list','status','agree','begin','submit','verify','feedback','reopen','accept','recover')][string]$Operation,
  [string]$RequestFile,
- [switch]$Build
+ [switch]$Build,
+ [switch]$BuildLens
 )
 $ErrorActionPreference='Stop'
 $repo=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
@@ -31,6 +32,14 @@ $dll=Join-Path $artifacts 'bin/Ares.Workbench.Cli/debug/Ares.Workbench.Cli.dll'
 if($Build) {
  & $settings.DotnetExecutable build (Join-Path $repo 'src/Ares.Workbench.Cli/Ares.Workbench.Cli.csproj') "-p:AresArtifactsRoot=$artifacts" --verbosity minimal
  if($LASTEXITCODE-ne 0){exit $LASTEXITCODE}
+}
+if($BuildLens) {
+ $lensRoot=[IO.Path]::GetFullPath($settings.ChangeLensRoot)
+ $lensArtifacts=OutputPath (Join-Path $scratch 'lens-build')
+ & $settings.DotnetExecutable build (Join-Path $lensRoot 'worker/ChangeLens.Analyzer/ChangeLens.Analyzer.csproj') "-p:AresArtifactsRoot=$lensArtifacts" --configuration Release --verbosity minimal
+ if($LASTEXITCODE-ne 0){exit $LASTEXITCODE}
+ $builtWorker=Join-Path $lensArtifacts 'bin/ChangeLens.Analyzer/release/ChangeLens.Analyzer.dll'
+ if([IO.Path]::GetFullPath($settings.ChangeLensWorker)-ne[IO.Path]::GetFullPath($builtWorker)){throw "Set ChangeLensWorker to $builtWorker in local settings"}
 }
 if(-not(Test-Path -LiteralPath $dll)){throw 'CLI is not built. Repeat with -Build once.'}
 $arguments=@($dll,'direct',(Resolve-Path -LiteralPath $SettingsFile).Path,$Operation)

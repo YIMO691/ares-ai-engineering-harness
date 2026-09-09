@@ -18,6 +18,9 @@ public class ObserveModel(IWorkbenchStore store):PageModel {
             return Page();
         } catch(KeyNotFoundException){return NotFound();}
     }
+    public static string TaskStage(EngineeringTask t)=>t.Direct is {} d
+        ?d.RequiresDocuments&&d.Stage==DirectStage.AwaitingAcceptance&&d.Alignment is null?"等待交付对齐":Stage(d.Stage)
+        :UiText.Task(t.Lifecycle);
     public static string Stage(DirectStage s)=>s switch {
         DirectStage.Discussing=>"讨论中",DirectStage.Ready=>"约定已确认",DirectStage.Implementing=>"Primary 实施中",
         DirectStage.Submitted=>"已提交验证",DirectStage.Checking=>"验证与审查中",DirectStage.Rework=>"等待 Primary 修复",

@@ -4,6 +4,10 @@ namespace Ares.Workbench.Adapters.Codex;
 public sealed class RuntimeSettings
 {
     public string DataRoot {get;set;} = "";
+    public string DocumentsRoot {get;set;} = "D:/AgentWorkspace/Ares/10_WORK/active";
+    public string PythonExecutable {get;set;} = "";
+    public string ChangeLensRoot {get;set;} = "";
+    public string ChangeLensWorker {get;set;} = "";
     public string ScratchRoot {get;set;} = "";
     public string CodexHome {get;set;} = "";
     public string NugetPackages {get;set;} = "";

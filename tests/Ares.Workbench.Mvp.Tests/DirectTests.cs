@@ -40,7 +40,8 @@ public class DirectTests
                 Calls.Add(i.Node.NodeId);
                 if(i.Node.NodeId=="test") {
                     if(Hold){Started.TrySetResult();await Release.Task.WaitAsync(ct);}
-                    return FailTest?NodeResult.Rework("Missing whitespace handling"):NodeResult.Success("Tests passed");
+                    var artifact=Path.Combine(i.Workspace.ArtifactRoot,"test-controlled.txt");File.WriteAllText(artifact,"Controlled handler result; not a native test.");
+                    return FailTest?NodeResult.Rework("Missing whitespace handling"):NodeResult.Success("Tests passed",artifact);
                 }
                 if(i.Node.NodeId=="review") {
                     if(MutateOnReview)Files["src/code.cs"]="concurrent edit";
@@ -59,16 +60,21 @@ public class DirectTests
         public readonly WorkspaceFactory Workspaces;
         public readonly DirectWorkflowService Service;
         public EngineeringTask Task;
-        public Harness(Risk risk=Risk.Standard) {
+        public Harness(Risk risk=Risk.Standard,bool documents=false) {
             Directory.CreateDirectory(Root);Store=new(Root);Workspaces=new(Root);
-            Service=new(Store,Workspaces,Factory,Factory,new MicrosoftAgentFrameworkBackend());
+            Service=new(Store,Workspaces,Factory,Factory,new MicrosoftAgentFrameworkBackend(),new DirectDocuments(Path.Combine(Root,"documents")));
             var now=DateTimeOffset.UtcNow;
             Store.SaveProject(new("p","Project",Root,risk,"dotnet build","dotnet test",["src"],[],now,now));
-            Task=Service.Create("p","Direct task",risk,"existing native conversation",null);
+            Task=Service.Create("p","Direct task",risk,"existing native conversation",null,documents);
         }
         public EngineeringTask Current=>Store.Task(Task.TaskId);
         public long Revision=>Current.Direct!.Revision;
-        public async Task Ready()=>Task=await Service.Agree(Task.TaskId,Revision,Anchors,[new(1,"automatic","test")],Owner,default);
+        public EngineeringBrief Brief(string level="L2")=>new(level,"Explicit fixture classification","fixture/planning-v1",
+            [new("Current label behavior","fixture/src/code.cs")],Anchors,[new(1,"automatic","test")],"Trim input",["Implement whitespace behavior and verify it"]);
+        public async Task Ready() {
+            if(Current.Direct!.RequiresDocuments&&Current.Direct.Documents is null)await Service.Document(Task.TaskId,Revision,Brief());
+            Task=await Service.Agree(Task.TaskId,Revision,Anchors,[new(1,"automatic","test")],Owner,default);
+        }
         public async Task Submit() {
             if(Current.Direct!.Stage==DirectStage.Discussing)await Ready();
             await Service.Begin(Task.TaskId,Revision,Current.Risk==Risk.Critical?Owner:null,default);
@@ -76,6 +82,82 @@ public class DirectTests
             await Service.Submit(Task.TaskId,Revision,"Changed Trim implementation",default);
         }
         public async Task Verify(){await Submit();await Service.Verify(Task.TaskId,Revision,default);}
+    }
+    private static AlignmentInput AlignmentFor(Harness h)=>new(
+        [new(1,"Controlled fixture outcome",[h.Store.Artifacts(h.Current.Direct!.LastRunId!).Single(x=>x.DisplayName=="test-controlled.txt").ArtifactId])],
+        "Design checked","No drift","No temporary changes",[]);
+    [Theory][InlineData("L1",1)][InlineData("L2",1)][InlineData("L3",3)]
+    public async Task DiscussionProducesOnlyTheSelectedDocumentLevel(string level,int count) {
+        var h=new Harness(documents:true);await h.Service.Document(h.Task.TaskId,h.Revision,h.Brief(level));
+        Assert.Equal(count,h.Current.Direct!.Documents!.Files.Length);
+        Assert.All(h.Current.Direct.Documents.Files,f=>Assert.Contains("fixture/planning-v1",File.ReadAllText(f.Path)));
+        Assert.Equal(DirectStage.Discussing,h.Current.Direct.Stage);
+    }
+    [Fact]public async Task NewDocumentWorkflowCannotSkipDocumentsOrSubstituteIntent() {
+        var h=new Harness(documents:true);
+        await Assert.ThrowsAsync<InvalidOperationException>(()=>h.Service.Agree(h.Task.TaskId,h.Revision,Anchors,[new(1,"automatic","test")],Owner,default));
+        await h.Service.Document(h.Task.TaskId,h.Revision,h.Brief());
+        await Assert.ThrowsAsync<InvalidOperationException>(()=>h.Service.Agree(h.Task.TaskId,h.Revision,Anchors with {Goal="Different goal"},[new(1,"automatic","test")],Owner,default));
+    }
+    [Fact]public async Task ChangedDocumentCannotAuthorizeImplementation() {
+        var h=new Harness(documents:true);await h.Ready();
+        File.AppendAllText(h.Current.Direct!.Documents!.Files[0].Path,"\nChanged requirement");
+        await Assert.ThrowsAsync<InvalidOperationException>(()=>h.Service.Begin(h.Task.TaskId,h.Revision,null,default));
+        await h.Service.Feedback(h.Task.TaskId,h.Revision,"Reconcile requirements",true,Owner);
+        await h.Service.Document(h.Task.TaskId,h.Revision,h.Brief());
+        await h.Ready();Assert.Equal(2,h.Current.Direct.Agreement!.Version);
+    }
+    [Fact]public async Task AcceptanceRequiresAlignmentAndCurrentEvidence() {
+        var h=new Harness(documents:true);await h.Verify();
+        await Assert.ThrowsAsync<InvalidOperationException>(()=>h.Service.Accept(h.Task.TaskId,h.Revision,Owner,default));
+        var input=AlignmentFor(h);
+        await Assert.ThrowsAsync<ArgumentException>(()=>h.Service.Align(h.Task.TaskId,h.Revision,input with {Criteria=[new(1,"claimed",["foreign-run-artifact"])]},default));
+        await Assert.ThrowsAsync<ArgumentException>(()=>h.Service.Align(h.Task.TaskId,h.Revision,input with {Unresolved=["Missing evidence"]},default));
+        await h.Service.Align(h.Task.TaskId,h.Revision,input,default);
+        Assert.Contains("交付对齐",File.ReadAllText(h.Current.Direct!.Documents!.Files[0].Path));
+        Assert.DoesNotContain("交付对齐",h.Current.Direct.Agreement!.Documents!.Files[0].Content);
+        await h.Service.Accept(h.Task.TaskId,h.Revision,Owner,default);
+        Assert.Equal(DirectStage.Done,h.Current.Direct.Stage);
+    }
+    [Fact]public async Task ManualCriterionRequiresActualConfirmation() {
+        var h=new Harness(documents:true);
+        var checks=ImmutableArray.Create(new AcceptanceCheck(1,"manual","Owner observes actual label"));
+        await h.Service.Document(h.Task.TaskId,h.Revision,h.Brief() with {Checks=checks});
+        await h.Service.Agree(h.Task.TaskId,h.Revision,Anchors,checks,Owner,default);
+        await h.Submit();await h.Service.Verify(h.Task.TaskId,h.Revision,default);
+        var input=new AlignmentInput([new(1,"Observed correct label",[])],"Checked","No drift","Clean",[]);
+        await Assert.ThrowsAsync<ArgumentException>(()=>h.Service.Align(h.Task.TaskId,h.Revision,input,default));
+        await h.Service.Align(h.Task.TaskId,h.Revision,input with {Criteria=[new(1,"Observed correct label",[],new("Label is correct","controlled-fixture/manual-check"))]},default);
+        Assert.NotNull(h.Current.Direct!.Alignment);
+        Assert.Equal(DirectStage.AwaitingAcceptance,h.Current.Direct.Stage);
+    }
+    [Fact]public async Task TamperedRawEvidenceCannotPassAlign() {
+        var h=new Harness(documents:true);await h.Verify();var input=AlignmentFor(h);
+        File.AppendAllText(h.Current.Direct!.VerifiedEvidence[0].Path,"tampered");
+        await Assert.ThrowsAsync<InvalidOperationException>(()=>h.Service.Align(h.Task.TaskId,h.Revision,input,default));
+    }
+    [Fact]public async Task DocumentChangeAfterAlignInvalidatesAcceptance() {
+        var h=new Harness(documents:true);await h.Verify();await h.Service.Align(h.Task.TaskId,h.Revision,AlignmentFor(h),default);
+        File.AppendAllText(h.Current.Direct!.Documents!.Files[0].Path,"\nchanged");
+        await Assert.ThrowsAsync<InvalidOperationException>(()=>h.Service.Accept(h.Task.TaskId,h.Revision,Owner,default));
+    }
+    [Fact]public async Task ReworkRequiresFreshAlignmentAndDoesNotAcceptOldRunEvidence() {
+        var h=new Harness(documents:true);await h.Verify();var old=AlignmentFor(h);
+        await h.Service.Align(h.Task.TaskId,h.Revision,old,default);
+        await h.Service.Feedback(h.Task.TaskId,h.Revision,"Defect",false,null);await h.Verify();
+        Assert.Null(h.Current.Direct!.Alignment);
+        await Assert.ThrowsAsync<ArgumentException>(()=>h.Service.Align(h.Task.TaskId,h.Revision,old,default));
+    }
+    [Fact]public void LegacyDirectRecordWithoutEvidenceArrayRemainsReadable() {
+        var json="""{"PrimaryLabel":"old","Stage":0,"Revision":0,"Agreements":[]}""";
+        var old=System.Text.Json.JsonSerializer.Deserialize<DirectTask>(json)!;
+        Assert.Empty(old.VerifiedEvidence);
+        Assert.Contains("PrimaryLabel",System.Text.Json.JsonSerializer.Serialize(old));
+    }
+    [Fact]public async Task ChangeLensCannotAttachToAnotherSourceOrRun() {
+        var h=new Harness();await h.Verify();
+        await Assert.ThrowsAsync<InvalidOperationException>(()=>h.Service.RecordLens(h.Task.TaskId,h.Revision,
+            new("other-run",h.Current.Direct!.SubmittedStamp!,"PARTIAL","test",[],DateTimeOffset.UtcNow),default));
     }
     [Theory][InlineData(Risk.Fast)][InlineData(Risk.Standard)][InlineData(Risk.Critical)]
     public async Task DirectWorkflowNeverInvokesAReplacementPrimary(Risk risk) {

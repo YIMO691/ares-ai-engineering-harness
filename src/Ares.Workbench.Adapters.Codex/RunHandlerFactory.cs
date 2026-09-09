@@ -88,6 +88,8 @@ public sealed class RunHandlerFactory(RuntimeSettings settings,IWorkbenchStore e
                 task=i.Task with {Fusion=null,Direct=null},ready=i.Task.Fusion?.Frozen,
                 direct_agreement=i.Task.Direct?.Agreement is {} da?new {da.Version,da.Anchors,da.Checks}:null,
                 external_primary_report=i.Task.Direct?.LastReport,
+                discussion_documents=i.Task.Direct?.Documents?.Files.Select(f=>new {f.Role,f.Sha256,Content=Compact(f.Content,16000)}),
+                alignment_instruction=i.Task.Direct?.RequiresDocuments==true?"Check task document intent, design, scope and acceptance against implementation and test evidence. Report drift; distinguish missing manual verification.":null,
                 last_owner_rejection=role==CodexRole.PrimaryDiscuss?i.Task.Fusion?.Turns.LastOrDefault(t=>t.Speaker=="Owner"&&t.Text.StartsWith("Reject:"))?.Text:null,
                 current_draft=role==CodexRole.PrimaryDiscuss?i.Task.Fusion?.Draft:null,
                 owner_message=role==CodexRole.PrimaryDiscuss?i.Task.Fusion?.Turns.LastOrDefault(t=>t.Speaker=="Owner")?.Text:null,

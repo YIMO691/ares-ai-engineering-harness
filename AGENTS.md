@@ -10,7 +10,9 @@ Use feature branches; no force push or automatic merge. Before committing, inspe
 
 
 ## Direct collaboration entry
-When the Owner asks to use Ares, use the current native Codex conversation as Primary. Read docs/CODEX_DIRECT.md and invoke scripts/Ares.ps1 with task-local JSON request files. Do not start a replacement Primary or forward the conversation through Web.
-Record the agreed scope and actual Owner authorization, then begin, implement with native tools, submit and verify. For STANDARD/CRITICAL use the existing independent read-only Reviewer through verify. Return findings to the current Primary. Never invent Owner acceptance: leave AwaitingAcceptance until the Owner actually accepts.
+When the Owner asks to use Ares, use the current native Codex conversation as Primary. Read workflow/AI-PLAYBOOK.md, workflow/ARES_PROFILE.md and docs/UNIFIED_WORKFLOW.md; select applicable workflow templates/examples only. Invoke scripts/Ares.ps1 with task-local JSON request files. Do not start a replacement Primary or forward the conversation through Web.
+Record source/version, observed context, requirements, decisions and verifiable increments through document before agree. Agree derives intent from the brief; do not ask the Owner to re-enter it. Preserve unresolved questions until answered. Record actual authorization, then begin, implement, submit and verify. For STANDARD/CRITICAL use the existing independent read-only Reviewer through verify. Return findings to the current Primary. Never invent Owner acceptance: leave AwaitingAcceptance until the Owner actually accepts.
 Report source-changing feedback as rework under the existing agreement; reopen only for scope/policy changes. Read the latest revision before commands. Preserve evidence on interruption and inspect current source before retrying.
 Web is optional and read-only by default. Start it on request; do not require the Owner to retype requirements or approvals in a form. Task milestones are reported observations, not full native process telemetry.
+
+After verification, align every AC to current evidence and reconcile document/design drift before actual Owner acceptance. Use status artifact IDs, not SQLite edits. Optional lens is read-only; preserve PARTIAL/FAILED. Do not auto-load the separate ares-ai-software-engineering knowledge repository; use it only when the Owner requests it.
