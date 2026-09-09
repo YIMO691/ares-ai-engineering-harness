@@ -18,7 +18,8 @@ public sealed partial class WorkbenchService(IWorkbenchStore store,IProjectWorks
     private readonly Dictionary<string,RunningControl> executing=[];
     public IWorkbenchStore Read=>store;
     private static bool Active(WorkflowRun r)=>r.State is RunState.Created or RunState.Running or RunState.Waiting;
-    private bool ProjectBusy(string id)=>store.Tasks().Any(t=>t.WorkspaceId==id&&t.Fusion?.DiscussionState is "Queued" or "Running")
+    private bool ProjectBusy(string id)=>store.Tasks().Any(t=>t.WorkspaceId==id && t.Direct?.Stage is DirectStage.Implementing or DirectStage.Submitted or DirectStage.Checking or DirectStage.Rework or DirectStage.Blocked or DirectStage.AwaitingAcceptance)
+        ||store.Tasks().Any(t=>t.WorkspaceId==id&&t.Fusion?.DiscussionState is "Queued" or "Running")
         ||store.Tickets().Any(t=>t.Project.ProjectId==id && t.State is "Queued" or "Running")
         ||store.Runs().Any(r=>Active(r)&&store.Task(r.TaskId).WorkspaceId==id);
     public ProjectProfile SaveProject(ProjectProfile profile)
@@ -45,6 +46,7 @@ public sealed partial class WorkbenchService(IWorkbenchStore store,IProjectWorks
     {
         lock(sync) {
             var task=store.Task(taskId);var project=workspaces.Validate(store.Project(task.WorkspaceId));
+            if(task.Direct is not null)throw new InvalidOperationException("Direct tasks are advanced through the existing Codex conversation and CLI.");
             if(task.Lifecycle is TaskLifecycle.Delivered or TaskLifecycle.Cancelled or TaskLifecycle.Done)throw new InvalidOperationException("该任务已结束，请新建任务。");
             if(task.Fusion is {} fusion) {
                 if(task.Lifecycle!=TaskLifecycle.Ready || fusion.Frozen is null)throw new InvalidOperationException("请先完成讨论并点击 Ready。");
@@ -57,6 +59,7 @@ public sealed partial class WorkbenchService(IWorkbenchStore store,IProjectWorks
     }
     public bool CanResume(string id) {
         var run=store.FindRun(id);var cp=store.Checkpoint(id);
+        if(run is not null && store.Task(run.TaskId).Direct is not null)return false;
         if(run is not null && store.Task(run.TaskId) is {Fusion:not null,Lifecycle:not TaskLifecycle.Active})return false;
         return run?.State is RunState.Paused or RunState.Blocked && cp is {ResumeSupported:true,ResumeTarget:not null}
             && store.Ticket(id).State is not ("Queued" or "Running")
@@ -89,6 +92,7 @@ public sealed partial class WorkbenchService(IWorkbenchStore store,IProjectWorks
     {
         lock(sync) {
             var run=store.FindRun(id);var ticket=store.Ticket(id);
+            if(store.Task(ticket.TaskId).Direct is not null)throw new InvalidOperationException("Direct commands are controlled in the original Codex conversation.");
             if(executing.TryGetValue(id,out var control) && (run is null || run.State==RunState.Running)) {
                 if(control.Requested)throw new InvalidOperationException("中断请求正在处理，请等待进程退出。");
                 control.Pause=!cancel;control.Requested=true;control.Cancellation.Cancel();return;
@@ -206,16 +210,16 @@ public sealed partial class WorkbenchService(IWorkbenchStore store,IProjectWorks
             var fusion=task.Fusion!;
             SaveFusion(task,fusion with {DiscussionState="Blocked",Error="应用重启中断讨论；发送下一条消息续接已记录的原生 session。",PrimarySessionRef=store.Checkpoint(task.TaskId)?.PrimarySessionRef??fusion.PrimarySessionRef});
         }
-        foreach(var run in store.Runs().Where(r=>Active(r)||r.State==RunState.Paused)) {
+        foreach(var run in store.Runs().Where(r=>store.Task(r.TaskId).Direct is null && (Active(r)||r.State==RunState.Paused))) {
             ((IRunStore)store).Update(run with {State=RunState.Blocked,PendingHuman=null,Failure=new("INTERRUPTED","应用已重启；本版本不恢复中断执行，请 New Run。"),UpdatedAt=DateTimeOffset.UtcNow,Version=run.Version+1});
             foreach(var approval in store.Approvals(run.RunId).Where(a=>a.Status=="Waiting"))
                 store.SaveApproval(approval with {Status="Interrupted",DecidedAt=DateTimeOffset.UtcNow});
             await store.AppendAsync(new(Guid.NewGuid().ToString("N"),"RunInterruptedByRestart",DateTimeOffset.UtcNow,run.TaskId,run.RunId,null,null,ImmutableDictionary<string,string>.Empty));
         }
         // Restart recovery is outside v0.2: do not imply in-memory resumability survives a crash.
-        foreach(var run in store.Runs().Where(r=>store.Checkpoint(r.RunId) is not null))
+        foreach(var run in store.Runs().Where(r=>store.Task(r.TaskId).Direct is null && store.Checkpoint(r.RunId) is not null))
             store.UpdateCheckpoint(run.RunId,c=>c with {ResumeSupported=false});
-        foreach(var ticket in store.Tickets().Where(t=>t.State is "Queued" or "Running")) {
+        foreach(var ticket in store.Tickets().Where(t=>store.Task(t.TaskId).Direct is null && t.State is "Queued" or "Running")) {
             store.SaveTicket(ticket with {State="Interrupted",Error="应用重启，队列未恢复。"});
             if(store.FindRun(ticket.RunId) is null)
                 await store.AppendAsync(new(Guid.NewGuid().ToString("N"),"RunInterruptedByRestart",DateTimeOffset.UtcNow,ticket.TaskId,ticket.RunId,null,null,ImmutableDictionary<string,string>.Empty));

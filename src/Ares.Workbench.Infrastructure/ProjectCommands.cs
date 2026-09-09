@@ -32,7 +32,7 @@ public sealed class ProjectCommands(ProjectProfile project,Workspace workspace,s
     }
     private async Task<string> Git(string[] args,CancellationToken ct)
     {
-        var p=await new ProcessRunner([git],[workspace.RepoRoot]).RunAsync(new(git,[..args],workspace.RepoRoot,
+        var p=await new ProcessRunner([git],[workspace.RepoRoot]).RunAsync(new(git,["-c","safe.directory="+workspace.RepoRoot,..args],workspace.RepoRoot,
             TimeSpan.FromSeconds(40),environment,null,1000000),ct);
         if(!p.Passed)throw new InvalidOperationException("Git 检查失败："+p.Stderr);
         return p.Stdout;

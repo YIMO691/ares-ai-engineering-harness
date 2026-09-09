@@ -1,5 +1,10 @@
 # Ares AI Engineering Harness
 
+> Local feature: Codex direct collaboration and an optional Web observer.
+> Discuss and implement in the existing native Codex conversation. Ares CLI records the agreement and runs verification plus independent review; Web shows the same evidence on demand.
+> Start with [Codex direct workflow](docs/CODEX_DIRECT.md). Legacy Web execution remains opt-in with `ObserverOnly=false`; new Web startup defaults to read-only observation.
+
+
 Ares is a local software engineering workflow control plane around a mature coding agent. It coordinates tasks, policy, deterministic verification, independent review, recovery and human decisions.
 
 It is not an IDE, a company-role simulation, or a replacement agent/session/tool runtime. Codex owns reasoning, native conversation context, search, editing, shell and sandbox execution. Ares exists to reduce the human effort of coordinating those steps, with measurable evidence.

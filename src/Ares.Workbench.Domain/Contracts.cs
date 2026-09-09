@@ -14,6 +14,7 @@ public sealed record EngineeringTask(string TaskId, string Title, string Goal,
     string WorkspaceId, TaskLifecycle Lifecycle, DateTimeOffset CreatedAt, DateTimeOffset UpdatedAt)
 {
     public FusionTask? Fusion { get; init; }
+    public DirectTask? Direct { get; init; }
 }
 public sealed record RetryPolicy(int MaxRetries = 0);
 public sealed record ReworkPolicy(int MaxReworks, string TargetNode);

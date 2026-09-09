@@ -7,6 +7,8 @@ using Ares.Workbench.Infrastructure;
 using Ares.Workbench.Adapters.Codex;
 using Ares.Workbench.Adapters.AgentFramework;
 
+if(args.Length>0 && args[0]=="direct")return await Ares.Workbench.Cli.DirectCli.Run(args.Skip(1).ToArray());
+
 if(args.Length!=1){Console.Error.WriteLine("Usage: Ares.Workbench.Cli <run-config.json>");return 2;}
 var json=new JsonSerializerOptions{WriteIndented=true,PropertyNameCaseInsensitive=true};
 json.Converters.Add(new JsonStringEnumConverter());

@@ -15,7 +15,7 @@ public class DetailsModel(WorkbenchService service,RuntimeSettings settings):Pag
     [BindProperty]public bool Approve{get;set;}
     [BindProperty]public string Comment{get;set;}="";
     private void Load(string id){Ticket=Store.Ticket(id);TaskItem=Store.Task(Ticket.TaskId);Run=Store.FindRun(id);}
-    public IActionResult OnGet(string id){try{Load(id);return Page();}catch(KeyNotFoundException){return NotFound();}}
+    public IActionResult OnGet(string id){try{Load(id);if(TaskItem.Direct is not null)return RedirectToPage("/Observe",new{id=TaskItem.TaskId});return Page();}catch(KeyNotFoundException){return NotFound();}}
     private string Prepared(string id,string section) {
         if(Run?.Executions.Any(e=>e.NodeId=="prepare"&&e.Result.Outcome==NodeOutcome.Succeeded)!=true)return "";
         var entry=Store.Artifacts(id).FirstOrDefault(a=>a.RelativePath==section+".md");
