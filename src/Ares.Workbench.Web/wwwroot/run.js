@@ -51,7 +51,7 @@
         const signature=JSON.stringify([nodes,d.current,skipped(id),id==='human'?d.approvals:[]]);
         if(rendered[id]===signature)continue;rendered[id]=signature;
         box.replaceChildren();
-        if(!nodes.length){const p=document.createElement('p');p.className='muted';p.textContent=skipped(id)?'此工作流跳过该步骤':(d.currentNode===id||d.currentNode==='prepare'&&['grounding','plan'].includes(id))?'Primary 准备中，结果由同一次调用生成…':'等待执行';box.append(p);}
+        if(!nodes.length){const p=document.createElement('p');p.className='muted';p.textContent=skipped(id)?'此工作流跳过该步骤':(d.currentNode===id||d.currentNode==='prepare'&&['grounding','plan'].includes(id))?'当前步骤正在执行，完成后显示结果…':'等待执行';box.append(p);}
         for(const node of nodes){
           const details=document.createElement('details'),summary=document.createElement('summary'),pre=document.createElement('pre');
           details.open=node===nodes.at(-1);summary.textContent='第 '+node.attempt+' 次 · '+node.outcome;

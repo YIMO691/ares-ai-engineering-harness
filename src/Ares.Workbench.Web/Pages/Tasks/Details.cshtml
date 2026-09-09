@@ -32,7 +32,7 @@ else{<form method="post" asp-page-handler="Discuss"><input type="hidden" asp-for
 <form method="post" asp-page-handler="Reopen"><input type="hidden" asp-for="Revision"/><button type="submit" class="secondary">返回讨论 · 重新确认 Ready</button></form>
 }
 @foreach(var snap in f.Snapshots.Reverse()){
-<details class="frozen-snapshot"><summary>Ready v@snap.Version · 已冻结 · @snap.FrozenAt.LocalDateTime.ToString("yyyy-MM-dd HH:mm:ss")</summary>
+<details class="frozen-snapshot"><summary>Ready v@(snap.Version) · 已冻结 · @snap.FrozenAt.LocalDateTime.ToString("yyyy-MM-dd HH:mm:ss")</summary>
 <dl><dt>Goal</dt><dd>@snap.Anchors.Goal</dd><dt>Acceptance</dt><dd><ul>@foreach(var a in snap.Anchors.Acceptance){<li>@a</li>}</ul></dd>
 <dt>Non-goals</dt><dd>@snap.Anchors.NonGoals</dd><dt>Boundary</dt><dd>@snap.Anchors.Boundary</dd><dt>Key Decisions</dt><dd>@snap.Anchors.KeyDecisions</dd><dt>Verification</dt><dd>@snap.Anchors.Verification</dd></dl></details>
 }
