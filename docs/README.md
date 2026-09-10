@@ -13,6 +13,8 @@
 | [架构](architecture/ARCHITECTURE.md) / [原则](architecture/PRINCIPLES.md) | 当前实现与责任边界 |
 | [安全](../SECURITY.md) / [支持](../SUPPORT.md) | 本地边界与问题反馈 |
 
+按当前问题直达：[模糊需求怎样讨论](UNIFIED_WORKFLOW.md#把模糊需求变成可决定的问题)、[最小规格怎样指导实施](UNIFIED_WORKFLOW.md#在同一份-spec-中连接验收与工作)、[需求变更后怎样重验](UNIFIED_WORKFLOW.md#需求改变后怎样更新约定和证据)。示例供组织工作使用，未执行内容不作为验证记录。
+
 ## SOP 与导入组件
 
 [ARES_PROFILE](../workflow/ARES_PROFILE.md) 解释公司 SOP 如何用于当前 Harness；[AI-PLAYBOOK](../workflow/AI-PLAYBOOK.md) 与 [模板](../workflow/templates/SPEC.md) 按任务选择读取。任务等级决定文档深度，不要求每次都生成完整文档包。
