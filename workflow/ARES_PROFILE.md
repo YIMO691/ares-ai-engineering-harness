@@ -1,18 +1,25 @@
 # Ares 集成执行规则
 
-本文件将现有 SOP 接入当前 Harness；v0.4 仍为试运行规则，不新增独立审批系统。
+通用方法以 [工作指南](docs/WORKFLOW.md) 为准，按任务与项目习惯裁剪；本页只规定它与现有 Harness 的衔接。SOP 不要求部署运行服务，Ares 的 CLI、风险模式和状态属于本项目已有运行契约。
 
-1. Owner 与当前原生 Codex 直接讨论。先读目标项目规则和相关工程事实，再按 L1/L2/L3 读取本目录模板与示例。
-2. 原始需求保留来源/版本；上下文记录观察与来源；决定写清选择与理由。成熟案例只在相关时引用，不自动读取外部知识库。
-3. 使用 CLI create、document 生成 TASK/SPEC/PRD+SDD+TEST-PLAN。Brief 由 Codex 根据真实讨论整理，Owner 无需重复填写 JSON。生成器覆盖最低共同内容，领域细节应完整写入 Design/Context/验收；模板存在不等于内容已经充分。
-4. agree 从已登记文档取得 Anchors/Checks，记录实际授权；begin 沿用当前 Primary。CRITICAL 使用现有边界授权。SOP 的 Build 指设计确认，不能用编译通过代替。
-5. 按文档中的可验证增量实施。核心规则和缺陷优先 Red/Green/Refactor，无法适用时记录替代验证。过程文件留在 task scratch/evidence。
-6. submit 保存变更说明和源码指纹，verify 执行构建/测试及 STANDARD/CRITICAL 独立 Reviewer。FAST 不启动 Reviewer。发现交给当前 Primary 修复，再提交检查。
-7. align 为每项 AC 关联当前 Run 的 build/test artifact ID；人工项要求真实 Owner 确认。填写设计、偏移、清理与遗留，无未解决冲突才能 Align。L1/L2 结果追加 TASK/SPEC，L3 使用 DELIVERY。机器检查证据归属与完整性，Primary 对语义陈述负责；不是新的语义证明器。
-8. accept 只记录实际最终接受。新任务没有 Align、源码/文档/证据变化时不能接受。不能把实施授权冒充验收。
-9. 可选 lens 生成同一快照的变化解释；PARTIAL/FAILED 保留真实状态，验证建议不是已执行测试。Web 只读，不触发 Primary，也不改变审批。
-10. 文档变化先 reopen 协调，再 document 建新版本并 agree；旧版本及冻结文本保留。普通实现细节写入提交说明和 Align；关键设计/契约、范围或目标变化需要重新约定。
+## 项目文档与任务快照
 
-L1/L2/L3 控制文档覆盖，FAST/STANDARD/CRITICAL 控制检查强度，两者不自动一一对应。
-原生工具顺序仍由当前 Codex 遵循协议；Harness 不监控其每次编辑，不接管原生会话。
-统一入口见 [使用说明](../docs/UNIFIED_WORKFLOW.md)。UPSTREAM-AGENTS.md 是来源存档，不是第二个自动入口。
+功能说明是持续维护入口，关联涉及端的实现和验证与验收。沿用项目已有路径、格式及有效手工内容；新记录参考 [模板目录](templates/README.md)。单端任务说明另一端不涉及的依据，独立小修可以使用原提单或 PR。以代码、必要测试和与实际结果一致的相关文档完成交付。
+
+Harness 当前 `document` 仍接受 L1/L2/L3，分别生成 TASK、SPEC 或 PRD/SDD/TEST-PLAN；`align` 追加 TASK/SPEC 或写 DELIVERY。这些文件是外部 DocumentsRoot 中的**任务版本快照**，服务于冻结与证据校验，不另做项目的权威功能说明。现有文件名、Brief 结构和旧记录保持兼容，等级与 FAST/STANDARD/CRITICAL 不自动对应。
+
+当前 Primary 用 `Brief.Source` 记录功能入口及版本，在 `Brief.Context` 记录相关客户端、服务端、验证文档的引用及本次观察，`Design` 和 Anchors 保留与本轮约定有关的摘要。路径本身不会被 CLI 自动展开、抓取或校验；不能只填链接而省略冻结意图。项目文档由 Primary 读写并按授权随代码提交，不复制一套长期 PRD/SDD/DELIVERY。
+
+项目里的“功能说明 SPEC”与 DocumentsRoot 里的“L2 任务 SPEC”职责不同。已有项目采用 PRD/SDD 等名称时继续沿用，无须改名迁移。字段示例及验证边界见 [CLI 参考](../docs/CODEX_DIRECT.md#feature-records-and-task-snapshots)。
+
+## 在当前会话中执行
+
+1. Owner 与当前原生 Codex 直接讨论。检查目标项目指令、功能入口、相关代码与证据；未知业务取舍保留为问题，能够查明的事实先自行查证。按需参考规则与案例，不自动加载外部知识仓库。
+2. 根据实际讨论整理任务局部请求，`create → document → agree` 登记来源、观察、目标、验收、边界、关键决定与验证方式。沿用真实授权；Owner 无需重填 JSON 或逐阶段批准。关键缺口只阻塞受影响的动作。
+3. `begin` 后由同一 Primary 实施，按可验证的行为增量推进，更新受影响的功能记录。适合时采用 Red → Green → Refactor，其他情况记录实际验证方式；过程产物留在授权 scratch/evidence。
+4. `submit → verify` 保存源码指纹并执行配置的构建/测试。STANDARD/CRITICAL 保留现有独立只读 Reviewer，FAST 不启动 Reviewer；不从通用 SOP 推导新的固定 Agent 角色或取消现有检查。
+5. 发现实现问题按原约定返工并重新提交验证；需求、边界或关键契约改变时先协调，再 `reopen → document → agree`。失败没有新证据时调整诊断路线，不无限重试。冻结版本不能直接修改后沿用旧授权。
+6. `align` 逐项关联当前 Run 的 build/test artifact ID，人工项需要真实确认；核对项目功能入口、两端实现、验证结论与最终代码，补齐偏移与遗留。项目验证文档保存可用证据引用及限制，运行快照保留机器所需摘要。
+7. `accept` 只记录 Owner 实际最终接受；实施授权、验证通过与 GitHub 合并不能冒充业务验收。可选 `lens` 与 Web 保留只读观察边界和真实 PARTIAL/FAILED 状态。
+
+机器校验文档快照、源码及证据的归属和完整性；不会自动证明外部链接正文、每条业务语义或人工验收。独立 Reviewer 的输入也有长度与访问边界。完整操作与当前限制见 [统一流程](../docs/UNIFIED_WORKFLOW.md)。

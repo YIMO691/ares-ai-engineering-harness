@@ -1,121 +1,52 @@
+param([string]$Root = (Join-Path $PSScriptRoot '..'))
 $ErrorActionPreference = 'Stop'
-
-$repoRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..')).Path
-$markdownFiles = Get-ChildItem -LiteralPath $repoRoot -Recurse -File -Filter '*.md' |
-    Where-Object { $_.FullName -notmatch '[\\/]\.git[\\/]' }
-
+$repoRoot = (Resolve-Path -LiteralPath $Root).Path
 $issues = [System.Collections.Generic.List[string]]::new()
+$files = @(Get-ChildItem -LiteralPath $repoRoot -Recurse -File -Filter '*.md' |
+    Where-Object { $_.FullName -notmatch '[\\/]\.git[\\/]' })
+$linkCount = 0
 
-foreach ($file in $markdownFiles) {
+foreach ($file in $files) {
     $content = Get-Content -Raw -LiteralPath $file.FullName
-
     if ([string]::IsNullOrWhiteSpace($content)) {
-        $issues.Add("Empty Markdown file: $($file.FullName)")
+        $issues.Add("Empty Markdown: $($file.FullName)")
         continue
     }
-
-    if ($content -notmatch '(?m)^# ') {
-        $issues.Add("Missing H1 heading: $($file.FullName)")
-    }
-
-    $fenceCount = ([regex]::Matches($content, '(?m)^```')).Count
-    if ($fenceCount % 2 -ne 0) {
-        $issues.Add("Unmatched code fence: $($file.FullName)")
-    }
-
-    foreach ($match in [regex]::Matches($content, '\[[^\]]*\]\(([^)]+)\)')) {
-        $link = $match.Groups[1].Value.Trim()
-        if ($link -match '^(https?://|mailto:|#)') {
+    # Check relative file targets in prose; code examples are not filesystem declarations.
+    $fence = $null
+    $headings = 0
+    foreach ($line in ($content -split "`n")) {
+        if ($line -match '^\s*(`{3,}|~{3,})(.*)$') {
+            $marker = $Matches[1]
+            if ($null -eq $fence) { $fence = $marker }
+            elseif ($marker[0] -eq $fence[0] -and $marker.Length -ge $fence.Length -and [string]::IsNullOrWhiteSpace($Matches[2])) { $fence = $null }
             continue
         }
-
-        $linkPath = (($link -split '#', 2)[0]).Trim('<', '>')
-        if (-not $linkPath) {
-            continue
+        if ($null -ne $fence) { continue }
+        if ($line -match '^# ') { $headings++ }
+        foreach ($match in [regex]::Matches($line, '\[[^\]]*\]\(([^)]+)\)')) {
+            $link = $match.Groups[1].Value.Trim()
+            if ($link -match '^(https?://|mailto:|#)') { continue }
+            $target = (($link -split '#', 2)[0]).Trim('<', '>')
+            if (-not $target) { continue }
+            $linkCount++
+            $candidate = [IO.Path]::GetFullPath((Join-Path $file.DirectoryName $target))
+            if (-not (Test-Path -LiteralPath $candidate)) { $issues.Add("Broken relative link: $($file.FullName) -> $link") }
         }
-
-        $candidate = [System.IO.Path]::GetFullPath((Join-Path $file.DirectoryName $linkPath))
-        if (-not (Test-Path -LiteralPath $candidate)) {
-            $issues.Add("Broken relative link: $($file.FullName) -> $link")
-        }
     }
+    if ($headings -ne 1) { $issues.Add("Expected one H1: $($file.FullName)") }
+    if ($null -ne $fence) { $issues.Add("Unclosed code fence: $($file.FullName)") }
 }
 
-$requiredFiles = @(
-    'README.md',
-    'SOP.md',
-    'TASK-LEVELS.md',
-    'START-HERE.md',
-    'UPSTREAM-AGENTS.md',
-    'AI-PLAYBOOK.md',
-    'templates/DELIVERY-CHECKLIST.md',
-    'templates/DELIVERY.md',
-    'templates/ALIGNMENT-GATE.md',
-    'templates/FORMAL-FEATURE/README.md',
-    'examples/L3-complex-feature/DELIVERY.md',
-    'prompts/NEW-TASK.md',
-    'prompts/CONTINUE-TASK.md',
-    'prompts/ALIGN-GATE.md',
-    '.github/PULL_REQUEST_TEMPLATE.md'
-)
-
-foreach ($relativePath in $requiredFiles) {
-    $candidate = Join-Path $repoRoot $relativePath
-    if (-not (Test-Path -LiteralPath $candidate)) {
-        $issues.Add("Missing required file: $relativePath")
-    }
+foreach ($entry in @('README.md','UPSTREAM-AGENTS.md','CONTRIBUTING.md','templates/SPEC.md','docs/WORKFLOW.md',
+    'docs/ENGINEERING_RULES.md','docs/AI_COLLABORATION.md','docs/SOURCES.md','templates/README.md','templates/PROJECT-RULES.md',
+    'templates/CLIENT.md','templates/SERVER.md','templates/VERIFICATION.md',
+    'ARES_PROFILE.md','AI-PLAYBOOK.md')) {
+    if (-not (Test-Path -LiteralPath (Join-Path $repoRoot $entry))) { $issues.Add("Missing current entry: $entry") }
 }
-
-$agentsPath = Join-Path $repoRoot 'UPSTREAM-AGENTS.md'
-if ((Test-Path -LiteralPath $agentsPath) -and (Get-Item -LiteralPath $agentsPath).Length -ge 32768) {
-    $issues.Add('UPSTREAM-AGENTS.md exceeds the default 32 KiB project instruction limit.')
-}
-
-$sop = Get-Content -Raw -LiteralPath (Join-Path $repoRoot 'SOP.md')
-if ($sop.IndexOf('## 8. Align') -lt 0 -or $sop.IndexOf('## 9. Done') -lt 0 -or
-    $sop.IndexOf('## 8. Align') -gt $sop.IndexOf('## 9. Done')) {
-    $issues.Add('SOP must place Align before Done.')
-}
-
-$alignPrompt = Get-Content -Raw -LiteralPath (Join-Path $repoRoot 'prompts/ALIGN-GATE.md')
-if ($alignPrompt -notmatch '无法访问必要实现或测试证据') {
-    $issues.Add('Align prompt must fail when executable evidence is unavailable.')
-}
-
-$formalTemplates = @(
-    'templates/PRD.md',
-    'templates/SDD.md',
-    'templates/TEST-PLAN.md',
-    'templates/DELIVERY.md'
-)
-
-foreach ($relativePath in $formalTemplates) {
-    $content = Get-Content -Raw -LiteralPath (Join-Path $repoRoot $relativePath)
-    if ($content -notmatch '\[必填\]') {
-        $issues.Add("Formal template must mark required sections: $relativePath")
-    }
-}
-
-$testPlan = Get-Content -Raw -LiteralPath (Join-Path $repoRoot 'templates/TEST-PLAN.md')
-if ($testPlan -notmatch '实际执行结果统一写入 `DELIVERY\.md`') {
-    $issues.Add('TEST-PLAN must route actual execution results to DELIVERY.md.')
-}
-
-$delivery = Get-Content -Raw -LiteralPath (Join-Path $repoRoot 'templates/DELIVERY.md')
-if ($delivery -notmatch '# 8\. Align Gate \[必填\]' -or
-    $delivery -notmatch '# 9\. 最终交付决定 \[必填\]') {
-    $issues.Add('DELIVERY must contain the required Align Gate and final delivery decision.')
-}
-
-$taskLevels = Get-Content -Raw -LiteralPath (Join-Path $repoRoot 'TASK-LEVELS.md')
-if ($taskLevels -notmatch '`DELIVERY\.md`：最终实现、测试结果、偏移、Align 和交付决定的唯一汇总') {
-    $issues.Add('L3 minimum artifacts must include DELIVERY.md.')
-}
-
 if ($issues.Count -gt 0) {
-    $issues | ForEach-Object { Write-Error $_ }
+    $issues | ForEach-Object { [Console]::Error.WriteLine($_) }
     exit 1
 }
-
-Write-Output "Validated $($markdownFiles.Count) Markdown files."
-Write-Output 'Required workflow files, relative links, instruction size, and Align invariants passed.'
+Write-Output "Validated $($files.Count) Markdown files and $linkCount relative file links."
+Write-Output 'Documentation checks only; no business acceptance or release verdict is inferred.'

@@ -7,8 +7,9 @@
 ## 范围与约定
 
 - 关联 Issue / Task ID：
-- 文档等级与检查强度：L1/L2/L3；FAST/STANDARD/CRITICAL
-- 文档版本或安全引用：
+- 功能入口、受影响的客户端/服务端/验证记录（未涉及说明依据）：
+- Harness 快照等级与检查强度（使用 Harness 时）：L1/L2/L3；FAST/STANDARD/CRITICAL
+- 项目文档与运行快照版本或安全引用：
 - Goal / Acceptance / Non-goals / Boundary / Key Decisions / Verification：
 - 实际实施授权及来源：
 

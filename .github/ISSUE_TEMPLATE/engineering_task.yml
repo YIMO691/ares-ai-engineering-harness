@@ -23,12 +23,12 @@ body:
     id: documents
     attributes:
       label: Task 与讨论文档
-      description: Task ID；L1/L2/L3 及理由；文档版本或安全引用；Key Decisions 与 Verification。不要复制本地原始证据。
+      description: 功能入口及受影响的客户端/服务端/验证记录；Task ID 与 Harness 快照等级 L1/L2/L3（使用时）；版本或安全引用；Key Decisions 与 Verification。复用已有记录，不复制本地原始证据。
   - type: dropdown
     id: workflow
     attributes:
       label: 检查强度
-      description: 与 L1/L2/L3 独立选择；未决定时保留待确认。
+      description: 与 Harness 快照格式 L1/L2/L3 独立选择；未决定时保留待确认。
       options:
         - 待确认
         - FAST

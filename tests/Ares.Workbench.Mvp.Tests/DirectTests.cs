@@ -93,6 +93,41 @@ public class DirectTests
         Assert.All(h.Current.Direct.Documents.Files,f=>Assert.Contains("fixture/planning-v1",File.ReadAllText(f.Path)));
         Assert.Equal(DirectStage.Discussing,h.Current.Direct.Stage);
     }
+    [Fact]public async Task ProjectDocumentReferencesSurviveSnapshotReloadWithoutCopyingProjectFiles() {
+        var h=new Harness(documents:true);
+        var brief=h.Brief() with {
+            Source="docs/features/labels.md @ revision-1",
+            Context=[new("Existing client recovery rule","docs/features/labels-client.md @ revision-1"),
+                new("Server not affected: formatting is local","fixture/src/code.cs"),
+                new("Whitespace scenario needs verification","docs/features/labels-verification.md @ revision-1")]
+        };
+        await h.Service.Document(h.Task.TaskId,h.Revision,brief);
+        var saved=new SqliteWorkbenchStore(h.Root).Task(h.Task.TaskId).Direct!.Documents!;
+        Assert.Single(saved.Files);
+        Assert.Equal(brief.Source,saved.Brief.Source);
+        Assert.Equal(brief.Context.ToArray(),saved.Brief.Context.ToArray());
+        Assert.Equal(DirectDocuments.SopVersion,saved.SopVersion);
+        Assert.Contains(brief.Source,saved.Files[0].Content);
+        Assert.All(brief.Context,f=>Assert.Contains(f.Source,saved.Files[0].Content));
+        Assert.False(Directory.Exists(Path.Combine(h.Root,"docs")));
+        await h.Service.Agree(h.Task.TaskId,h.Revision,saved.Brief.Anchors,saved.Brief.Checks,Owner,default);
+        Assert.Equal(saved.SopVersion,h.Current.Direct!.Agreement!.Documents!.SopVersion);
+    }
+    [Fact]public void DeliveringLegacySnapshotPreservesItsOriginalProvenance() {
+        var h=new Harness();
+        var documents=new DirectDocuments(Path.Combine(h.Root,"documents"));
+        const string oldVersion="Workflow-SOP v0.4 @ bd1a20e661440d44d448d2f713aa69e18b260bea";
+        var path=Path.Combine(h.Root,"documents","legacy","SPEC.md");
+        var file=DirectDocuments.Capture("SPEC",path,"# Legacy task\n\n"+oldVersion+"\n");
+        var original=new DocumentSet(1,oldVersion,h.Brief(),[file]);
+        var reloaded=System.Text.Json.JsonSerializer.Deserialize<DocumentSet>(System.Text.Json.JsonSerializer.Serialize(original))!;
+        var delivered=documents.Deliver(reloaded,"Actual fixture alignment");
+        Assert.Equal(oldVersion,delivered.SopVersion);
+        Assert.Contains(oldVersion,File.ReadAllText(path));
+        Assert.DoesNotContain(DirectDocuments.SopVersion,File.ReadAllText(path));
+        Assert.DoesNotContain("Actual fixture alignment",original.Files[0].Content);
+        documents.Validate(delivered);
+    }
     [Fact]public async Task NewDocumentWorkflowCannotSkipDocumentsOrSubstituteIntent() {
         var h=new Harness(documents:true);
         await Assert.ThrowsAsync<InvalidOperationException>(()=>h.Service.Agree(h.Task.TaskId,h.Revision,Anchors,[new(1,"automatic","test")],Owner,default));

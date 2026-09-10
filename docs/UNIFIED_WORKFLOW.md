@@ -30,7 +30,7 @@
 ```mermaid
 flowchart TD
     A[策划需求与来源] --> B[Owner 与当前 Codex 讨论并检查工程事实]
-    B --> C[形成 TASK / SPEC / PRD + SDD + TEST-PLAN]
+    B --> C[维护功能文档并登记本轮任务快照]
     C --> D[确认目标与边界并登记 Ready]
     D --> E[同一 Primary 自主实施和自检]
     E --> F[提交实现并运行 Build / Test]
@@ -64,7 +64,11 @@ flowchart TD
 
 参考成熟案例时，记录来源、采用理由和适用限制，不以“先进”为由扩展需求。独立的 ares-ai-software-engineering 知识仓库仅在 Owner 指定时使用，不自动加载。
 
-| 文档等级 | 讨论后的工程文件 | 实施结束后的汇总 |
+项目功能文档按 [SOP 工作指南](../workflow/docs/WORKFLOW.md#维护功能说明) 持续维护：功能说明关联涉及端的实现与验证记录，已有格式和有效内容继续沿用，单端任务及独立小修按实际影响裁剪。代码、相关测试和受影响文档随工作交付。
+
+下面列出的是 **Harness 当前 CLI 在 DocumentsRoot 中生成的任务快照**。它冻结本轮必要摘要并引用项目功能入口，不要求在项目再建一套同名文档。四类功能记录与快照的具体映射见 [ARES_PROFILE](../workflow/ARES_PROFILE.md#项目文档与任务快照)。
+
+| 快照等级 | 讨论后的运行快照 | 实施结束后的快照汇总 |
 |---|---|---|
 | L1：小改动 | TASK.md，集中记录必要内容 | 在原 TASK 中追加交付与 Align |
 | L2：一般功能 | SPEC.md，记录需求、上下文、关键设计和验证安排 | 在原 SPEC 中追加交付与 Align |
@@ -72,7 +76,7 @@ flowchart TD
 
 重大、长期或难逆的决定才另写 ADR，CLI 不会自动为每个任务生成 ADR。Context、计划与讨论结论进入相应等级的工程文档，不自动另建 CONTEXT.md、PLAN.md、TASKS.md 或任务专属 AGENTS.md，也不自动导出原生完整聊天记录。重要结论和理由应进入文件；原始来源通常保留引用，不默认全文复制。
 
-当前生成器把结构化 Brief 渲染为 Markdown，覆盖最低共同结构。文件存在不代表领域设计已经充分；Primary 按实际需求和适用模板补充内容。领域规则参考 [Ares 集成规则](../workflow/ARES_PROFILE.md) 与 [SOP](../workflow/SOP.md)，无需机械复制全部模板章节。
+当前生成器把结构化 Brief 渲染为 Markdown，覆盖最低共同结构。文件存在不代表领域设计已经充分；Primary 按实际需求和适用模板补充内容。领域规则参考 [Ares 集成规则](../workflow/ARES_PROFILE.md) 与 [SOP 工作指南](../workflow/docs/WORKFLOW.md)，无需机械复制全部模板章节。
 
 ## 文件如何指导 Codex 实施
 
@@ -95,11 +99,11 @@ flowchart TD
 
 | 顺序 | CLI 操作 | 产物 |
 |---|---|---|
-| 讨论 | project → create → document | 原始来源、上下文、决定与 TASK/SPEC/正式文档包 |
+| 讨论 | project → create → document | 更新项目功能记录；以来源、上下文和决定生成本轮 TASK/SPEC/L3 运行快照 |
 | Ready | agree → begin | 文档版本、冻结约定与实际授权 |
 | 实施 | 按行为增量修改及验证 → submit | 项目改动、提交说明与源码指纹 |
 | 验证 | verify；缺陷后 begin → 修复 → submit → verify | 构建、测试、独立审查及历次证据 |
-| 对齐 | align | L1/L2 更新 TASK/SPEC；L3 生成 DELIVERY |
+| 对齐 | align | 核对并维护项目功能与验证文档；运行快照中 L1/L2 更新 TASK/SPEC，L3 生成 DELIVERY |
 | 理解变化 | 可选 lens | 分析与解释 JSON、离线 HTML |
 | 验收 | 实际 Owner 接受后 accept | 验收决定；不自动 push/merge/release |
 
@@ -111,13 +115,13 @@ flowchart TD
 
 ### 代码与注释
 
-[交付检查表](../workflow/templates/DELIVERY-CHECKLIST.md) 要求注释解释原因和约束，不重复代码表面行为。重点检查不直观的业务规则、特殊分支、顺序与生命周期约束、兼容处理及必要接口副作用，同时清理过期注释、临时日志和废弃逻辑。简单直观的代码无需逐行翻译。
+[工程规则](../workflow/docs/ENGINEERING_RULES.md) 要求注释解释原因和约束，不重复代码表面行为。重点检查不直观的业务规则、特殊分支、顺序与生命周期约束、兼容处理及必要接口副作用，同时清理过期注释、临时日志和废弃逻辑。简单直观的代码无需逐行翻译。
 
 Primary 在实施与清理时判断这些内容，Reviewer 结合实际改动检查可维护性。当前没有独立的注释质量评分或必填审查字段，不承诺每次都已全面审查注释。重要检查结果可放入已有 TASK/SPEC/DELIVERY 的交付部分，不新建 COMMENTS_REPORT，也不设置注释数量门槛。
 
 ### 测试的选择与实际执行
 
-Primary 根据改动行为和主要风险选择验证方法。适用时覆盖正常、边界、非法输入、重复操作、超时、失败恢复和兼容场景；涉及跨模块或用户操作的功能，再选择集成、端到端或人工验证。核心规则和缺陷适合时优先测试驱动，不为低影响文字修改增加镜像实现的测试。参考 [测试方案模板](../workflow/templates/TEST-PLAN.md)，无需每项任务都执行所有测试层级。
+Primary 根据改动行为和主要风险选择验证方法。适用时覆盖正常、边界、非法输入、重复操作、超时、失败恢复和兼容场景；涉及跨模块或用户操作的功能，再选择集成、端到端或人工验证。核心规则和缺陷适合时优先测试驱动，不为低影响文字修改增加镜像实现的测试。参考 [验证与验收模板](../workflow/templates/VERIFICATION.md)，无需每项任务都执行所有测试层级。
 
 当前 `verify` 的 Test 节点依次执行项目配置的 BuildCommand、TestCommand，记录输出与进程结果。构建失败时停止，不能把未运行的测试说成通过。非零退出、超时、取消或执行故障不会算成功；依赖服务等环境问题应保留真实失败原因。
 
@@ -138,7 +142,7 @@ Primary 根据改动行为和主要风险选择验证方法。适用时覆盖正
 | STANDARD | Build/Test → 独立 Reviewer → Align → Owner 验收 |
 | CRITICAL | 提交后同 STANDARD；实施前另有冻结写入边界的明确授权 |
 
-L1/L2/L3 决定文档深度，与以上模式不一一对应。SOP 的 Build 指设计确认，工具 build 指构建检查。
+L1/L2/L3 控制现有任务快照格式，与以上模式不一一对应。现行 SOP 按职责选择项目文档；旧 SOP 的 Build 设计阶段称谓不再作为通用入口，工具 build 仍指构建检查。
 
 Reviewer 使用独立只读会话，核对实际源码、差异、讨论文档与验证证据，返回 PASS 或 REWORK_REQUIRED；问题包含严重性、相关要求、依据和修复建议。它也可能遗漏问题，不能把模型审查解释为完整性证明。当前上下文包含有长度限制的文档和报告摘录，也不等于自动穷尽所有资料。
 
@@ -156,7 +160,7 @@ Reviewer 使用独立只读会话，核对实际源码、差异、讨论文档�
 | AC-02：非法输入被拒绝 | 边界/异常行为及其验证 | 真实结果或明确缺口 |
 | AC-03：操作提示符合需求 | 实际 UI 检查或人工确认来源 | 已确认事实；未检查则如实说明 |
 
-当前 Align 要求每条 AC 有结果记录；自动项关联当前成功测试节点的匹配 build/test artifact，人工项记录真实 Owner 确认。还记录设计符合情况、偏移、清理和遗留。L1/L2 追加原文档，L3 汇总到 DELIVERY。
+当前 Align 要求每条 AC 有结果记录；自动项关联当前成功测试节点的匹配 build/test artifact，人工项记录真实 Owner 确认。还记录设计符合情况、偏移、清理和遗留。Primary 维护项目功能与验证记录；Harness 在本轮 L1/L2 快照追加摘要，L3 汇总到任务 DELIVERY。
 
 Harness 检查本轮运行完成、源码仍匹配提交、文档与验证证据未变化、证据属于对应成功节点等。它不根据非空说明证明语义正确，也不自动判断所有断言是否充分；这部分由 Primary 如实组织，Reviewer 和 Owner 判断。当前模型并不因为具有更强能力就能替 Owner 决定未表达的业务取舍。
 
@@ -169,7 +173,7 @@ GitHub 提交、合并与发布遵循各自实际授权，业务 Done 不会自�
 | 产物 | 当前位置或载体 | 用途 |
 |---|---|---|
 | 代码、配置、测试代码及项目文档 | 已授权目标仓库 | 实际交付内容 |
-| TASK / SPEC / PRD / SDD / TEST-PLAN / DELIVERY | DocumentsRoot 下的任务版本目录 | 人可读的需求、设计与交付结论 |
+| TASK / SPEC / PRD / SDD / TEST-PLAN / DELIVERY | DocumentsRoot 下的任务版本目录 | 引用项目功能记录的本轮需求、设计与交付快照 |
 | Brief、Agreement、授权、提交说明、Align、验收及历史 | DataRoot/ares-workbench.db | 结构化状态与版本关联，不是额外逐份生成的 Markdown |
 | build-*.txt/.json、test-*.txt/.json | DataRoot/artifacts/&lt;run-id&gt;/ | 实际命令、输出与进程结果 |
 | Reviewer 结构化结果、报告与运行记录 | 同一 Run 的 artifacts 目录 | 独立审查结论、发现及原始执行记录 |

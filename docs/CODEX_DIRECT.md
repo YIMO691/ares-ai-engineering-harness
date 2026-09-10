@@ -77,3 +77,25 @@ Documents and Change Lens are integrated. Future Git/PR/CI, resource and build-r
 DirectTests exercises workflow guards with controlled handlers. Real native review must be separately verified with CLI evidence; controlled handler tests do not prove native session behavior.
 
 Source fingerprints cover Git-tracked and unignored files plus HEAD, branch and instruction hashes. Diff artifacts are the working tree against HEAD, including pre-existing uncommitted changes; baseline hashes distinguish what existed before the agreement. Native tool policy remains responsible for changes outside these observations.
+
+## Feature records and task snapshots
+
+The current SOP uses an existing feature entry linked to affected client, server and verification records. Maintain those project files in place. L1/L2/L3 still select the CLI's task snapshot layout; they do not mandate another project document package or migrate old records.
+
+Use the existing Brief fields to cite the authoritative documents and their observed revision. For example, the following is an illustrative fragment to merge into a complete document request, not a runnable request or evidence of executed work:
+
+```json
+{
+  "Source": "docs/features/favorites.md @ <observed revision>; issue <actual reference>",
+  "Context": [
+    {"Observation": "Feature entry links the affected implementation and acceptance records.", "Source": "docs/features/favorites.md @ <observed revision>"},
+    {"Observation": "Client interaction and failure recovery relevant to this change: <observed facts>.", "Source": "docs/features/favorites-client.md @ <observed revision>"},
+    {"Observation": "Server validation and idempotency relevant to this change: <observed facts>.", "Source": "docs/features/favorites-server.md @ <observed revision>"},
+    {"Observation": "Existing scenarios and verification gaps: <observed facts, actual results only>.", "Source": "docs/features/favorites-verification.md @ <observed revision>"}
+  ]
+}
+```
+
+Source and Context are text fields. The CLI does not follow links, import their contents or hash external documents automatically. Include the necessary current intent, design and checks in the complete Brief; a link alone is insufficient. Project files within the configured source snapshot scope are subject to the existing source-fingerprint checks; files outside it are not. Primary must read and reconcile the actual documents, and state inaccessible or unverified material.
+
+After implementation, update the affected project records and cite actual evidence and limitations. Align retains its existing current-run artifact requirements and writes the task snapshot summary. A new snapshot records the imported SOP commit; old DocumentSet.SopVersion and frozen content remain unchanged. See [Ares profile](../workflow/ARES_PROFILE.md).
