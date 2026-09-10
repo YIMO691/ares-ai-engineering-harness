@@ -6,6 +6,8 @@ Ares 将 **Workflow-SOP、工程工作流 Harness 和 Change Lens** 组织在一
 
 日常使用从一段需求和一次 Codex 对话开始。讨论形成有来源的上下文、需求、设计和验证方案；你确认后，当前 Codex 按约定推进开发。出现缺陷便带着测试或审查证据返工，最终交付代码、文档以及能够解释“为什么可以验收”的记录。
 
+完整说明见 [从需求讨论到代码交付](docs/UNIFIED_WORKFLOW.md)：讨论会留下哪些文件、文件如何指导实施、注释与测试如何检查、怎样判断完成，以及模型自主与轻量 Harness 的设计原则。它区分当前已实现的检查与工程判断，不因文档补充而增加运行门禁。
+
 ## 目录
 
 - [项目组成与分工](#项目组成与分工)
@@ -328,7 +330,7 @@ PR 检查通过、阻断问题解决并获得本次明确授权后才合并；�
 
 | 想了解 | 阅读 |
 |---|---|
-| 文档字段、版本与 Align 请求 | [统一流程](docs/UNIFIED_WORKFLOW.md) |
+| 完整流程、文件关系、质量判断与 CLI 示例 | [完整研发流程](docs/UNIFIED_WORKFLOW.md) |
 | CLI 操作、返回码与恢复 | [Codex Direct 参考](docs/CODEX_DIRECT.md) |
 | SOP 方法与模板如何应用 | [ARES_PROFILE](workflow/ARES_PROFILE.md) · [AI-PLAYBOOK](workflow/AI-PLAYBOOK.md) |
 | 组件与权限责任边界 | [当前架构](docs/architecture/ARCHITECTURE.md) · [安全说明](SECURITY.md) |

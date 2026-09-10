@@ -6,7 +6,7 @@
 |---|---|
 | [项目 README](../README.md) | 项目状态、环境、启动和支持 |
 | [工作流概览](../WORKFLOW.md) | 角色、阶段、风险等级和恢复边界 |
-| [统一流程](UNIFIED_WORKFLOW.md) | 文档产物、Ready、Align、配置和请求示例 |
+| [完整研发流程](UNIFIED_WORKFLOW.md) | 模型自主与轻量 Harness、讨论文件、实施依据、注释与测试、审查、验收及配置示例 |
 | [CLI 参考](CODEX_DIRECT.md) | 操作字段、返回码、返工和恢复 |
 | [GitHub 协作规范](GITHUB_WORKFLOW.md) | Issue/PR 留痕、检查与授权合并 |
 | [贡献指南](../CONTRIBUTING.md) | 开发、文档与验证要求 |
