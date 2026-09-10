@@ -10,7 +10,7 @@
 | [文档契约目录](target-harness/ARTIFACT_CONTRACTS.md) | 每种产物的输入、最小语义内容、责任、完成条件和后续消费者 |
 | [完整贯穿示例](target-harness/WALKTHROUGH.md) | 一个虚构需求怎样经过全部环节，以及失败、需求变更和中断怎样处理 |
 
-当前操作以 [现行研发流程](UNIFIED_WORKFLOW.md)、[CLI 参考](CODEX_DIRECT.md) 和 [SOP 集成规则](../workflow/ARES_PROFILE.md) 为准。目标架构保留完整职责；是否合并成少量文件、哪些职责不适用，在项目落地时另行决定。
+当前操作以[现行研发流程](UNIFIED_WORKFLOW.md)和 [CLI 参考](CODEX_DIRECT.md) 为准。目标架构保留完整职责；是否合并成少量文件、哪些职责不适用，在项目落地时另行决定。
 
 ## 1. 目标与边界
 

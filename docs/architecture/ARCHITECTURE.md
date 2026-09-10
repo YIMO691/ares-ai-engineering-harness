@@ -6,6 +6,17 @@
 
 完整目标参考架构见[目标 Harness](../TARGET_HARNESS.md)，包含文档/证据依赖、模型工作包、变化传播、交付运行与评估；其[当前实现映射](../TARGET_HARNESS.md#11-当前实现映射与演进次序)说明差距。本文继续只描述现有组件与运行行为，目标设计不等于已实现能力。
 
+## 设计原则
+
+1. Keep control and execution responsibilities separate.
+2. Native capability first; use a thin adapter before adding new infrastructure.
+3. Freeze intent and acceptance, leave implementation details flexible.
+4. Separate natural-language guidance from enforced permission boundaries.
+5. Use deterministic verification and independent read-only review.
+6. Human judgment owns ambiguity, Ready and final acceptance.
+7. Preserve real failure, timing and recovery evidence; never manufacture PASS.
+8. Measure Owner coordination cost before expanding the platform.
+
 ## 组件与职责
 
 | 组件 | 责任 |
@@ -36,4 +47,4 @@ CRITICAL 在外部实施前记录冻结边界授权；最终验收是另一个�
 
 ## 历史兼容
 
-Web Fusion 曾由宿主启动讨论并按观测到的原生 thread ID 继续实施，其对话账本只用于审计；该机制不描述当前 Direct Primary。差异见 [ADR 0002](../decisions/0002-workflow-fusion.md)、[ADR 0003](../decisions/0003-codex-direct-observer.md) 与 [工作流](../../WORKFLOW.md)。
+Web Fusion 曾由宿主启动讨论并按观测到的原生 thread ID 继续实施，其对话账本只用于审计；该机制不描述当前 Direct Primary。差异见 [ADR 0002](../decisions/0002-workflow-fusion.md)、[ADR 0003](../decisions/0003-codex-direct-observer.md) 与 [工作流](../UNIFIED_WORKFLOW.md)。

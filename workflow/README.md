@@ -6,7 +6,7 @@
 
 ## Ares 集成入口
 
-此目录导入 Workflow-SOP 固定版本，提供可裁剪的方法、模板与例子。在 Ares 中先读 [集成规则](ARES_PROFILE.md)，再按本页进入工作指南；根 [AGENTS.md](../AGENTS.md) 是仓库维护指令入口。[版本与适配记录](../docs/integrations/LOCAL_ADAPTATIONS.md) 说明来源和兼容边界。
+此目录导入 Workflow-SOP 固定版本，提供可裁剪的方法、模板与例子。在 Ares 中以 [现行流程](../docs/UNIFIED_WORKFLOW.md)为日常入口，本页的通用方法、模板与案例按需参考；根 [AGENTS.md](../AGENTS.md) 是仓库维护指令入口。[版本与适配记录](../docs/integrations/LOCAL_ADAPTATIONS.md) 说明来源和兼容边界。
 
 ## 从这里开始
 
