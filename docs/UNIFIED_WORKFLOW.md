@@ -74,7 +74,7 @@ flowchart TD
 | L2：一般功能 | SPEC.md，记录需求、上下文、关键设计和验证安排 | 在原 SPEC 中追加交付与 Align |
 | L3：复杂功能 | PRD.md 管需求；SDD.md 管设计；TEST-PLAN.md 管验证方案 | DELIVERY.md 汇总实施、验证、偏移与交付决定 |
 
-重大、长期或难逆的决定才另写 ADR，CLI 不会自动为每个任务生成 ADR。Context、计划与讨论结论进入相应等级的工程文档，不自动另建 CONTEXT.md、PLAN.md、TASKS.md 或任务专属 AGENTS.md，也不自动导出原生完整聊天记录。重要结论和理由应进入文件；原始来源通常保留引用，不默认全文复制。
+重大、长期或难逆的决定才另写 ADR，CLI 不会自动为每个任务生成 ADR。Context、计划与讨论结论按本轮需要进入所选任务快照，长期有效的需求与设计继续维护在项目功能文档中。不自动另建 CONTEXT.md、PLAN.md、TASKS.md 或任务专属 AGENTS.md，也不自动导出原生完整聊天记录。重要结论和理由应进入对应文件；原始来源通常保留引用，不默认全文复制。
 
 当前生成器把结构化 Brief 渲染为 Markdown，覆盖最低共同结构。文件存在不代表领域设计已经充分；Primary 按实际需求和适用模板补充内容。领域规则参考 [Ares 集成规则](../workflow/ARES_PROFILE.md) 与 [SOP 工作指南](../workflow/docs/WORKFLOW.md)，无需机械复制全部模板章节。
 
