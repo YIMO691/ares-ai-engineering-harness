@@ -42,6 +42,8 @@ L1/L2/L3 与风险等级不一一对应。SOP 的 Build 表示适用任务的设
 
 环境故障且提交源码未变时可重试 `verify`；源码变更需重新提交。目标、边界、指令或项目策略变化先 `reopen`，协调后生成新文档版本并 `agree`。硬崩溃先核对残留子进程，再 `recover`，保留原始证据。
 
+需要具体写法时，读[需求澄清示例](docs/UNIFIED_WORKFLOW.md#把模糊需求变成可决定的问题)和[规格变更与证据示例](docs/UNIFIED_WORKFLOW.md#需求改变后怎样更新约定和证据)。它们沿用本页阶段，说明怎样把业务选择接到实际任务和当前验收。
+
 ## 兼容路径
 
 旧 v0.2 角色顺序和 Web Workflow Fusion 只适用于已有兼容记录；其恢复与返工语义不应套用到 Direct。`ObserverOnly=false` 才启用旧 Web 执行入口，不能与 Direct 写入并行。历史说明见 [ADR 0002](docs/decisions/0002-workflow-fusion.md) 和 [Phase 1 基线](docs/ARES_AGENT_ENGINEERING_WORKBENCH_BASELINE_v1.0.md)。
