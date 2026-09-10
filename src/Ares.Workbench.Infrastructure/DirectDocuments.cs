@@ -6,7 +6,7 @@ using Ares.Workbench.Domain;
 namespace Ares.Workbench.Infrastructure;
 
 public sealed class DirectDocuments(string root):IDirectDocuments {
-    public const string SopVersion="Workflow-SOP v0.4 @ bd1a20e661440d44d448d2f713aa69e18b260bea";
+    public const string SopVersion="Workflow-SOP @ a261bcaa1cb1c075f185e003d8ce73bbe7ee89ca / Ares task-snapshot v1";
     public static string Hash(string value)=>Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(value)));
     public static DocumentFile Capture(string role,string path,string text) {
         path=LocalPaths.Output(path);Directory.CreateDirectory(Path.GetDirectoryName(path)!);
@@ -41,7 +41,7 @@ public sealed class DirectDocuments(string root):IDirectDocuments {
         var dir=WorkspacePolicy.Under(LocalPaths.Output(root),Path.Combine(root,"TASK-"+taskId,"v"+version+"-"+Guid.NewGuid().ToString("N")));
         string bullets(IEnumerable<string> rows)=>string.Join("\n",rows.Select(x=>"- "+x));
         var a=b.Anchors;
-        string header="# "+title+"\n\n"+b.Level+" · "+SopVersion+"\n\n原始需求："+b.Source+"\n\n等级理由："+b.LevelReason+"\n\n";
+        string header="# "+title+"\n\n"+b.Level+" · "+SopVersion+"\n\nAres 任务快照；项目功能文档按来源引用持续维护，本快照用于约定冻结与验证追溯。\n\n原始需求："+b.Source+"\n\n等级理由："+b.LevelReason+"\n\n";
         string context="## 工程上下文与来源\n"+bullets(b.Context.Select(x=>x.Observation+" — "+x.Source))+"\n\n";
         string intent="## 目标\n"+a.Goal+"\n\n## 范围与非目标\n"+a.NonGoals+"\n\n## 修改边界\n"+a.Boundary+
             "\n\n## 验收标准\n"+bullets(a.Acceptance.Select((x,n)=>$"AC-{n+1:00}: {x}"))+"\n\n";

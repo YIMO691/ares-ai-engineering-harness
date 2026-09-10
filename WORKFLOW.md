@@ -16,7 +16,7 @@
 
 | 阶段 | 操作 | 留痕 |
 |---|---|---|
-| Discussing | 核对策划来源、上下文和待确认问题；`document` | L1 TASK；L2 SPEC；L3 PRD、SDD、TEST-PLAN |
+| Discussing | 核对策划来源、功能入口与涉及端文档，维护需求、上下文和待确认问题；`document` | 项目功能记录引用；运行快照 L1 TASK、L2 SPEC、L3 PRD/SDD/TEST-PLAN |
 | Ready | `agree` 冻结 Goal、Acceptance、Non-goals、Boundary、Key Decisions、Verification 和实际授权 | 文档版本、约定、策略与源码基线 |
 | Implementing | `begin`；当前 Primary 按可验证增量修改 | 实际改动和决定；不启动替代 Primary |
 | Submitted / Checking | `submit` → `verify` | 提交源码指纹、构建/测试、审查和每次 Run 的证据 |
@@ -34,7 +34,7 @@ Align 是交付检查，不是独立的 Task 状态。新任务检查完成后�
 | STANDARD | 已冻结约定与实际授权 | Build/Test → 独立 Reviewer → Align → Owner 验收 |
 | CRITICAL | 额外记录对冻结写入边界的明确授权 | 与 STANDARD 相同；风险授权不代替最终验收 |
 
-L1/L2/L3 与风险等级不一一对应。SOP 的 Build 表示适用任务的设计确认；工具 `build` 表示编译检查，两者含义不同。
+L1/L2/L3 是当前 Harness 任务快照格式，与风险等级不一一对应。项目功能说明关联涉及端实现与验证，沿用已有文档，不按快照等级复制一套文件。具体衔接见 [ARES_PROFILE](workflow/ARES_PROFILE.md)，通用方法见 [工作指南](workflow/docs/WORKFLOW.md)；工具 `build` 表示编译检查。
 
 ## 返工与恢复
 

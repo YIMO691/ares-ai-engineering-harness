@@ -15,7 +15,7 @@
 
 ## SOP 与导入组件
 
-[ARES_PROFILE](../workflow/ARES_PROFILE.md) 解释公司 SOP 如何用于当前 Harness；[AI-PLAYBOOK](../workflow/AI-PLAYBOOK.md) 与 [模板](../workflow/templates/SPEC.md) 按任务选择读取。任务等级决定文档深度，不要求每次都生成完整文档包。
+[工作指南](../workflow/docs/WORKFLOW.md) 是当前 SOP 正文；[四类模板](../workflow/templates/README.md) 与 [示例](../workflow/examples/L2-standard-feature.md) 展示功能入口怎样关联两端实现和验证。[ARES_PROFILE](../workflow/ARES_PROFILE.md) 规定与当前 Harness 的衔接：项目文档持续维护，L1/L2/L3 保留为运行快照格式。
 
 [Change Lens](../tools/change-lens/README.md) 保留自身接口、案例和已知限制。固定来源、原哈希及本地适配见 [导入清单](integrations/UPSTREAM_IMPORTS.json) 和 [适配说明](integrations/LOCAL_ADAPTATIONS.md)。导入目录中的上游说明不取代根 AGENTS 与当前集成规则，不为统一排版重写固定来源全文。
 

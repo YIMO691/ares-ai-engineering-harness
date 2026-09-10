@@ -1,22 +1,15 @@
-# Project AI workflow instructions
+# Repository instructions
 
-Before working on a task, read `AI-PLAYBOOK.md`. Use `README.md`, `TASK-LEVELS.md`, and only the SOP sections and templates relevant to the current gate and task level.
+Maintain a lightweight, tool-neutral company workflow. This repository contains guidance, templates, examples and documentation checks; do not add an agent runtime, Web app, database or mandatory task-state protocol.
 
-## Working agreement
+These instructions are for maintaining this repository, not a file to copy into downstream projects. Read README.md and docs/WORKFLOW.md, then relevant engineering rules. docs/AI_COLLABORATION.md is optional tool setup reference. Keep one authoritative location for each rule and update affected links and examples.
 
-- Inspect the target repository, its closest instructions, existing docs, code, configuration, interfaces, and tests before asking discoverable questions or proposing detailed design.
-- Distinguish read-only review/diagnosis/planning from authorized implementation. Do not mutate code or external state when the user only requested analysis.
-- Classify the task as L1, L2, or L3 with evidence. L1 uses TASK, L2 uses SPEC, and formal L3 work uses PRD, SDD, TEST-PLAN, and DELIVERY; never upgrade a task merely because templates exist.
-- Report the current gate, evidence, decisions, blockers, and next action using the output contract in `AI-PLAYBOOK.md`.
-- Treat TASK/SPEC/PRD as authority for intent, SDD/ADR as authority for key design, executable schemas/tests/code as evidence of contracts and implementation, and runtime evidence as operational truth.
-- Update authoritative documents when behavior or design changes. Do not defer all alignment until the end.
-- Do not claim test success, Align Pass, or Done without inspecting real evidence. Missing executable evidence means Align Fail or an explicit limitation.
-- Before completion, run the Align Gate and delivery cleanup. Record L3 implementation, test results, drift, and the final decision in DELIVERY; classify any drift and resolve it or return to Ready/Build.
-- Preserve project-specific safety, storage, review, and testing rules. More specific instructions closer to the target code take precedence.
-- If the workflow itself creates repeated work or misses a real risk, include evidence-backed process feedback; do not add mandatory policy without approval.
+Development work leaves durable, linked records. For client/server features, use the feature description as the common requirements and navigation entry, linked to client implementation, server implementation and verification/acceptance records. Reuse existing project documents and formats; update affected sections in place and preserve valid manual content. One-sided work omits the unrelated implementation record with a reason; small standalone fixes can use the original issue or PR and update affected feature records. Do not add duplicate task, PRD, SDD or delivery reports, or enforce a file count. Repository maintenance uses its existing PR and documentation as appropriate.
 
-## Code review rules
+Honor the user's actual authorization and the target project's instructions. Investigate discoverable facts before asking questions. Distinguish facts, assumptions and unknowns; never invent approval, executed tests, source access or completion. Keep implementation choices flexible within the agreed outcome and boundary.
 
-- Flag changes that alter approved behavior, public contracts, persistent data, failure semantics, compatibility, or rollback without updating the corresponding authority source.
-- Flag acceptance claims without a linked test or reproducible manual result.
-- Flag documents that duplicate mechanically generated API/schema details and are likely to drift.
+Do not add document quotas, coverage thresholds, fixed agent roles or approval steps without a demonstrated need. Preserve meaningful code, compatibility, evidence and review requirements; explain gaps rather than manufacturing PASS. The native coding tool owns reasoning, context and tool execution.
+
+For documentation structure, naming and GitHub templates follow CONTRIBUTING.md; preserve one authoritative rule and its applicable conditions.
+
+For repository changes use a focused branch, inspect outgoing content, run scripts/validate-workflow.ps1 and check affected examples. For validator changes also exercise a valid package and broken inputs. Do not commit credentials, business source, raw logs or local workspaces. Keep provenance when reorganizing material. Publishing and merging follow the user's explicit authorization and repository policy.

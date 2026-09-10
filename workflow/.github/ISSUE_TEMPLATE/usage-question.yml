@@ -1,32 +1,28 @@
 name: 使用问题
-description: 询问任务分级、模板选择、Gate 或 AI 操作方式
-title: "[Question]: "
-labels:
-  - question
-  - triage
+description: 说明流程、模板或 AI 接入的具体疑问
+title: '[问题] '
 body:
-  - type: textarea
-    id: goal
+  - type: markdown
     attributes:
-      label: 想完成什么
-      description: 描述目标和当前任务，不需要先使用专业术语。
-    validations:
-      required: true
-  - type: textarea
-    id: attempted
-    attributes:
-      label: 已经尝试什么
-      description: 说明读过的入口、选择的等级、模板或 AI 提示词。
-    validations:
-      required: true
-  - type: textarea
-    id: blocker
-    attributes:
-      label: 当前困惑或阻断
-    validations:
-      required: true
+      value: 请先查找已有讨论。只提供获准共享的摘要，不提交凭据、业务源码或原始运行日志；敏感问题通过团队已有私密渠道联系维护者。
   - type: textarea
     id: context
     attributes:
-      label: 可共享上下文
-      description: 可以提供匿名化示例。请勿提交秘密、生产数据或个人信息。
+      label: 使用场景与问题
+      description: 想完成什么，在哪一步或哪条说明卡住？只需提供与问题有关的事实。
+    validations:
+      required: true
+  - type: textarea
+    id: reference
+    attributes:
+      label: 所用版本与相关位置
+      description: 填写 commit/版本、文档章节或链接；涉及 AI 接入时说明工具名称和使用方式。不确定可注明未知。
+    validations:
+      required: false
+  - type: textarea
+    id: attempts
+    attributes:
+      label: 已尝试内容与希望得到的帮助
+      description: 简述已尝试的步骤、观察和希望澄清的判断；没有尝试可说明。
+    validations:
+      required: false

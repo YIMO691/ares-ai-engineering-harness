@@ -1,74 +1,35 @@
 name: 流程优化建议
-description: 基于真实任务提出 SOP、模板、Gate 或 AI 操作层改进
-title: "[Workflow]: "
-labels:
-  - workflow-improvement
-  - triage
+description: 根据实际困难提出保留、补充或删减建议
+title: '[改进] '
 body:
   - type: markdown
     attributes:
-      value: |
-        请基于真实使用场景描述问题。优先提出能减少重复、降低误解或防止实际风险的变化。
-  - type: dropdown
-    id: task_level
-    attributes:
-      label: 任务等级
-      options:
-        - L1 小改动
-        - L2 标准功能
-        - L3 复杂或高风险项目
-        - 无法判断
-    validations:
-      required: true
-  - type: dropdown
-    id: area
-    attributes:
-      label: 涉及区域
-      multiple: true
-      options:
-        - 任务分级
-        - Ready Gate
-        - Build Gate
-        - 开发验证 Loop
-        - Align Gate
-        - Done 与代码清理
-        - PRD / SDD / TEST-PLAN / ADR
-        - AI 操作层
-        - GitHub 协作模板
-    validations:
-      required: true
-  - type: textarea
-    id: context
-    attributes:
-      label: 使用场景
-      description: 说明任务类型、使用到的流程或模板，以及相关背景。
-    validations:
-      required: true
+      value: 请先查找已有讨论。只提供获准共享的摘要，不提交凭据、业务源码或原始运行日志；敏感问题通过团队已有私密渠道联系维护者。
   - type: textarea
     id: problem
     attributes:
       label: 实际问题与影响
-      description: 描述重复工作、误解、遗漏风险、返工或交接困难，不只写个人偏好。
+      description: 说明重复劳动、漏检、等待或交接困难；尚未采用的设想请标明，不编造观察。
     validations:
       required: true
+  - type: textarea
+    id: reference
+    attributes:
+      label: 相关版本与章节
+      description: 说明采用的 commit/版本、条款或模板位置；不确定可注明未知。
+    validations:
+      required: false
   - type: textarea
     id: proposal
     attributes:
-      label: 建议调整
-      description: 优先说明可以删除、合并、自动化或改为条件项的内容。
+      label: 建议改变什么
+      description: 希望保留、调整或删除哪种做法？已有可行替代时说明。
     validations:
-      required: true
+      required: false
   - type: textarea
-    id: evidence
+    id: tradeoffs
     attributes:
-      label: 案例或证据
-      description: 可提供任务链接、匿名化片段、耗时、缺陷或 Align 偏移记录。请勿提交秘密或敏感数据。
-  - type: checkboxes
-    id: checks
-    attributes:
-      label: 提交确认
-      options:
-        - label: 我已确认现有 README、SOP 和 Issue 中没有相同结论。
-          required: true
-        - label: 本建议不会把个人写作偏好直接升级为公司强制规则。
-          required: true
+      label: 预期收益、代价与确认方式
+      description: 如何观察改善是否发生，可能增加什么负担？预期收益与实际证据分开。
+    validations:
+      required: false

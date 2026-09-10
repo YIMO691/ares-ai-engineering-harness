@@ -1,55 +1,35 @@
 name: 规范或模板缺陷
-description: 报告错误链接、规则冲突、模板不可用或 Gate 判定缺口
-title: "[Defect]: "
-labels:
-  - bug
-  - triage
+description: 报告断链、规则冲突、错误或不可用说明
+title: '[缺陷] '
 body:
-  - type: dropdown
-    id: area
+  - type: markdown
     attributes:
-      label: 缺陷区域
-      options:
-        - README / 导航
-        - SOP / Gate
-        - 任务分级
-        - 文档模板
-        - 示例
-        - AI 操作层
-        - GitHub / CI
-    validations:
-      required: true
-  - type: input
+      value: 请先查找已有讨论。只提供获准共享的摘要，不提交凭据、业务源码或原始运行日志；敏感问题通过团队已有私密渠道联系维护者。
+  - type: textarea
     id: location
     attributes:
-      label: 文件或链接
-      placeholder: 例如 SOP.md 第 8 节
+      label: 受影响位置与版本
+      description: 填写文件/章节/链接及所用 commit 或版本；无法确认的内容注明未知。
     validations:
-      required: true
+      required: false
   - type: textarea
-    id: actual
+    id: defect
     attributes:
-      label: 当前行为
-      description: 说明错误、冲突或无法执行的地方。
-    validations:
-      required: true
-  - type: textarea
-    id: expected
-    attributes:
-      label: 期望行为
+      label: 预期与实际情况
+      description: 在哪个使用场景下发现什么错误或冲突？原本需要什么结果？两项分别说明。
     validations:
       required: true
   - type: textarea
     id: reproduction
     attributes:
-      label: 复现步骤或证据
-      description: 请勿提交凭据、个人数据或其他敏感信息。
+      label: 复现步骤与影响
+      description: 怎样定位问题、影响什么操作或判断？只提供可分享的最小事实；无需原始日志。
     validations:
-      required: true
-  - type: checkboxes
-    id: checks
+      required: false
+  - type: textarea
+    id: suggestion
     attributes:
-      label: 提交确认
-      options:
-        - label: 我已搜索现有 Issue，未发现相同缺陷。
-          required: true
+      label: 建议修正方式（可选）
+      description: 已有想法可补充修改建议及需要同步的引用；不会修复也可以提交缺陷。
+    validations:
+      required: false
