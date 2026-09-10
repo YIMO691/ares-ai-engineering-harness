@@ -1,6 +1,7 @@
 # ARES AGENT ENGINEERING WORKBENCH BASELINE v1.0
 
-> 历史 Phase 1 设计快照：下文保留当时契约，不是当前新任务执行说明。当前行为见 [工作流](../WORKFLOW.md) 与 [文档导航](README.md)。
+> 历史归档：保留原工作包的规格、路径与授权表述，不作为当前指令或版本承诺。现行入口见[研发流程](../UNIFIED_WORKFLOW.md)，未来演进见[目标 Harness](../TARGET_HARNESS.md)。
+
 
 > 状态：`FROZEN_FOR_PHASE1_IMPLEMENTATION`
 > 基于 2026-09-07 Architecture Alignment Candidate，并应用本工作包 D1–D6 修订。

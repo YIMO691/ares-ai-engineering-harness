@@ -2,7 +2,7 @@
 
 策划提出需求，Owner 与当前原生 Codex 讨论，形成足够清晰的工程文档；同一个 Primary Codex 自主实施，Harness 提供执行反馈与记录，最后通过验证、审查、目标对齐和真实验收完成交付。Web 按需展示进度与证据，Change Lens 辅助理解变化。
 
-本文是**当前实现**的流程与文件关系主说明。首次启动见 [README](../README.md)，简表见 [WORKFLOW](../WORKFLOW.md)，逐项命令见 [CLI 参考](CODEX_DIRECT.md)。适用当前 Codex Direct 模式；旧 Web Fusion 的 Agent 顺序与恢复语义不适用于本文。
+本文是**当前实现**的流程与文件关系主说明。首次启动见 [README](../README.md)，逐项命令与请求示例见 [CLI 参考](CODEX_DIRECT.md)。原工作流概览和 Ares 集成规则已归并到本文。适用当前 Codex Direct 模式；旧 Web Fusion 的 Agent 顺序与恢复语义不适用于本文。
 
 完整理论以[目标 Harness](TARGET_HARNESS.md)为统一入口，另有[26 类文档契约](target-harness/ARTIFACT_CONTRACTS.md)与[全链示例](target-harness/WALKTHROUGH.md)。目标明确区分 Context、边界、PRD、行为 SPEC、工程设计及后续证据，并延伸至发布运行与效果评价。下文的最小充分原则用于实际落地，不删减目标理论，也不表示当前快照已经承载全部目标职责。
 
@@ -66,9 +66,13 @@ flowchart TD
 
 参考成熟案例时，记录来源、采用理由和适用限制，不以“先进”为由扩展需求。独立的 ares-ai-software-engineering 知识仓库仅在 Owner 指定时使用，不自动加载。
 
-项目功能文档按 [SOP 工作指南](../workflow/docs/WORKFLOW.md#维护功能说明) 持续维护：功能说明关联涉及端的实现与验证记录，已有格式和有效内容继续沿用，单端任务及独立小修按实际影响裁剪。代码、相关测试和受影响文档随工作交付。
+## 项目文档与任务快照
 
-下面列出的是 **Harness 当前 CLI 在 DocumentsRoot 中生成的任务快照**。它冻结本轮必要摘要并引用项目功能入口，不要求在项目再建一套同名文档。四类功能记录与快照的具体映射见 [ARES_PROFILE](../workflow/ARES_PROFILE.md#项目文档与任务快照)。
+功能说明是项目的持续维护入口，关联涉及端的实现与验证。沿用已有路径、格式和有效手工内容；没有合适记录时参考[四类模板](../workflow/templates/README.md)。单端任务说明另一端不涉及的依据，独立小修可使用原提单或 PR。代码、相关测试和受影响文档随工作交付；通用维护方法见 [SOP 正文](../workflow/docs/WORKFLOW.md#维护功能说明)。
+
+当前 Primary 用 `Brief.Source` 记录权威功能入口及观察版本，在 `Brief.Context` 记录相关实现、验证文档及本轮事实；`Design` 和 Anchors 保存本轮必要语义。CLI 不自动展开链接、抓取正文或核验外部文档版本，不能只填链接。已有文档名为 PRD/SDD 时继续沿用；项目功能 SPEC 与 L2 任务 SPEC 是不同职责，无须改名迁移。
+
+下面是 **Harness 当前 CLI 在外部 DocumentsRoot 中生成的任务快照**。它引用项目文档并冻结本轮摘要，不要求在项目中复制第二套权威文档；旧记录、Brief 字段和快照格式保持兼容。
 
 | 快照等级 | 讨论后的运行快照 | 实施结束后的快照汇总 |
 |---|---|---|
@@ -78,7 +82,7 @@ flowchart TD
 
 重大、长期或难逆的决定才另写 ADR，CLI 不会自动为每个任务生成 ADR。Context、计划与讨论结论按本轮需要进入所选任务快照，长期有效的需求与设计继续维护在项目功能文档中。不自动另建 CONTEXT.md、PLAN.md、TASKS.md 或任务专属 AGENTS.md，也不自动导出原生完整聊天记录。重要结论和理由应进入对应文件；原始来源通常保留引用，不默认全文复制。
 
-当前生成器把结构化 Brief 渲染为 Markdown，覆盖最低共同结构。文件存在不代表领域设计已经充分；Primary 按实际需求和适用模板补充内容。领域规则参考 [Ares 集成规则](../workflow/ARES_PROFILE.md) 与 [SOP 工作指南](../workflow/docs/WORKFLOW.md)，无需机械复制全部模板章节。
+当前生成器把结构化 Brief 渲染为 Markdown，覆盖最低共同结构。文件存在不代表领域设计已经充分；Primary 按实际需求和适用模板补充内容。领域规则按需参考 [SOP 工作指南](../workflow/docs/WORKFLOW.md)，无需机械复制全部模板章节。
 
 ## 文件如何指导 Codex 实施
 
@@ -95,21 +99,26 @@ flowchart TD
 
 `begin` 登记实施阶段；它不启动新的 Primary。当前 Codex 自主搜索、编辑、运行相关验证并根据反馈修正代码。Harness 不自建 Agent Runtime、Session Runtime、Search/Edit/Shell/Sandbox，不在 Ready 后重启 Grounding 或 Planner Agent。
 
+沿用已有明确授权，不因整理文档再次索要相同批准。失败没有新证据时调整诊断路线，不无限重试。
+
 普通实现细节调整写入实施说明和交付对齐；影响目标、边界、关键设计或契约的变化重新协调约定。需要改变冻结文档时使用版本流程，不能直接改 Markdown 后沿用旧授权。
 
 ## 使用顺序与产物
 
-| 顺序 | CLI 操作 | 产物 |
-|---|---|---|
-| 讨论 | project → create → document | 更新项目功能记录；以来源、上下文和决定生成本轮 TASK/SPEC/L3 运行快照 |
-| Ready | agree → begin | 文档版本、冻结约定与实际授权 |
-| 实施 | 按行为增量修改及验证 → submit | 项目改动、提交说明与源码指纹 |
-| 验证 | verify；缺陷后 begin → 修复 → submit → verify | 构建、测试、独立审查及历次证据 |
-| 对齐 | align | 核对并维护项目功能与验证文档；运行快照中 L1/L2 更新 TASK/SPEC，L3 生成 DELIVERY |
-| 理解变化 | 可选 lens | 分析与解释 JSON、离线 HTML |
-| 验收 | 实际 Owner 接受后 accept | 验收决定；不自动 push/merge/release |
+首次先用 `project` 登记项目，`create` 创建任务；其后按下表推进。Owner 主要参与需求、实质性决定与验收，不逐项操作 JSON。
 
-上述 CLI 操作由 Codex 维护，Owner 主要参与需求讨论、实质性决定与验收。流程描述不是要求增加相同数量的人工批准。
+| 阶段 | 操作 | 留痕 |
+|---|---|---|
+| Discussing | 核对策划来源、功能入口与涉及端文档，维护需求、上下文和待确认问题；`document` | 项目功能记录引用；运行快照 L1 TASK、L2 SPEC、L3 PRD/SDD/TEST-PLAN |
+| Ready | `agree` 冻结 Goal、Acceptance、Non-goals、Boundary、Key Decisions、Verification 和实际授权 | 文档版本、约定、策略与源码基线 |
+| Implementing | `begin`；当前 Primary 按可验证增量修改 | 实际改动和决定；不启动替代 Primary |
+| Submitted / Checking | `submit` → `verify` | 提交源码指纹、构建/测试、审查和每次 Run 的证据 |
+| Rework / Blocked | 修复、重报或核对环境后重验 | 失败原因、返工和恢复记录；范围变化重新约定 |
+| AwaitingAcceptance | `align`；可选 `lens` | AC 与当前证据映射、偏移/清理；L1/L2 更新原文档，L3 DELIVERY |
+| Done | 实际 Owner 验收后 `accept` | 验收决定；不会自动 push、merge 或 release |
+
+Align 是交付检查，不是独立的 Task 状态。新任务检查完成后仍需 Align；观察台可以显示“等待交付对齐”。文档、源码或证据变化会使相关操作被拒绝，不能沿用失效结果。
+
 
 ## 实施、自检与独立审查
 
@@ -148,7 +157,7 @@ L1/L2/L3 控制现有任务快照格式，与以上模式不一一对应。现�
 
 Reviewer 使用独立只读会话，核对实际源码、差异、讨论文档与验证证据，返回 PASS 或 REWORK_REQUIRED；问题包含严重性、相关要求、依据和修复建议。它也可能遗漏问题，不能把模型审查解释为完整性证明。当前上下文包含有长度限制的文档和报告摘录，也不等于自动穷尽所有资料。
 
-缺陷交给当前 Primary，按 `begin → 修复 → submit → verify` 重新检查，每次 verify 建立新 Run。环境故障且源码未变可重试 verify；目标或关键契约变化返回讨论、更新文档并重新 agree。恢复细节见后文，不新增替代 Primary 或专用 Rework Agent。
+缺陷交给当前 Primary，按 `begin → 修复 → submit → verify` 重新检查，每次 verify 建立新 Run。环境故障且源码未变可重试 verify；源码改变则重新 submit；目标或关键契约变化返回讨论、更新文档并重新 agree。恢复细节见后文，不新增替代 Primary 或专用 Rework Agent。
 
 ## 如何判断完成目标
 
@@ -186,96 +195,16 @@ DocumentsRoot 下当前使用 `TASK-<task-id>/v<version>-<id>/` 保存版本；A
 
 本文件属于可随仓库版本维护的流程说明，放在 docs/；本机任务讨论、认证、SQLite 和原始 artifacts/evidence 不因此上传。Web 读取现有记录，不让 Owner 重复填写；它展示已登记的阶段与证据，不宣称掌握原生 Codex 的每次工具调用。
 
-## 一次性配置
-
-复制 scripts/workbench.example.json 到仓库外的本地配置，保留已有 DataRoot、ScratchRoot、CodexHome、dotnet/git 路径，补充：
-
-- DocumentsRoot：文档根目录，默认 D:/AgentWorkspace/Ares/10_WORK/active。
-- PythonExecutable：现有 Python 3.11+ 的绝对路径。
-- ChangeLensRoot：本仓库 tools/change-lens 的绝对路径。
-- ChangeLensWorker：ScratchRoot/lens-build/bin/ChangeLens.Analyzer/release/ChangeLens.Analyzer.dll。
-
-认证、数据库、缓存和构建输出均放在授权 D:/AgentWorkspace 目录。使用已配置的官方 CLI home，不把认证放进项目。Worker 基于 net8.0，集成调用允许使用已安装的更新 .NET 主版本。
-
-~~~powershell
-./scripts/Ares.ps1 -SettingsFile '<absolute-local-settings.json>' -Operation projects -Build -BuildLens
-~~~
-
-Change Lens 正常调用无需 pip 安装；契约测试另需 jsonschema 和 PyYAML。其原 MIT 许可保留，主项目与 SOP 仍为私有内容。
-
-## Codex 的结构化输入
-
-所有写操作使用最新 Revision。JSON 由 Codex 根据真实讨论准备，Owner 不直接操作。document 输入：
-
-~~~json
-{
-  "TaskId": "<task-id>",
-  "Revision": 0,
-  "Brief": {
-    "Level": "L2",
-    "LevelReason": "可独立验证的局部行为",
-    "Source": "策划需求的真实引用 @ 版本",
-    "Context": [{"Observation":"当前行为和约束","Source":"检查过的文件或证据"}],
-    "Anchors": {
-      "Goal":"预期结果",
-      "Acceptance":["可观察验收项"],
-      "NonGoals":"本轮不做",
-      "Boundary":"授权边界",
-      "KeyDecisions":"确认的方案和理由",
-      "Verification":"构建、测试、人工验证方法",
-      "Unresolved":[]
-    },
-    "Checks":[{"Criterion":1,"Kind":"automatic","Method":"test"}],
-    "Design":"关键设计、数据与流程；适用时说明失败、兼容、回滚和取舍",
-    "Increments":["可独立验证的行为与验证方式"]
-  }
-}
-~~~
-
-agree 只需 TaskId、Revision、实际 Owner Quote/Source，省略 Anchors/Checks 时从 Brief 读取。准备文档不等于授权。
-
-align 的 Alignment 字段示例：
-
-~~~json
-{
-  "Criteria":[{"Criterion":1,"Result":"实际验收结果","ArtifactIds":["<current-run-test-artifact-id>"]}],
-  "DesignConformance":"实现与设计、契约的实际核对",
-  "Deviations":"已解决的偏移或无偏移的说明",
-  "Cleanup":"清理结果与遗留",
-  "Unresolved":[]
-}
-~~~
-
-status 返回任务、运行、事件、artifact ID 和审批。人工项另传 ManualConfirmation（真实 Quote/Source），ArtifactIds 可为空。不得引用其他 Run 或把任意报告当作成功测试。Harness 校验证据归属、成功节点和哈希，Primary 的逐项判断仍需 Reviewer/Owner 评估。
-
 ## 文档版本与恢复
 
 新 CLI 任务要求文档和 Align；旧记录保留兼容行为。新增版本写入 DocumentsRoot/TASK-<task-id>/v<version>-<id>/；Agreement 保留冻结文本。L1/L2 交付追加在同一文档，L3 DELIVERY 单独汇总，不重复生成实施报告。
 
 文件发生变化会阻止相关操作。重新协调后 reopen → document → agree，旧版本保留。源码变化使用现有指纹保护，证据变化也会阻止 Align/accept。
 
-关闭 Web 不影响 CLI；硬崩溃先核对残留进程，再 recover 和重验，不承诺会话透明接管或重放。
+关闭 Web 不影响 CLI；硬崩溃先核对残留进程，再 recover 和重验，不承诺会话透明接管或重放。Direct 每次 verify 建立新的 Run，不承诺自动同 Run 重放或固定两次返工预算。
 
-## Change Lens 与 Web
+## 按需查询
 
-lens 请求增加 UnityPath、Assembly、AllowSyntaxPartial（默认 false）。它使用冻结 Git HEAD → 提交 WORKTREE，可能包含 Ready 前已有未提交修改，报告明确说明比较范围。
+配置与 JSON 只在 [CLI 参考](CODEX_DIRECT.md#local-settings)维护；Web 和变化报告见 [Change Lens](CODEX_DIRECT.md#change-lens)。开发验证与提交要求见[贡献指南](../CONTRIBUTING.md)，GitHub 留痕见[协作规范](GITHUB_WORKFLOW.md)。来源与适配见[导入记录](integrations/LOCAL_ADAPTATIONS.md)。
 
-严格历史编译基线缺失时保留 FAILED；任务明确允许时传 AllowSyntaxPartial=true，结果标为 PARTIAL。不会替目标项目生成编译清单或执行 Unity。分析前后核对源码，变化时拒绝挂接。
-
-输出在 DataRoot/artifacts/<run>/lens/<attempt>/。来源输入使用现有 intent-evidence schema，task/run/source 关联由 Harness 保存。报告的验证步骤只是建议，不改变测试或审批。
-
-Observer 展示讨论文档、阶段、对齐结果、实际证据与变化报告。文档/报告被更改返回 409；报告绑定检查快照，不宣称实时监控外部编辑。网页不是任务执行入口。
-
-## 文档适用范围
-
-当前说明与 [工作流概览](../WORKFLOW.md)、[CLI 操作表](CODEX_DIRECT.md) 对齐。旧 Web Fusion、Phase 1 契约和上游来源各自标明适用范围；导航见 [文档索引](README.md)。GitHub 记录使用 [协作规范](GITHUB_WORKFLOW.md) 和仓库模板，不把原始过程文件上传。
-
-## 来源与验证
-
-[导入清单](integrations/UPSTREAM_IMPORTS.json) 保留原仓库、固定 commit 和原文件哈希。导入采用源码快照，历史可从固定来源追溯；不是将旧提交伪造成当前开发记录。
-
-现有 Test-Workbench.ps1 覆盖兼容及文档/Align 约束；导入分析器保留 unittest。原生 Reviewer 和 UI 另用隔离真实样例验证。知识库未接入，仅 Owner 指定时手动参考。
-
-## 统一验证入口
-
-在已授权的外部目录运行 scripts/Test-Unified.ps1 -ScratchRoot <path> -EvidenceRoot <path> -InstallTestDependencies。该入口依次执行 Harness 回归、SOP 文档检查、Roslyn 构建与 Change Lens 测试；不会启用真实 Unity 项目测试。首次需要安装的 Python 测试依赖写入 ScratchRoot/python-libs。GitHub CI 使用同一入口，远程结果需实际运行后才能确认。
+旧 v0.2 / Web Fusion 仅用于兼容记录，其角色顺序、固定返工预算和恢复语义不适用于 Direct。`ObserverOnly=false` 才启用旧 Web 执行入口，不能与 Direct 写入并行；历史见[ADR 0002](decisions/0002-workflow-fusion.md)与[旧阶段规格](README.md#历史与来源)。

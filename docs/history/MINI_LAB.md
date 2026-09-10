@@ -85,7 +85,7 @@ override current workflow policy.
 
 ## Where to continue
 
-- [Current workflow](../../WORKFLOW.md)
+- [Current workflow](../UNIFIED_WORKFLOW.md)
 - [Native execution boundary](../decisions/0001-native-execution-boundary.md)
 - [Workflow Fusion](../decisions/0002-workflow-fusion.md)
 - [Architecture](../architecture/ARCHITECTURE.md)
