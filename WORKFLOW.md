@@ -2,6 +2,8 @@
 
 本文描述当前推荐的 Codex Direct 模式。命令和请求结构见 [CLI 参考](docs/CODEX_DIRECT.md)，详细文档规则见 [统一流程](docs/UNIFIED_WORKFLOW.md)。
 
+完整理论架构见[目标 Harness 文档链](docs/TARGET_HARNESS.md)、[文档契约](docs/target-harness/ARTIFACT_CONTRACTS.md)和[贯穿示例](docs/target-harness/WALKTHROUGH.md)。目标覆盖来源、Context、边界、PRD、SPEC、设计、验证、交付与运行反馈；本文仅说明当前实际操作，不将目标阶段直接当作 CLI 状态或新增门禁。
+
 从项目已有功能说明进入，维护受影响的客户端、服务端与验证记录；Harness 登记本轮约定及证据快照。单端任务和小修按实际影响裁剪，具体文档关系见 [集成规则](workflow/ARES_PROFILE.md#项目文档与任务快照)。
 
 ## 职责

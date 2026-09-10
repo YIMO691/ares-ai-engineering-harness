@@ -1,8 +1,10 @@
-# 完整研发流程：从需求讨论到代码交付
+# 当前研发流程：从需求讨论到代码交付
 
 策划提出需求，Owner 与当前原生 Codex 讨论，形成足够清晰的工程文档；同一个 Primary Codex 自主实施，Harness 提供执行反馈与记录，最后通过验证、审查、目标对齐和真实验收完成交付。Web 按需展示进度与证据，Change Lens 辅助理解变化。
 
-本文是完整流程与文件关系的主说明。首次启动见 [README](../README.md)，简表见 [WORKFLOW](../WORKFLOW.md)，逐项命令见 [CLI 参考](CODEX_DIRECT.md)。适用当前 Codex Direct 模式；旧 Web Fusion 的 Agent 顺序与恢复语义不适用于本文。
+本文是**当前实现**的流程与文件关系主说明。首次启动见 [README](../README.md)，简表见 [WORKFLOW](../WORKFLOW.md)，逐项命令见 [CLI 参考](CODEX_DIRECT.md)。适用当前 Codex Direct 模式；旧 Web Fusion 的 Agent 顺序与恢复语义不适用于本文。
+
+完整理论以[目标 Harness](TARGET_HARNESS.md)为统一入口，另有[26 类文档契约](target-harness/ARTIFACT_CONTRACTS.md)与[全链示例](target-harness/WALKTHROUGH.md)。目标明确区分 Context、边界、PRD、行为 SPEC、工程设计及后续证据，并延伸至发布运行与效果评价。下文的最小充分原则用于实际落地，不删减目标理论，也不表示当前快照已经承载全部目标职责。
 
 ## 设计原则：模型自主，Harness 保持轻量
 

@@ -4,6 +4,8 @@
 
 当前推荐入口为 Codex Direct + Observer。Owner 与现有原生 Primary 直接讨论和实施；Harness 不启动、附着或恢复这个 Primary。旧 v0.2 与 Web Fusion 仅作为兼容路径保留。
 
+完整目标参考架构见[目标 Harness](../TARGET_HARNESS.md)，包含文档/证据依赖、模型工作包、变化传播、交付运行与评估；其[当前实现映射](../TARGET_HARNESS.md#11-当前实现映射与演进次序)说明差距。本文继续只描述现有组件与运行行为，目标设计不等于已实现能力。
+
 ## 组件与职责
 
 | 组件 | 责任 |
