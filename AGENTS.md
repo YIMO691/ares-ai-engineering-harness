@@ -2,6 +2,8 @@
 
 Preserve the thin boundary: Task/workflow/policy/verification/history/human gates belong here; native agent reasoning, conversation context, tool loop, search, edit, shell and sandbox belong to Codex. Do not add a custom agent/session runtime.
 
+The complete target reference architecture is [docs/TARGET_HARNESS.md](docs/TARGET_HARNESS.md), with artifact contracts and a fictional walkthrough under docs/target-harness. Consult it when evolving the Harness or mapping a project's document chain. Keep target capabilities distinct from current implementation: do not invent CLI fields/states, activate proposed gates, require every role to be a separate file, or treat illustrative evidence as real execution or Owner decisions. Current Direct operation remains governed by the execution documents below.
+
 Use existing coordinator, store and native Codex adapter. Reviewer must remain independent and read-only. New Fusion behavior must preserve v0.2 tests and old stored records.
 
 Keep all generated/cache/log/test outputs in an explicitly configured external task directory under D:/AgentWorkspace on the current Windows host. Never write process output to C: or a commercial target workspace. Resolve absolute output paths and reject reparse-point traversal.

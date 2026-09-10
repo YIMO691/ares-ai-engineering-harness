@@ -4,15 +4,18 @@
 
 Ares 将 **Workflow-SOP、工程工作流 Harness 和 Change Lens** 组织在一个仓库中。当前 Codex 负责理解、讨论与实施；Harness 管理约定、检查、证据和验收；Web 按需展示进展与结果。
 
+**完整目标体系见 [目标 Harness：从需求到运行反馈的文档链](docs/TARGET_HARNESS.md)**，包含流程总图、[26 类文档契约](docs/target-harness/ARTIFACT_CONTRACTS.md)和[贯穿全流程的示例](docs/target-harness/WALKTHROUGH.md)。先建立完整理论，再在项目落地时选择文件载体与裁剪；目标能力与当前实现分开标明。
+
 **项目以功能说明为持续维护入口，关联涉及端的客户端实现、服务端实现和验证与验收记录。** 已有文件与格式继续沿用，新记录参考 [四类模板](workflow/templates/README.md)。Harness 的 TASK / SPEC / PRD 等文件保存本轮约定快照，引用这些项目文档；[集成规则](workflow/ARES_PROFILE.md) 说明两者如何衔接。
 
 日常使用从一段需求和一次 Codex 对话开始。讨论形成有来源的上下文、需求、设计和验证方案；你确认后，当前 Codex 按约定推进开发。出现缺陷便带着测试或审查证据返工，最终交付代码、文档以及能够解释“为什么可以验收”的记录。
 
-完整说明见 [从需求讨论到代码交付](docs/UNIFIED_WORKFLOW.md)：讨论会留下哪些文件、文件如何指导实施、注释与测试如何检查、怎样判断完成，以及模型自主与轻量 Harness 的设计原则。它区分当前已实现的检查与工程判断，不因文档补充而增加运行门禁。
+当前实现的完整说明见 [从需求讨论到代码交付](docs/UNIFIED_WORKFLOW.md)：讨论会留下哪些文件、文件如何指导实施、注释与测试如何检查、怎样判断完成，以及模型自主与轻量 Harness 的设计原则。它区分当前已实现的检查与工程判断，不因文档补充而增加运行门禁。
 
 ## 目录
 
 - [项目组成与分工](#项目组成与分工)
+- [目标 Harness 文档链](#目标-harness-文档链)
 - [完整工作流](#完整工作流)
 - [讨论与开发会留下什么](#讨论与开发会留下什么)
 - [一个需求如何走完流程](#一个需求如何走完流程)
@@ -39,9 +42,28 @@ Ares 将 **Workflow-SOP、工程工作流 Harness 和 Change Lens** 组织在一
 
 SOP 中的调研、上下文整理和方案规划由当前 Primary 完成。Ready 后继续由它实施，不再重新派发 Grounding/Planner Agent。外部 `ares-ai-software-engineering` 知识仓库按你的明确要求手动参考，当前流程不自动加载。
 
+## 目标 Harness 文档链
+
+目标文档链覆盖来源、产品、工程、验证、交付和运行反馈。下图是理论职责；实际文件可以合并，审批与 Agent 数量不按节点增加。
+
+```mermaid
+flowchart LR
+    A[SOURCE / CONTEXT / BOUNDARY] --> B[PRD / SPEC]
+    B --> C[SDD / CONTRACTS / 端设计 / ADR]
+    C --> D[PLAN / TEST-PLAN / BASELINE]
+    D --> E[实施 / 验证结果 / REVIEW]
+    E --> F[ALIGNMENT / DELIVERY / ACCEPTANCE]
+    F --> G[RELEASE / OPERATIONS / EVALUATION]
+    G --> A
+```
+
+全程还包括项目规则、未知与风险、模型 Context 包、变更影响、状态和交接。最终留下持续维护的项目文档、本次交付基线和可追溯的过程证据。[目标总纲](docs/TARGET_HARNESS.md)说明每阶段如何完成或退回、上游变化如何使下游证据失效，以及 Harness、原生模型、工具和人的分工。
+
+**当前尚未实现完整文档依赖图、场景级自动证据映射或发布运行闭环。** 现有四类项目模板和 L1/L2/L3 快照是当前载体，不能据此认为完整理论已经自动执行。能力差距与实施次序见[目标与当前映射](docs/TARGET_HARNESS.md#11-当前实现映射与演进次序)。
+
 ## 完整工作流
 
-下面以 **STANDARD** 为主线。FAST 省略独立 Reviewer；CRITICAL 在实施前增加对冻结写入边界的明确授权。具体差异见 [文档等级与检查强度](#文档等级与检查强度)。
+下面描述**当前实现**，以 **STANDARD** 为主线。FAST 省略独立 Reviewer；CRITICAL 在实施前增加对冻结写入边界的明确授权。具体差异见 [文档等级与检查强度](#文档等级与检查强度)。
 
 ```mermaid
 flowchart TD
