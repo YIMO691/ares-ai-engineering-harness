@@ -9,6 +9,21 @@ Adopt intent visibility, limited context, clear authority and independent verifi
 
 - [Mini Lab prototype lessons and historical evaluation cases](../history/MINI_LAB.md): historical reference only; no old runtime dependency or newly claimed real-model benchmark result.
 
+## 思想脉络与设计取舍
+
+[README](../../README.md#为什么会有-ares)按“一个问题如何引出下一个问题”组织项目思想。本节记录其来源与设计落点，既有研究存在交叉，不将这条叙述当作严格的研究时间线。Owner 本地研究仅作释义与来源登记，原文未在本仓库公开；读者可从下列仓库链接查看采用后的设计及边界。
+
+| 研究问题与来源 | 对 Ares 的启发与采用位置 | 解释边界 |
+|---|---|---|
+| 黑盒执行下如何保留工程控制权：`黑盒智能时代的软件工程控制权_相关研究与实施方案_v0.2.md`（2026-08-19）；Phase 4 的 `45_Model_Assumptions_and_Limitations.md` | 从内部推理转向外部可检查的意图、权限、状态和证据；采用到[目标与责任边界](../TARGET_HARNESS.md#1-目标与边界) | 外部检查只能覆盖可观察、可验证的部分；规格也可能错误，不能承诺全面正确或绝对不可绕过 |
+| Harness 有哪些层次、应自己实现哪一层：`AI_Harness_理论架构与工程实践_研究方案_v0.1.md`（2026-08-22） | 区分执行运行时、工程环境和工作编排；本项目选择[原生执行边界](../decisions/0001-native-execution-boundary.md) | 研究方案是研究问题与范围，不是当前厂商能力认证；Ares 的分工是本项目选择 |
+| 控制怎样进入实际开发：Mini Lab、导入的 Workflow-SOP、Fusion 到 Direct 的设计记录 | 保留可验证交接、失败返工与版本证据；[Mini Lab](../history/MINI_LAB.md)、[现行流程](../UNIFIED_WORKFLOW.md)、[Direct ADR](../decisions/0003-codex-direct-observer.md)分别保存历史教训、当前方法与边界选择 | 脚本化原型不能证明真实模型效果；历史设计不覆盖当前执行规则 |
+| 测试通过之外怎样保证长期代码质量：代码质量 Phase 0–6 | 从质量属性、失败模式到项目 Context、适用模式、质量约定、领域校准、检查与评测；采用到[总纲第 8、9 节](../TARGET_HARNESS.md#8-context-如何真正服务模型) | 下表逐项映射来源；领域候选规则需项目校准，指标不等于综合质量结论 |
+| 严格流程怎样避免反过来增加人的负担：`AI需求理解与复杂度治理_研究理论手册_v1.0.md`（2026-09-16） | 最小充分规格、未知分流与必要复杂度；采用到[总纲第 3 节](../TARGET_HARNESS.md#3-每一阶段怎样进入完成和退回) | 授权内工程判断交给 AI；关键业务或权限缺口仍保留为待决事项 |
+| 如何判断机制值得保留：Harness 评测研究、代码质量 Phase 6 | 真实任务、对照/消融与成本反馈；采用到[最终总纲](../TARGET_HARNESS.md)的效果评价 | 本次读到的 `P8_实施结果与结论_2026-08-24.md` 是当时的阶段报告，不能推断当前实验完成度或本仓库总体收益；本轮不复核或续跑历史实验 |
+
+这些来源共同支持一条设计路线：保留工程控制，同时提高实现质量并降低人的协调负担。README 中的奖励领取案例是解释这条路线的虚构例子，不是已经实现或验证的业务功能。
+
 ## 代码质量与需求复杂度研究
 
 Owner 提供的 2026-09-15/16 研究已融入[最终 Harness](../TARGET_HARNESS.md)：需求分流和复杂度在第 3 节，Context/模式在第 8 节，质量约定/领域/机械规则在第 9 节，实施顺序与校准在第 11 节，效果评价在第 13 节。日常方法只在[现行流程](../UNIFIED_WORKFLOW.md)维护；本页负责来源，不构成第二套执行指南。
