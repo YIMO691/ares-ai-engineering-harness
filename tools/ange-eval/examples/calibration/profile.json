@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "project_id": "synthetic-calibration-example",
+  "sources": [
+    {
+      "id": "rule",
+      "path": "rules.txt",
+      "sha256": "709ab503ebdeb657dda60882aa068f70d37a8ab0bd0392cc6dbe2d3dee4c5fc6"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "boundary-example",
+      "family": "synthetic-local-rule",
+      "source_ids": [
+        "rule"
+      ],
+      "success_criteria": "Reject a negative amount before changing state.",
+      "validation_plan": "Prepare an independent behavior oracle before any separately authorized trial.",
+      "unverified": [
+        "This is a fictional text fixture, not a game implementation.",
+        "No recoverable project baseline, executable oracle or empirical trial has been established."
+      ]
+    }
+  ]
+}
