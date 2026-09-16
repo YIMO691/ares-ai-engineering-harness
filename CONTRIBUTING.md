@@ -1,6 +1,6 @@
 # 贡献指南
 
-本仓库维护 Ares Harness、已导入的 SOP 和 Change Lens 集成。先阅读 [项目说明](README.md)、[GitHub 流程](docs/GITHUB_WORKFLOW.md) 和根 [AGENTS.md](AGENTS.md)。
+本仓库围绕[最终 Harness v2](docs/TARGET_HARNESS.md)维护目标设计、当前工程控制实现和适用方法，目标是减少人的协调负担并提高交付可靠性与代码可维护性。先阅读 [项目说明](README.md)，按需使用[现行流程](docs/UNIFIED_WORKFLOW.md)、[CLI 参考](docs/CODEX_DIRECT.md)和 [GitHub 协作规范](docs/GITHUB_WORKFLOW.md)；维护指令见 [AGENTS.md](AGENTS.md)。
 
 ## 提交问题与需求
 
@@ -18,7 +18,9 @@
 
 复用现有 coordinator、store 和官方原生适配器，保持旧记录兼容。Owner 与当前 Primary 直接协作，Reviewer 独立；不新增 Agent/Session/Search/Edit/Shell/Sandbox Runtime。
 
-行为或契约变化同步更新对应文档。当前入口、历史 ADR、导入来源要标明适用范围；避免多份文档重复维护同一套细节。提交使用 `feat`、`fix`、`test`、`docs`、`chore`、`refactor` 等前缀。
+先查证项目事实，保留关键未知，使用当前需要的最小方案。新增抽象、依赖或明显扩大的变更面说明必要性；引用模式说明适用范围与依据；质量检查按风险选取并写入已有设计、验证和交付记录。领域 profile 未校准前只作为候选参考，不直接激活为门禁。
+
+目标变化同时核对 README 的项目定位、文档导航、现行流程、架构与 Agent 维护指令；仅在相应职责受影响时修改。目标设计归总纲，已实现操作归现行流程，字段/命令归 CLI，来源与限制归研究页；历史正文保持当时语义，上游适配另行登记。检查正文的职责、能力状态和读者路径，链接正确本身不代表已经对齐。提交使用 `feat`、`fix`、`test`、`docs`、`chore`、`refactor` 等前缀。
 
 ## 验证
 

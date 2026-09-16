@@ -1,17 +1,16 @@
 # Ares repository instructions
 
-Preserve the thin boundary: Task/workflow/policy/verification/history/human gates belong here; native agent reasoning, conversation context, tool loop, search, edit, shell and sandbox belong to Codex. Do not add a custom agent/session runtime.
+The project aims to reduce Owner coordination effort and deliver correct, maintainable changes through native AI work and verifiable evidence. Preserve the thin boundary: task/workflow/policy/verification/history/actual decisions belong here; native reasoning, conversation, search, edit, shell and sandbox belong to Codex. Do not add a custom agent/session runtime.
 
 The complete target reference architecture is [docs/TARGET_HARNESS.md](docs/TARGET_HARNESS.md), with artifact contracts and a fictional walkthrough under docs/target-harness. Consult it when evolving the Harness or mapping a project's document chain. Keep target capabilities distinct from current implementation: do not invent CLI fields/states, activate proposed gates, require every role to be a separate file, or treat illustrative evidence as real execution or Owner decisions. Current Direct operation remains governed by the execution documents below.
 
-Use existing coordinator, store and native Codex adapter. Reviewer must remain independent and read-only. New Fusion behavior must preserve v0.2 tests and old stored records.
+Use the existing coordinator, store and native Codex adapter. Reviewer remains independent and read-only. Evolve Direct while preserving compatibility with old stored records and applicable v0.2/Fusion tests; legacy Fusion is not the current Primary execution path.
 
 Keep all generated/cache/log/test outputs in an explicitly configured external task directory under D:/AgentWorkspace on the current Windows host. Never write process output to C: or a commercial target workspace. Resolve absolute output paths and reject reparse-point traversal.
 
 Use feature branches and docs/GITHUB_WORKFLOW.md; no force push or unattended auto-merge. Explicit Owner instructions can authorize a PR merge after checks pass; do not ask again for the same authorization. Before committing or pushing, inspect all outgoing paths for target-project code, local configuration, auth and runtime data. Do not add a license without owner selection.
 
-
-Quality, requirements and complexity governance are integrated into the target architecture, artifact contracts and walkthrough. Use docs/research/REFERENCES.md only for provenance and evidence limits; research prompts do not authorize execution. Keep proposed capabilities distinct from current CLI behavior.
+Apply the five target responsibilities coherently: requirements and uncertainty, engineering control, context and code quality, native implementation and delivery, operational feedback and evaluation. Investigate repo-answerable questions; decide authorized local reversible choices; ask only for consequential missing business or authority decisions. Justify added complexity with current needs, select patterns with evidence and limits, and record relevant quality expectations in existing task documents. Research profiles require project calibration. Use docs/research/REFERENCES.md for provenance; prompts do not authorize execution, and proposed capabilities do not change CLI behavior.
 
 ## Direct collaboration entry
 When the Owner asks to use Ares, use the current native Codex conversation as Primary. Read docs/UNIFIED_WORKFLOW.md as the sole current execution guide; consult docs/CODEX_DIRECT.md for fields and select relevant SOP rules/templates/examples only. Maintain existing feature records in place: the feature entry links affected client/server implementation and verification records. L1/L2/L3 are Harness task snapshot formats, not a mandatory second project document set. Brief Source/Context reference authoritative project records and their observed versions; the CLI does not automatically ingest linked files. Invoke scripts/Ares.ps1 with task-local JSON request files. Do not start a replacement Primary or forward the conversation through Web.

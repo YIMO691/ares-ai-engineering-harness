@@ -1,10 +1,10 @@
 # 当前研发流程：从需求讨论到代码交付
 
-策划提出需求，Owner 与当前原生 Codex 讨论，形成足够清晰的工程文档；同一个 Primary Codex 自主实施，Harness 提供执行反馈与记录，最后通过验证、审查、目标对齐和真实验收完成交付。Web 按需展示进度与证据，Change Lens 辅助理解变化。
+Owner 提供目标、来源和关键约束；当前原生 Primary 先查证项目事实，分流未知，形成最小充分的需求、设计和验证约定，在已有授权内完成最小必要实现与质量自检。Harness 冻结约定、运行已配置检查并保存证据；按所选模式审查后，经过 Align 和实际 Owner 验收完成交付。Web 与 Change Lens 按需观察和解释变化。
 
 本文是**当前实现**的流程与文件关系主说明。首次启动见 [README](../README.md)，逐项命令与请求示例见 [CLI 参考](CODEX_DIRECT.md)。原工作流概览和 Ares 集成规则已归并到本文。适用当前 Codex Direct 模式；旧 Web Fusion 的 Agent 顺序与恢复语义不适用于本文。
 
-完整理论以[目标 Harness](TARGET_HARNESS.md)为统一入口，另有[26 类文档契约](target-harness/ARTIFACT_CONTRACTS.md)与[全链示例](target-harness/WALKTHROUGH.md)。目标明确区分 Context、边界、PRD、行为 SPEC、工程设计及后续证据，并延伸至发布运行与效果评价。下文的最小充分原则用于实际落地，不删减目标理论，也不表示当前快照已经承载全部目标职责。
+[最终 Harness v2](TARGET_HARNESS.md)统一需求理解与未知分流、工程控制、上下文与代码质量、原生实现与可信交付、运行与效果改进；[契约目录](target-harness/ARTIFACT_CONTRACTS.md)和[全链示例](target-harness/WALKTHROUGH.md)按需展开。本文落实其中当前能执行的流程和 Primary 方法；自动质量支持、领域校准、真实效果评测及运行闭环仍按[能力差距与演进次序](TARGET_HARNESS.md#11-当前实现映射与演进次序)推进。
 
 ## 设计原则：模型自主，Harness 保持轻量
 
@@ -23,18 +23,18 @@
 | 参与方 | 负责什么 |
 |---|---|
 | 策划 / 需求方 | 提供需求来源、预期业务行为和必要背景 |
-| Owner | 与 Codex 澄清意图，决定业务取舍与授权范围，最终验收 |
-| 当前 Primary Codex | 检查事实、维护讨论结论、自主实施、自检、修复、整理交付依据 |
+| Owner | 表达目标，决定工程事实无法回答的关键业务取舍与授权，实际验收 |
+| 当前 Primary Codex | 查证事实、分流未知、选择项目模式与最小必要方案，自主实施、行为/质量自检和返工 |
 | Harness | 登记约定与版本，执行配置的检查，保存证据和历史，支持阻塞后的恢复 |
 | 独立 Reviewer | 在需要审查的模式下，只读检查实际源码与证据，提出可操作的问题 |
 | Web / Change Lens | 可选展示阶段、历史、证据与变化解释 |
 
 ```mermaid
 flowchart TD
-    A[策划需求与来源] --> B[Owner 与当前 Codex 讨论并检查工程事实]
-    B --> C[维护功能文档并登记本轮任务快照]
+    A[目标、来源与关键约束] --> B[Primary 查证事实并澄清关键未知]
+    B --> C[维护最小充分文档与本轮质量关注点]
     C --> D[确认目标与边界并登记 Ready]
-    D --> E[同一 Primary 自主实施和自检]
+    D --> E[同一 Primary 最小必要实现与行为和质量自检]
     E --> F[提交实现并运行 Build / Test]
     F --> G{验证结果与工作流模式}
     G -->|验证失败| E
@@ -95,7 +95,7 @@ flowchart TD
 
 重大、长期或难逆的决定才另写 ADR，CLI 不会自动为每个任务生成 ADR。Context、计划与讨论结论按本轮需要进入所选任务快照，长期有效的需求与设计继续维护在项目功能文档中。不自动另建 CONTEXT.md、PLAN.md、TASKS.md 或任务专属 AGENTS.md，也不自动导出原生完整聊天记录。重要结论和理由应进入对应文件；原始来源通常保留引用，不默认全文复制。
 
-当前生成器把结构化 Brief 渲染为 Markdown，覆盖最低共同结构。文件存在不代表领域设计已经充分；Primary 按实际需求和适用模板补充内容。领域规则按需参考 [SOP 工作指南](../workflow/docs/WORKFLOW.md)，无需机械复制全部模板章节。
+当前生成器把结构化 Brief 渲染为 Markdown，覆盖最低共同结构。Primary 将适用模式、状态归属、质量关注点与必要复杂度理由写入现有 Context、Design / KeyDecisions，将对应验证写入 Verification / Checks；这些是已有载体的内容，不新增 `QualityContract` 请求字段或独立文件。项目领域规则先由实际源码与工具校准，不能照搬研究 profile；按需参考 [SOP 工作指南](../workflow/docs/WORKFLOW.md)。
 
 ## 文件如何指导 Codex 实施
 

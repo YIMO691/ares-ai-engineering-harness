@@ -1,12 +1,14 @@
 # Workflow-SOP
 
+## Ares 集成入口
+
+此目录是固定版本的上游方法、模板与案例库。Ares 的目的、五部分职责和演进统一在[最终 Harness v2](../docs/TARGET_HARNESS.md)；执行任务使用[现行流程](../docs/UNIFIED_WORKFLOW.md)，查字段使用[CLI 参考](../docs/CODEX_DIRECT.md)。SOP 为这些职责提供按需方法，不是另一套 Ares 目标或运行入口。
+
+下文保留上游原有叙述与使用示例，“本仓库”指 Workflow-SOP。Ares 中已有的授权、快照、Reviewer 和实际验收以根 [AGENTS.md](../AGENTS.md)与现行流程为准；上游提示词不要求再加载一套全量资料。[适配记录](../docs/integrations/LOCAL_ADAPTATIONS.md)保留来源及本地改动。
+
 把这个仓库和任务交给 AI，让它按项目现状完成开发、验证和文档更新。后续修改从功能文档进入，能找到原需求、两端实现与验证依据。
 
 **本仓库提供可按需取用的工作流思路：结合任务和个人习惯裁剪，无须完整执行每个步骤；以完成任务、提交代码及与实际实现和验证结果一致的必要文档为目标。**
-
-## Ares 集成入口
-
-此目录导入 Workflow-SOP 固定版本，提供可裁剪的方法、模板与例子。在 Ares 中以 [现行流程](../docs/UNIFIED_WORKFLOW.md)为日常入口，本页的通用方法、模板与案例按需参考；根 [AGENTS.md](../AGENTS.md) 是仓库维护指令入口。[版本与适配记录](../docs/integrations/LOCAL_ADAPTATIONS.md) 说明来源和兼容边界。
 
 ## 从这里开始
 
