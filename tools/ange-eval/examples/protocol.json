@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "study_id": "ANGE-PILOT-0-DEMO",
+  "kind": "synthetic",
+  "hypothesis": "Fictional example only: expose quality, effort, maintenance and experience trade-offs.",
+  "model": {
+    "id": "synthetic-model-not-executed",
+    "configuration": "synthetic-fixed-configuration"
+  },
+  "environment": "synthetic-environment-not-executed",
+  "comparison_controls": "Teaching data only. Real pilots must match tasks, balance order and record familiarity; this example proves no effects.",
+  "evaluator": "Synthetic rubric: 0 unusable, 1 major rework, 2 substantial rework, 3 minor rework, 4 acceptable. No human evaluator participated.",
+  "missing_data_policy": "Keep every assigned run, including failures; missing metric values require explicit reasons; no imputation.",
+  "conditions": [
+    {
+      "id": "P0_BASELINE",
+      "description": "Ordinary project workflow",
+      "harness_revision": "synthetic-harness-baseline",
+      "policy_ref": "synthetic://policies/baseline"
+    },
+    {
+      "id": "P0_LIGHT",
+      "description": "Intent/context/evidence minimum",
+      "harness_revision": "synthetic-harness-light",
+      "policy_ref": "synthetic://policies/light"
+    },
+    {
+      "id": "P0_FULL",
+      "description": "Candidate full ANGE configuration",
+      "harness_revision": "synthetic-harness-full",
+      "policy_ref": "synthetic://policies/full"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "local-fix",
+      "family": "low-risk",
+      "repo_revision": "synthetic-repo-v1",
+      "success_criteria": "Correct the label without changing behavior"
+    },
+    {
+      "id": "partner-healing",
+      "family": "stateful",
+      "repo_revision": "synthetic-repo-v1",
+      "success_criteria": "Cooldown, silence, authority and reconnect invariants hold"
+    },
+    {
+      "id": "healing-feedback",
+      "family": "experience",
+      "repo_revision": "synthetic-repo-v1",
+      "success_criteria": "Observe whether target players identify companion rescue; unexpected play is investigated"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "human_active_minutes",
+      "unit": "minutes",
+      "direction": "lower",
+      "primary": true,
+      "minimum": 0,
+      "maximum": null
+    },
+    {
+      "id": "intent_violations",
+      "unit": "count",
+      "direction": "lower",
+      "primary": true,
+      "minimum": 0,
+      "maximum": null
+    },
+    {
+      "id": "maintainer_acceptability",
+      "unit": "rubric_0_to_4",
+      "direction": "higher",
+      "primary": true,
+      "minimum": 0,
+      "maximum": 4
+    },
+    {
+      "id": "second_change_minutes",
+      "unit": "minutes",
+      "direction": "lower",
+      "primary": true,
+      "minimum": 0,
+      "maximum": null
+    },
+    {
+      "id": "experience_gaps_found",
+      "unit": "count",
+      "direction": "descriptive",
+      "primary": false,
+      "minimum": 0,
+      "maximum": null
+    }
+  ],
+  "assignments": [
+    {
+      "run_id": "run-01",
+      "condition_id": "P0_BASELINE",
+      "task_id": "local-fix",
+      "participant_id": "synthetic-person-1",
+      "repeat": 1
+    },
+    {
+      "run_id": "run-02",
+      "condition_id": "P0_LIGHT",
+      "task_id": "local-fix",
+      "participant_id": "synthetic-person-2",
+      "repeat": 1
+    },
+    {
+      "run_id": "run-03",
+      "condition_id": "P0_FULL",
+      "task_id": "local-fix",
+      "participant_id": "synthetic-person-3",
+      "repeat": 1
+    },
+    {
+      "run_id": "run-04",
+      "condition_id": "P0_BASELINE",
+      "task_id": "partner-healing",
+      "participant_id": "synthetic-person-2",
+      "repeat": 1
+    },
+    {
+      "run_id": "run-05",
+      "condition_id": "P0_LIGHT",
+      "task_id": "partner-healing",
+      "participant_id": "synthetic-person-3",
+      "repeat": 1
+    },
+    {
+      "run_id": "run-06",
+      "condition_id": "P0_FULL",
+      "task_id": "partner-healing",
+      "participant_id": "synthetic-person-1",
+      "repeat": 1
+    },
+    {
+      "run_id": "run-07",
+      "condition_id": "P0_BASELINE",
+      "task_id": "healing-feedback",
+      "participant_id": "synthetic-person-3",
+      "repeat": 1
+    },
+    {
+      "run_id": "run-08",
+      "condition_id": "P0_LIGHT",
+      "task_id": "healing-feedback",
+      "participant_id": "synthetic-person-1",
+      "repeat": 1
+    },
+    {
+      "run_id": "run-09",
+      "condition_id": "P0_FULL",
+      "task_id": "healing-feedback",
+      "participant_id": "synthetic-person-2",
+      "repeat": 1
+    }
+  ]
+}

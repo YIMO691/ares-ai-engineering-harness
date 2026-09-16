@@ -11,6 +11,10 @@ $ErrorActionPreference='Stop'
 & (Join-Path $PSScriptRoot 'Test-Workbench.ps1') -ScratchRoot $ScratchRoot -EvidenceRoot $EvidenceRoot -Dotnet $Dotnet -Git $Git
 $repo=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 & (Join-Path $repo 'workflow/scripts/validate-workflow.ps1')
+$env:PYTHONDONTWRITEBYTECODE='1'
+$env:PYTHONIOENCODING='utf-8'
+& $Python -B -m unittest discover -s (Join-Path $repo 'tools/ange-eval/tests') -v
+if($LASTEXITCODE-ne 0){throw 'ANGE evaluation checks failed'}
 $lensRoot=Join-Path $repo 'tools/change-lens'
 $env:PYTHONDONTWRITEBYTECODE='1'
 $env:PYTHONIOENCODING='utf-8'

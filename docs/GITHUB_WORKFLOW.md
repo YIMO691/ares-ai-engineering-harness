@@ -26,7 +26,7 @@ Owner 与当前 Codex 直接讨论；Codex 从实际讨论维护文档、Issue �
 
 main 保存可恢复的集成结果。开发使用 feature/*、fix/*；文档使用 docs/*。提交采用 feat/fix/test/docs/chore/refactor 等前缀，描述最终变更。
 
-根 GitHub Actions 的 Build and test 执行 scripts/Test-Unified.ps1，覆盖 Harness、SOP 与 Change Lens。导入目录中的 .github 文件作为来源快照保留，不是本仓库自动运行的工作流。
+根 GitHub Actions 的 Build and test 执行 scripts/Test-Unified.ps1，覆盖 Harness、SOP、ANGE Eval 与 Change Lens。导入目录中的 .github 文件作为来源快照保留，不是本仓库自动运行的工作流。
 
 PR 说明真实独立审查及范围。原生 Reviewer 的结论写入 PR 摘要，不冒充另一 GitHub 账号审批；样例审查通过不等于整个集成 PR 已被独立审查。缺口、跳过和 PARTIAL 必须明示，交给 Owner 判断。
 
