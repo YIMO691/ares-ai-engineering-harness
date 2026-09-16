@@ -1,6 +1,6 @@
 # Ares AI Engineering Harness
 
-**你与当前 Codex 直接讨论和开发，Harness 管理约定、检查、证据与真实验收。**
+**让你专注需求、关键决策与验收，让 AI 自主完成有证据支持、可长期维护的工程交付。**
 
 本仓库整合 Workflow-SOP、Ares Harness 和 Change Lens。原生 Codex 负责理解、规划、搜索、编辑和返工；Harness 保存版本、权限边界、运行结果和决定；Web 按需观察进度。
 
@@ -16,11 +16,11 @@
 
 ## 目标与当前能力
 
-完整目标链是：**来源 → Context → 边界 → PRD → SPEC → 设计与契约 → 计划与测试方案 → 实施 → 验证与审查 → 对齐 → 交付与验收 → 发布运行 → 评估反馈**。项目规则、风险、Context 工作包、变更和交接贯穿全程。理论角色完整保留，项目落地时再决定文件合并和适用性。
+完整目标链是：**来源 → Context → 边界 → PRD → SPEC → 设计与契约 → 计划与测试方案 → 实施 → 验证与审查 → 对齐 → 交付与验收 → 发布运行 → 评估反馈**。需求与未知分流、必要复杂度、项目 Context 与代码质量约定贯穿全程；通过真实任务与运行反馈评价质量、人的负担和总成本。完整职责在项目中可合并到少量既有文档。
 
 当前主线是 **Codex Direct + Observer**。项目沿用功能说明及相关客户端、服务端、验证记录；Harness 的 L1/L2/L3 保存本轮约定快照。讨论确认后由同一 Primary 实施，经过验证、Align 和实际 Owner 验收完成任务。STANDARD/CRITICAL 使用独立只读 Reviewer，FAST 不启动 Reviewer。
 
-当前已有冻结约定、源码/证据校验、返工与恢复记录；完整文档依赖图、场景级自动证据和发布运行闭环仍是目标能力。对照表见[当前与目标差距](docs/TARGET_HARNESS.md#11-当前实现映射与演进次序)。工具检查成功不等于业务验收；Done 不自动提交、合并或发布。
+当前已有冻结约定、源码/证据校验、返工与恢复记录；结构化质量支持、完整依赖图、场景级证据、真实效果评测和发布运行闭环仍是目标能力。对照表见[当前与目标差距](docs/TARGET_HARNESS.md#11-当前实现映射与演进次序)。工具检查成功不等于业务验收；Done 不自动提交、合并或发布。
 
 ## 快速开始
 
@@ -76,4 +76,4 @@ Web 与 Change Lens 均按需启用；[观察台启动](docs/CODEX_DIRECT.md#sta
 
 当前是单用户本地工具；`v0.2.0` 与旧 Web Fusion 作为兼容历史保留。硬中断需核对现场，不承诺无损恢复原生会话。组件范围见[当前架构](docs/architecture/ARCHITECTURE.md)和[Change Lens](tools/change-lens/README.md)。
 
-项目由 [YIMO691](https://github.com/YIMO691) 维护，仓库保持私有。问题反馈见 [SUPPORT](SUPPORT.md)，安全问题按 [SECURITY](SECURITY.md) 私下报告。主项目尚未选择开源许可证；Change Lens 保留原 [MIT LICENSE](tools/change-lens/LICENSE)。来源与许可边界见[适配说明](docs/integrations/LOCAL_ADAPTATIONS.md)。
+项目由 [YIMO691](https://github.com/YIMO691) 维护。问题反馈见 [SUPPORT](SUPPORT.md)，安全问题按 [SECURITY](SECURITY.md) 私下报告。主项目尚未选择开源许可证；Change Lens 保留原 [MIT LICENSE](tools/change-lens/LICENSE)。来源与许可边界见[适配说明](docs/integrations/LOCAL_ADAPTATIONS.md)。

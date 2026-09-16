@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "observed_on": "2026-09-16",
+  "source_kind": "owner_supplied_local_research",
+  "scope": "Content identity and provenance only; no implementation, citation validity, licensing or outcome certification.",
+  "raw_source_location": "Retained by Owner outside this repository; local locator is in the task evidence.",
+  "repository_baseline": "09b647f5528636ee83fe7ec8af6f7e7abe973dbf",
+  "sources": [
+    {
+      "id": "CQ-S01",
+      "file": "01_AI_Native_Code_Quality_Foundation_v0.1.md",
+      "bytes": 43026,
+      "sha256": "3d362df58110fb013027ef652a7c7093aafec65494a9ac8dbf1069313277e38c",
+      "kind": "research_or_prompt",
+      "body_imported": false,
+      "unresolved_citation_markers": 0
+    },
+    {
+      "id": "CQ-S02",
+      "file": "02_AI_Code_Generation_Failure_Modes_v0.1.md",
+      "bytes": 21814,
+      "sha256": "8c4d32831b3646f2440d47681b985e068c13f9f8869f75b5d3fa71dfb766c46d",
+      "kind": "research_or_prompt",
+      "body_imported": false,
+      "unresolved_citation_markers": 0
+    },
+    {
+      "id": "CQ-S03",
+      "file": "03_Context_and_Golden_Pattern_Engineering_v0.1.md",
+      "bytes": 46441,
+      "sha256": "48902598ce192bd4fc23a2aed33ed60bcb35609005f07025e3c5449ac4df334d",
+      "kind": "research_or_prompt",
+      "body_imported": false,
+      "unresolved_citation_markers": 0
+    },
+    {
+      "id": "CQ-S04",
+      "file": "04_Code_Quality_Contract_and_High_Quality_Generation_v0.1.md",
+      "bytes": 54021,
+      "sha256": "4bd5b5728e63e88f4023367ebb762c966ea61acc5d1202c2e4d9a879af8b93f9",
+      "kind": "research_or_prompt",
+      "body_imported": false,
+      "unresolved_citation_markers": 0
+    },
+    {
+      "id": "CQ-S05",
+      "file": "05_Game_Client_Server_ET6_Code_Quality_Profiles_v0.1.md",
+      "bytes": 48083,
+      "sha256": "e3c9002467a6267d2a778bfbac748c968c9a543eed765300685deb29ef49499b",
+      "kind": "research_or_prompt",
+      "body_imported": false,
+      "unresolved_citation_markers": 0
+    },
+    {
+      "id": "CQ-S06",
+      "file": "06_Analyzer_and_Mechanical_Taste_v0.1.md",
+      "bytes": 58055,
+      "sha256": "f7016c1368fcdadfbe06d27a8b2d0b937b94fd4cc1b7bc8845bd4548ab6244fb",
+      "kind": "research_or_prompt",
+      "body_imported": false,
+      "unresolved_citation_markers": 0
+    },
+    {
+      "id": "CQ-S07",
+      "file": "07_Real_World_Evaluation_and_Ablation_v0.1.md",
+      "bytes": 16531,
+      "sha256": "a26f3e96f7506d265dc50f4522f94ef7d681de3b3f7876533501ce54f6ee19c3",
+      "kind": "research_or_prompt",
+      "body_imported": false,
+      "unresolved_citation_markers": 0
+    },
+    {
+      "id": "CQ-S08",
+      "file": "AI-Native Code Quality Engineering.md",
+      "bytes": 39267,
+      "sha256": "33d076260516e389b4cd74fd054896dee3fa2aaa5596f325b72b846965f2f654",
+      "kind": "research_or_prompt",
+      "body_imported": false,
+      "unresolved_citation_markers": 53
+    },
+    {
+      "id": "CQ-S09",
+      "file": "AI需求理解与复杂度治理_研究总包_v1.0.zip",
+      "bytes": 37515,
+      "sha256": "568c23568508a82ddcb2edaf98b1ad3009fc671d08d360aae37f3bbb8dc379d7",
+      "kind": "archive",
+      "body_imported": false,
+      "unresolved_citation_markers": null
+    },
+    {
+      "id": "CQ-S10",
+      "file": "AI需求理解与复杂度治理_研究理论手册_v1.0.md",
+      "bytes": 39230,
+      "sha256": "f324909b4458ba49c8249d1d90ff1ff9078edd93653da899804fe2cb69e5131f",
+      "kind": "research_or_prompt",
+      "body_imported": false,
+      "unresolved_citation_markers": 0
+    },
+    {
+      "id": "CQ-S11",
+      "file": "CODEX_PHASE_6A_PROJECT_CALIBRATION_PROMPT.md",
+      "bytes": 1726,
+      "sha256": "f9f13e7c976989e3ee64e19058b6d6924995471a80c1dfbcfacc7ec8eda72e4a",
+      "kind": "research_or_prompt",
+      "body_imported": false,
+      "unresolved_citation_markers": 0
+    }
+  ],
+  "archive_members": [
+    {
+      "archive": "AI需求理解与复杂度治理_研究总包_v1.0.zip",
+      "member": "AI_Requirements_Complexity_Governance_v1.0/03_证据矩阵与文献地图_v1.0.md",
+      "bytes": 7320,
+      "sha256": "9ba5812c35db976418797721cd576d6fc8c618e022840e1c1c7411adbdefb5a5",
+      "duplicates_source_id": null,
+      "body_imported": false
+    },
+    {
+      "archive": "AI需求理解与复杂度治理_研究总包_v1.0.zip",
+      "member": "AI_Requirements_Complexity_Governance_v1.0/01_AI需求理解与复杂度治理_研究理论手册_v1.0.md",
+      "bytes": 39230,
+      "sha256": "f324909b4458ba49c8249d1d90ff1ff9078edd93653da899804fe2cb69e5131f",
+      "duplicates_source_id": "CQ-S10",
+      "body_imported": false
+    },
+    {
+      "archive": "AI需求理解与复杂度治理_研究总包_v1.0.zip",
+      "member": "AI_Requirements_Complexity_Governance_v1.0/README.md",
+      "bytes": 2368,
+      "sha256": "67d91782baf628f0281aca1e007e58b614b8bee69d13297ef470c288155bed38",
+      "duplicates_source_id": null,
+      "body_imported": false
+    },
+    {
+      "archive": "AI需求理解与复杂度治理_研究总包_v1.0.zip",
+      "member": "AI_Requirements_Complexity_Governance_v1.0/02_工作流优化蓝图_v1.0.md",
+      "bytes": 7990,
+      "sha256": "7bb2433ac1c9c1478c5b92dd53294015768a0920c6f6d8d0e61cf6b6c1334d52",
+      "duplicates_source_id": null,
+      "body_imported": false
+    },
+    {
+      "archive": "AI需求理解与复杂度治理_研究总包_v1.0.zip",
+      "member": "AI_Requirements_Complexity_Governance_v1.0/REFERENCES.md",
+      "bytes": 4031,
+      "sha256": "e2b79ea0d11efaa6d6978d45a648e63166e9b7283fee452167abc4dd62bb1afa",
+      "duplicates_source_id": null,
+      "body_imported": false
+    },
+    {
+      "archive": "AI需求理解与复杂度治理_研究总包_v1.0.zip",
+      "member": "AI_Requirements_Complexity_Governance_v1.0/05_验证实验方案_v1.0.md",
+      "bytes": 6607,
+      "sha256": "06b1a744c80378c427c06d1623dc617264d7f506bbce2e145bdf3f9d78504b51",
+      "duplicates_source_id": null,
+      "body_imported": false
+    },
+    {
+      "archive": "AI需求理解与复杂度治理_研究总包_v1.0.zip",
+      "member": "AI_Requirements_Complexity_Governance_v1.0/04_可复制规则模板与Prompt_v1.0.md",
+      "bytes": 8147,
+      "sha256": "e0e75d559eecb2e6e287e132584b0810735db03d76fe3b8b77801ba941eca212",
+      "duplicates_source_id": null,
+      "body_imported": false
+    }
+  ]
+}
