@@ -1,8 +1,8 @@
-# Codex direct collaboration
+# CLI 参考：Codex Direct + Observer
 
-New tasks use the [integrated workflow](UNIFIED_WORKFLOW.md): document before agree, align before accept. This page preserves underlying commands and recovery.
+本文只说明当前命令、字段、配置与恢复。项目最终目的和五部分职责见[最终 Harness v2](TARGET_HARNESS.md)，当前如何查证需求、控制复杂度、实现和验证见[现行流程](UNIFIED_WORKFLOW.md)。目标中的质量机制与评测设计不自动增加请求字段、状态或执行命令。
 
-The Owner talks directly to the existing native Codex Primary. Ares records business agreements and evidence and runs deterministic checks plus independent read-only review. Web is an optional observer. No native conversation/session/tool runtime is implemented here.
+Owner 与现有原生 Primary 直接协作。CLI 登记约定、文档、授权、提交和证据；`verify` 执行配置的 Build/Test，FAST 跳过 Reviewer，STANDARD/CRITICAL 执行独立只读 Reviewer。新任务保持 document before agree、align before accept；Web 为可选观察入口。Context、Design、Verification 等内容由 Primary 维护，CLI 不自动检索或校准研究资料，也不实现原生会话/工具循环。
 
 
 ## Local settings

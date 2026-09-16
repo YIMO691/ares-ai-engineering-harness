@@ -4,18 +4,18 @@
 
 当前推荐入口为 Codex Direct + Observer。Owner 与现有原生 Primary 直接讨论和实施；Harness 不启动、附着或恢复这个 Primary。旧 v0.2 与 Web Fusion 仅作为兼容路径保留。
 
-完整目标参考架构见[目标 Harness](../TARGET_HARNESS.md)，包含文档/证据依赖、模型工作包、变化传播、交付运行与评估；其[当前实现映射](../TARGET_HARNESS.md#11-当前实现映射与演进次序)说明差距。本文继续只描述现有组件与运行行为，目标设计不等于已实现能力。
+最终目标是减少 Owner 协调负担并获得可靠、可维护的工程交付。[最终 Harness v2](../TARGET_HARNESS.md)的五部分职责由原生 Agent、当前控制机制、工程方法和后续能力共同承担，不对应五个已实现服务。当前组件实现约定、权限、版本、验证与证据；需求分流和质量判断主要由 Primary/适用 Reviewer 按文档执行。自动模式管理、结构化质量支持、领域校准和真实评测仍见[能力差距](../TARGET_HARNESS.md#11-当前实现映射与演进次序)。
 
 ## 设计原则
 
-1. Keep control and execution responsibilities separate.
-2. Native capability first; use a thin adapter before adding new infrastructure.
-3. Freeze intent and acceptance, leave implementation details flexible.
-4. Separate natural-language guidance from enforced permission boundaries.
-5. Use deterministic verification and independent read-only review.
-6. Human judgment owns ambiguity, Ready and final acceptance.
-7. Preserve real failure, timing and recovery evidence; never manufacture PASS.
-8. Measure Owner coordination cost before expanding the platform.
+1. 原生 Agent 调查、设计、编辑和返工；Harness 管理约定、边界、版本与真实结果。
+2. 冻结意图和验收，保留授权范围内的实现自由度；工程可查或局部可逆的问题先由 Primary 处理。
+3. 关键业务取舍、越权动作和实际验收由相应负责人决定，不把所有未知一律升级给人。
+4. 文档指导与程序强制区分；适用规则必须有项目依据，质量自检不等于已实现机械门禁。
+5. 复用原生能力和既有工具；新增抽象、状态、依赖或控制机制说明当前必要性。
+6. 确定性检查提供事实，按模式启用独立只读 Reviewer；质量判断不能抵消正确性失败。
+7. 保留真实失败、耗时、限制和恢复证据；不制造 PASS 或 Owner 决定。
+8. 以质量、维护性、人的负担和总成本评价改进，收益由真实任务证明。
 
 ## 组件与职责
 
