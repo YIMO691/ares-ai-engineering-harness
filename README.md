@@ -76,15 +76,18 @@ Ares 研究并实现一套围绕 AI 开发的工程控制机制：由人明确�
 | 原生实现与可信交付 | AI 自主实施和修复，用工具结果、必要审查与真实验收支持交付 |
 | 运行与效果改进 | 评价质量、维护性、人的负担和总成本，据此保留、改进或删除辅助机制 |
 
-完整设计由[最终 Harness](docs/TARGET_HARNESS.md)维护，26 类契约是信息职责，可由少量既有项目文档承载。当前能力分三层理解：
+完整设计由[最终 Harness](docs/TARGET_HARNESS.md)维护，26 类契约是信息职责，可由少量既有项目文档承载。当前能力按以下范围理解：
 
 | 状态 | 当前范围 |
 |---|---|
 | 已实现的运行机制 | Direct 的约定冻结、版本/源码/证据校验、配置的 Build/Test、按模式审查、返工、Align、实际验收记录与只读观察 |
 | 由 Primary 按文档执行的方法 | 查证与未知分流、必要复杂度判断、适用模式选择和质量自检；复用现有 Context、Design、Verification 等载体 |
+| 可选的试点记录与汇总 | [ANGE Eval](tools/ange-eval/README.md)检查协议、运行配置、计划运行、指标及证据引用，保留失败/缺失并生成描述性结果；内置数据全部为合成示例 |
 | 待实现或待验证的目标 | 结构化质量支持、自动模式/Context 管理、细粒度依赖与场景证据、项目领域规则校准、真实效果评测及发布运行集成 |
 
 当前主线是 **Codex Direct + Observer**：同一 Primary 与你直接协作；L1/L2/L3 选择任务快照格式，FAST 不启动 Reviewer，STANDARD/CRITICAL 使用独立只读 Reviewer。文档方法不等于自动门禁，检查通过不等于业务验收，Done 不自动提交、合并或发布。能力差距和下一步见[演进次序](docs/TARGET_HARNESS.md#11-当前实现映射与演进次序)。
+
+ANGE 的设计意图、知识/上下文、动态委派、工程与玩家体验、恢复和评价研究已映射到现有目标与契约，见[研究映射](docs/research/REFERENCES.md#ai-native-game-engineeringange研究)和[实施次序](docs/TARGET_HARNESS.md#113-ange-研究落地)。自动上下文/委派、游戏试玩/遥测集成与真实效果试点仍需后续验证，不因文档采用或记录工具通过检查而成为已实现能力。
 
 ## 快速开始
 
@@ -126,7 +129,7 @@ Web 与 Change Lens 均按需启用；[观察台启动](docs/CODEX_DIRECT.md#sta
 ./scripts/Test-Unified.ps1 -ScratchRoot '<absolute-task-scratch>' -EvidenceRoot '<absolute-task-evidence>' -InstallTestDependencies
 ```
 
-统一检查覆盖 Harness、SOP 和 Change Lens，依赖与输出放在外部任务目录。[GitHub Actions](https://github.com/YIMO691/ares-ai-engineering-harness/actions/workflows/build.yml)保存远端实际结果；控制替身测试、部分分析与真实项目验收分别记录，不能据此宣称生产可靠性或正向 ROI。
+统一检查覆盖 Harness、SOP、ANGE Eval 和 Change Lens，依赖与输出放在外部任务目录。[GitHub Actions](https://github.com/YIMO691/ares-ai-engineering-harness/actions/workflows/build.yml)保存远端实际结果；控制替身测试、部分分析与真实项目验收分别记录，不能据此宣称生产可靠性或正向 ROI。
 
 贡献见 [CONTRIBUTING](CONTRIBUTING.md)，Issue/PR 与授权合并规则见 [GitHub 协作规范](docs/GITHUB_WORKFLOW.md)。商业源码、受限原始资料、认证、SQLite 和运行配置不上传；完整业务证据保留在授权位置，只公开安全摘要。
 
@@ -137,6 +140,7 @@ Web 与 Change Lens 均按需启用；[观察台启动](docs/CODEX_DIRECT.md#sta
 | `src/`、`tests/`、`scripts/` | 当前工程控制机制、验证、配置与启动 |
 | `docs/` | 目标理论、现行流程、CLI、架构和协作参考；旧规格在 `docs/history/` |
 | `workflow/` | 固定版本的 SOP 方法、模板与案例，支撑现行流程 |
+| `tools/ange-eval/` | 可选试点协议/记录检查、描述性报告和合成案例 |
 | `tools/change-lens/` | 可选变化分析器及其独立组件资料 |
 | `.github/`、`AGENTS.md` | 协作模板、CI 和 Agent 维护指令 |
 

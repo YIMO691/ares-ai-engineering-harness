@@ -22,6 +22,7 @@ Ares 的目标是减少 Owner 协调负担，交付正确、可维护且有证�
 | 项目文档格式与示例 | [模板目录](../workflow/templates/README.md)、[功能示例](../workflow/examples/L2-standard-feature.md)；[SOP 正文](../workflow/docs/WORKFLOW.md)和[工程规则](../workflow/docs/ENGINEERING_RULES.md)按任务选读 |
 | 工具与可选方法 | [SOP 工具参考](../workflow/docs/AI_COLLABORATION.md)、[方法目录](../workflow/skills/README.md)、[Change Lens](../tools/change-lens/README.md) |
 | 如何贡献、验证与合并 | [贡献指南](../CONTRIBUTING.md)、[GitHub 协作规范](GITHUB_WORKFLOW.md) |
+| 将 ANGE 研究接入项目并检查试点记录 | [研究到能力映射](research/REFERENCES.md#ai-native-game-engineeringange研究)、[实施次序](TARGET_HARNESS.md#113-ange-研究落地)、[可运行评价工具](../tools/ange-eval/README.md)；真实试点尚未执行 |
 | 支持、安全及 Agent 约束 | [SUPPORT](../SUPPORT.md)、[SECURITY](../SECURITY.md)、[AGENTS](../AGENTS.md) |
 
 SOP 与 Change Lens 保留固定来源和独立组件职责；不作为第二套 Ares 日常入口，上游指令不覆盖根 AGENTS 与现行流程。

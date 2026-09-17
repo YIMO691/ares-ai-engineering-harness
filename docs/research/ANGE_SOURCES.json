@@ -1,0 +1,1354 @@
+{
+  "schema_version": 1,
+  "source_label": "Owner-supplied AI-Native research, 2026-09-16",
+  "scope": "Provenance only; no source-text redistribution, citation audit or empirical certification.",
+  "physical_files": 26,
+  "archive_members": 196,
+  "entries": [
+    {
+      "source": "AI-Native_Game_Engineering_Phase0_正式研究基线_v0.1.md",
+      "kind": "file",
+      "bytes": 43372,
+      "sha256": "a6c25e19a747c1e5814181ac0f1bf112c8a0149328845e7b8a7645cccb699dc5"
+    },
+    {
+      "source": "AI-Native_Game_Engineering_Phase1_证据发现与综合报告_v1.0.md",
+      "kind": "file",
+      "bytes": 41155,
+      "sha256": "7597e06689dff785261065f4543c91ca584455caa0ada9b3c28655cc29d423a5"
+    },
+    {
+      "source": "AI-Native_Game_Engineering_Phase2_Foundation_Theory_v0.1.md",
+      "kind": "file",
+      "bytes": 47178,
+      "sha256": "013e46d2b391e5367df0e1e10a16828159572645325bc08e8de7d9ebef8d699f"
+    },
+    {
+      "source": "AI-Native_Game_Engineering_Phase3_Intent_Requirement_Decision_v0.1.md",
+      "kind": "file",
+      "bytes": 38024,
+      "sha256": "d63170b233c2076f35c488e7c4a9f70a3f87c3649fe5ca833c17cd8ffcc34689"
+    },
+    {
+      "source": "AI-Native_Game_Engineering_Phase4_Context_Knowledge_Memory_v0.1.md",
+      "kind": "file",
+      "bytes": 30908,
+      "sha256": "ca4f64b6fb21280871f5f157bde31994a888865623075fb6a1842964c0adfc73"
+    },
+    {
+      "source": "AI-Native_Game_Engineering_Phase5_Autonomy_Risk_Escalation_v0.1.md",
+      "kind": "file",
+      "bytes": 38517,
+      "sha256": "a20a35e62cc24540f8509890b605bf948eb6032eed875e5d6488c1803bfb0c93"
+    },
+    {
+      "source": "AI-Native_Game_Engineering_Phase6_AI_Software_Engineering_v0.1.md",
+      "kind": "file",
+      "bytes": 40604,
+      "sha256": "7d553159ce6265e5bbd4f5c7544b44e2ea0f71fe5ef2b099c19f5715b904f87a"
+    },
+    {
+      "source": "AI-Native_Game_Engineering_Phase7_Game_Experience_Playtest_Telemetry_v0.1.md",
+      "kind": "file",
+      "bytes": 38148,
+      "sha256": "15d552c8959e282d7e0aa4e46823e134625415d31228f9ebc040332edc07b797"
+    },
+    {
+      "source": "AI-Native_Game_Engineering_Phase8_Eval_Benchmark_Metrics_v0.1.md",
+      "kind": "file",
+      "bytes": 41090,
+      "sha256": "867b100f4da657bd3166fbc493feb5a02c009d08b662e7fc6470410e94350c25"
+    },
+    {
+      "source": "AI-Native_Game_Engineering_Phase9_Handbook_Reference_Architecture_Pilot_v1.0_RC.md",
+      "kind": "file",
+      "bytes": 39930,
+      "sha256": "8dfe00c635788b34e2a5c2d179f1fa6548d6df9998f0300b8fa421d03a07b084"
+    },
+    {
+      "source": "AI-Native_Game_Engineering_理论体系与正式研究方案_v0.1.md",
+      "kind": "file",
+      "bytes": 22730,
+      "sha256": "1d2338ab08f3eeffabb4f0233c7796819a3bc50f246ceabe11b9ebaf97d1fad6"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_Research_Package_v0.1.zip",
+      "kind": "file",
+      "bytes": 2944,
+      "sha256": "1ac6a98214bd2e17f8ef74729316bb81be8854896f5c869a3c5ea0c15789a1a0"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_Research_Package_v0.1.zip!/01_ANGE_Theory_Framework_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 897,
+      "sha256": "dd4e253185e28ff3520f010b0eb1c07cb18331919aa3bfe6363a375ac885665b"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_Research_Package_v0.1.zip!/03_ANGE_Research_Execution_Guide_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 1009,
+      "sha256": "f6cb57a96b559c08df686aec35f5eafe3ba7a6a4d28096beab8e9492672f7578"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_Research_Package_v0.1.zip!/02_ANGE_Research_Phase_Plan_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2020,
+      "sha256": "7e161a9b849db26c0347c267913c41e93445c4109b2d4255026bdc8018e8f7be"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_Research_Package_v0.1.zip!/00_ANGE_Research_Charter_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 885,
+      "sha256": "8ef61100d81b3dc61139a2a074e0a38ae78f85d618129893771a331bd2874c1c"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip",
+      "kind": "file",
+      "bytes": 201888,
+      "sha256": "f58284e6baef68c22a9bfe1fcb29588014ae526f1ee440722b100ba8c734e4b6"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/00_MANIFESTO/ANGE_Manifesto_v1.0_RC.md",
+      "kind": "archive_member",
+      "bytes": 2822,
+      "sha256": "d1d48e0ce0443ac4d590e2bded6ce10729a0235dca494239980c254643706d95"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/01_HANDBOOK/ANGE_Handbook_v1.0_RC.md",
+      "kind": "archive_member",
+      "bytes": 15358,
+      "sha256": "d9a6f0ec2becb2469721427dba40d993178feedc195e28077b981e583dcf42db"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/02_REFERENCE_ARCHITECTURE/ANGE_Reference_Architecture_v1.0_RC.md",
+      "kind": "archive_member",
+      "bytes": 5208,
+      "sha256": "655984cffa8e0171bf891100f80523dc89e075d72744b3eb0f036454dc0909ed"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/03_PATTERNS/ANGE_AntiPattern_Library_v1.0_RC.md",
+      "kind": "archive_member",
+      "bytes": 2875,
+      "sha256": "c7d0763c7452dc629aae39d088f0dc11a9dfe3cda9a18f696fe0af2ad4f0d04c"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/03_PATTERNS/ANGE_Pattern_Library_v1.0_RC.md",
+      "kind": "archive_member",
+      "bytes": 4384,
+      "sha256": "50062bd32ead2482ee377a3c15aa7e0b1502df5c69f362931663c31e5f302b9d"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/04_TEMPLATES/Code_Change_Contract.md",
+      "kind": "archive_member",
+      "bytes": 620,
+      "sha256": "58fb6816af8120a4a6ce7d16764deb4f4bf8c3a3caf5451582d3f092ce8f8875"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/04_TEMPLATES/Context_Pack.md",
+      "kind": "archive_member",
+      "bytes": 504,
+      "sha256": "d405a7544dd7edbbe273196d1447aaca7bd2abdc360cbb576098e2dda1e9d6b0"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/04_TEMPLATES/Decision_Record.md",
+      "kind": "archive_member",
+      "bytes": 437,
+      "sha256": "bc7545746990d88fdeb411a6fcedd091b5f2e1d6cf89d414619532e28d1f2be2"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/04_TEMPLATES/Delegation_Contract.md",
+      "kind": "archive_member",
+      "bytes": 1099,
+      "sha256": "ea1e7752beb50effd86b7c26ebbe500c95d490d5d9adb51cc88292b3c1b0cced"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/04_TEMPLATES/Eval_Run_Record.md",
+      "kind": "archive_member",
+      "bytes": 886,
+      "sha256": "0c4e4044df2a4b8e1f6899a479e83e74be3421d3bdc4b1f4c92497128bd8ba97"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/04_TEMPLATES/Experience_Study_Contract.md",
+      "kind": "archive_member",
+      "bytes": 727,
+      "sha256": "5a9adde03b21192b982cdd5f7d2a0abb9bd327f6a85aa45ef46fbb4af536c906"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/04_TEMPLATES/Feature_Intent_Contract.md",
+      "kind": "archive_member",
+      "bytes": 535,
+      "sha256": "82fe52ccc666f7caf0f81e36f298e0aac7d46e21a20efbcc5f6c2095ad5d741d"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/04_TEMPLATES/Incident_Learning_Record.md",
+      "kind": "archive_member",
+      "bytes": 585,
+      "sha256": "29102652a035eda931a9ac93f541f64ce42f4c3e6dd79a1d3165363fb1b47a18"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/04_TEMPLATES/README.md",
+      "kind": "archive_member",
+      "bytes": 552,
+      "sha256": "c9335b6ee1c209deee8787335562057801fbb96003b89d4255805a3976923df0"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/04_TEMPLATES/Review_Evidence_Packet.md",
+      "kind": "archive_member",
+      "bytes": 628,
+      "sha256": "19bd8c57a0d225390dd8099de56b26d59f35d7736e620e9f94a59ad84e21cc59"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/05_PILOT/PILOT_0_Decision_Rubric.md",
+      "kind": "archive_member",
+      "bytes": 1180,
+      "sha256": "3bfddbfb09eacc2c6da9cc5bb571407e1673efdbf16fe9919ab10f0ca4c11e8a"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/05_PILOT/PILOT_0_Manifest.json",
+      "kind": "archive_member",
+      "bytes": 728,
+      "sha256": "ff23cfd055998a6f33c301ae90eb906214a85787137b32ddad7ae334874fca95"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/05_PILOT/PILOT_0_Protocol_v1.0_RC.md",
+      "kind": "archive_member",
+      "bytes": 2406,
+      "sha256": "82b57bf3eaaa974dddc34567365b083d99960822d2596b5bdbf4d2e861545fc5"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/05_PILOT/PILOT_0_Runbook.md",
+      "kind": "archive_member",
+      "bytes": 1046,
+      "sha256": "145221059fed92b9409c52279ed24e71d337712ccd14b22aa8506dd06e604294"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/05_PILOT/PILOT_0_Task_Candidates.md",
+      "kind": "archive_member",
+      "bytes": 946,
+      "sha256": "984f0795bce5c703b542e9b5452e825972b9dfc9e8d94d54402bef2c993645c6"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/06_EVIDENCE/Current_Source_Update_2026-09.md",
+      "kind": "archive_member",
+      "bytes": 1762,
+      "sha256": "50b0c96da6592f91c39773b8d31b3e4c31b8b80f621dbcb317bb329e4cd3698c"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/06_EVIDENCE/Evidence_Maturity_Register.csv",
+      "kind": "archive_member",
+      "bytes": 25708,
+      "sha256": "5eb0d44f26628e1c54fa9b0f3826daf03dd11fa37e0f62cbe235c71fb4e663e0"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/06_EVIDENCE/Evidence_Maturity_Summary.md",
+      "kind": "archive_member",
+      "bytes": 2526,
+      "sha256": "3e4eec430cef68f21e89db8313133a74f27597c65b3997c2f1ac474604b0f4df"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/06_EVIDENCE/Research_Limitations_and_Open_Questions.md",
+      "kind": "archive_member",
+      "bytes": 2588,
+      "sha256": "4759080f7214c9eb574581f195f9b811dc09ed770511913afb2f69573440bfba"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/07_ADOPTION/Adoption_Guide_v1.0_RC.md",
+      "kind": "archive_member",
+      "bytes": 2239,
+      "sha256": "2381b09d9fb11a92e40fa14d9705e327dd7c06607a37ab4715c7a358366e5162"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/07_ADOPTION/Team_Readiness_Checklist.md",
+      "kind": "archive_member",
+      "bytes": 1267,
+      "sha256": "b84d58e4d87d93be09d08a8a943d383c55493f3af0296ecd356ff753391c9f39"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/08_RESEARCH_ARCHIVE/Phase0_Research_Baseline.md",
+      "kind": "archive_member",
+      "bytes": 43372,
+      "sha256": "a6c25e19a747c1e5814181ac0f1bf112c8a0149328845e7b8a7645cccb699dc5",
+      "same_bytes_as": "AI-Native_Game_Engineering_Phase0_正式研究基线_v0.1.md"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/08_RESEARCH_ARCHIVE/Phase1_Evidence_Discovery.md",
+      "kind": "archive_member",
+      "bytes": 41155,
+      "sha256": "7597e06689dff785261065f4543c91ca584455caa0ada9b3c28655cc29d423a5",
+      "same_bytes_as": "AI-Native_Game_Engineering_Phase1_证据发现与综合报告_v1.0.md"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/08_RESEARCH_ARCHIVE/Phase2_Foundation_Theory.md",
+      "kind": "archive_member",
+      "bytes": 47178,
+      "sha256": "013e46d2b391e5367df0e1e10a16828159572645325bc08e8de7d9ebef8d699f",
+      "same_bytes_as": "AI-Native_Game_Engineering_Phase2_Foundation_Theory_v0.1.md"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/08_RESEARCH_ARCHIVE/Phase3_Intent_Requirement_Decision.md",
+      "kind": "archive_member",
+      "bytes": 38024,
+      "sha256": "d63170b233c2076f35c488e7c4a9f70a3f87c3649fe5ca833c17cd8ffcc34689",
+      "same_bytes_as": "AI-Native_Game_Engineering_Phase3_Intent_Requirement_Decision_v0.1.md"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/08_RESEARCH_ARCHIVE/Phase4_Context_Knowledge_Memory.md",
+      "kind": "archive_member",
+      "bytes": 30908,
+      "sha256": "ca4f64b6fb21280871f5f157bde31994a888865623075fb6a1842964c0adfc73",
+      "same_bytes_as": "AI-Native_Game_Engineering_Phase4_Context_Knowledge_Memory_v0.1.md"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/08_RESEARCH_ARCHIVE/Phase5_Autonomy_Risk_Escalation.md",
+      "kind": "archive_member",
+      "bytes": 38517,
+      "sha256": "a20a35e62cc24540f8509890b605bf948eb6032eed875e5d6488c1803bfb0c93",
+      "same_bytes_as": "AI-Native_Game_Engineering_Phase5_Autonomy_Risk_Escalation_v0.1.md"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/08_RESEARCH_ARCHIVE/Phase6_AI_Software_Engineering.md",
+      "kind": "archive_member",
+      "bytes": 40604,
+      "sha256": "7d553159ce6265e5bbd4f5c7544b44e2ea0f71fe5ef2b099c19f5715b904f87a",
+      "same_bytes_as": "AI-Native_Game_Engineering_Phase6_AI_Software_Engineering_v0.1.md"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/08_RESEARCH_ARCHIVE/Phase7_Game_Experience_Playtest_Telemetry.md",
+      "kind": "archive_member",
+      "bytes": 38148,
+      "sha256": "15d552c8959e282d7e0aa4e46823e134625415d31228f9ebc040332edc07b797",
+      "same_bytes_as": "AI-Native_Game_Engineering_Phase7_Game_Experience_Playtest_Telemetry_v0.1.md"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/08_RESEARCH_ARCHIVE/Phase8_Eval_Benchmark_Metrics.md",
+      "kind": "archive_member",
+      "bytes": 41090,
+      "sha256": "867b100f4da657bd3166fbc493feb5a02c009d08b662e7fc6470410e94350c25",
+      "same_bytes_as": "AI-Native_Game_Engineering_Phase8_Eval_Benchmark_Metrics_v0.1.md"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/08_RESEARCH_ARCHIVE/README.md",
+      "kind": "archive_member",
+      "bytes": 446,
+      "sha256": "9068bf45e64b34a9c402ddc80ae67ac177b1bd4cd654929129870d0165fc2e1e"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/09_REPO_BUILD/Codex_Repository_Build_Prompt.md",
+      "kind": "archive_member",
+      "bytes": 2472,
+      "sha256": "7ea861b29e4b63d6c9d7641e8046c3db5697bb00177d3ddb16e2ad2ac8d7f9f2"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/09_REPO_BUILD/Implementation_Backlog.md",
+      "kind": "archive_member",
+      "bytes": 1009,
+      "sha256": "a5fcc5b2df9d2d1b293ae6bb7b3832f2a9f3ee7536161894aa20949ad3bcc888"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/09_REPO_BUILD/Repository_Structure.md",
+      "kind": "archive_member",
+      "bytes": 1488,
+      "sha256": "12d815a7e7f0539ae0cc0ea6fe1e1254fc8aa94e3a8e44c51d65c0db6165b55b"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/ENCODING.md",
+      "kind": "archive_member",
+      "bytes": 493,
+      "sha256": "521fef77b05abd5c6cd2408e8290698e16dc5a4fca8a5e652c3fd34ecacd1be2"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/PHASE9_COMPLETION_REPORT.md",
+      "kind": "archive_member",
+      "bytes": 1983,
+      "sha256": "7f568e4f2c05332cf4f829c2a670472bf073d5b0751bbac4de8f276fbbf8663d"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/README.md",
+      "kind": "archive_member",
+      "bytes": 3709,
+      "sha256": "55b8edb3506d7e126ea92c89f98fbccf2518cde6d830801be8e13e6cc5d1de96"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/SHA256SUMS.txt",
+      "kind": "archive_member",
+      "bytes": 4476,
+      "sha256": "49a982ddefa9479637c842b41dff3db0d0f05798695b57d251bbe5f0da618b89"
+    },
+    {
+      "source": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/VALIDATION_REPORT.md",
+      "kind": "archive_member",
+      "bytes": 766,
+      "sha256": "e690220a26c8baa68b0d4fbf8956e1461b112171637349fd39506322e12f4358"
+    },
+    {
+      "source": "ANGE_Handbook_v1.0_RC.md",
+      "kind": "file",
+      "bytes": 15358,
+      "sha256": "d9a6f0ec2becb2469721427dba40d993178feedc195e28077b981e583dcf42db",
+      "same_bytes_as": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/01_HANDBOOK/ANGE_Handbook_v1.0_RC.md"
+    },
+    {
+      "source": "ANGE_Phase0_Research_Baseline_v0.1.zip",
+      "kind": "file",
+      "bytes": 22936,
+      "sha256": "b0d25de857c88c16d0391066c2107fbd3386653f08ecbdae4bdee6611eb0b047"
+    },
+    {
+      "source": "ANGE_Phase0_Research_Baseline_v0.1.zip!/00_Research_Questions_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 3973,
+      "sha256": "476d2d78b23c0fafd9ceea3a54b6fc9fcd7e87a9c55bc795c2b48c8ebd9e93c9"
+    },
+    {
+      "source": "ANGE_Phase0_Research_Baseline_v0.1.zip!/01_Terminology_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 5676,
+      "sha256": "273e285b505a214dbb2ff5a1e51b28c11bb4e1fd64c34acdb47ec3c236727188"
+    },
+    {
+      "source": "ANGE_Phase0_Research_Baseline_v0.1.zip!/02_Research_Methodology_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 10870,
+      "sha256": "769c2b60b43dfc00c8e4f3073556247f34860817b38722dfdc8d18c385e5852d"
+    },
+    {
+      "source": "ANGE_Phase0_Research_Baseline_v0.1.zip!/03_Evidence_Map_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 11069,
+      "sha256": "218761241e6544b5edf0ba821120e7005bddc764dba273715fe6f8db3441db41"
+    },
+    {
+      "source": "ANGE_Phase0_Research_Baseline_v0.1.zip!/04_Reference_Model_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 5101,
+      "sha256": "e52816b9da245f7d454f6a0b9c07fc29b0aa77ffc5d61f423a10197cef6caa90"
+    },
+    {
+      "source": "ANGE_Phase0_Research_Baseline_v0.1.zip!/05_Phase1_Task_Board_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 4125,
+      "sha256": "4322a4633f1fe865a7b9abac5d6de3edee5bd5db3f0e95117cc368fe39e7cb48"
+    },
+    {
+      "source": "ANGE_Phase0_Research_Baseline_v0.1.zip!/06_Phase0_Completion_Report_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2081,
+      "sha256": "380fc3b21d1640974fcaec6f4d451befe9756365455367949d8b67c46bd0897d"
+    },
+    {
+      "source": "ANGE_Phase0_Research_Baseline_v0.1.zip!/README.md",
+      "kind": "archive_member",
+      "bytes": 661,
+      "sha256": "56dde17482c084bfe8702256dc00e437c634603269b4a59613665bd9eb13c8ba"
+    },
+    {
+      "source": "ANGE_Phase1_Evidence_Discovery_v1.0.zip",
+      "kind": "file",
+      "bytes": 31421,
+      "sha256": "bf7a177513b7fa17c52c1e7db5d53996ad712e22b003832aac879327d5e48b71"
+    },
+    {
+      "source": "ANGE_Phase1_Evidence_Discovery_v1.0.zip!/00_Evidence_Map_v1.0.md",
+      "kind": "archive_member",
+      "bytes": 3893,
+      "sha256": "9cea71c7ed21cd2fa97feeae01e866443f89e0f444873fcebdb14369e18c0d77"
+    },
+    {
+      "source": "ANGE_Phase1_Evidence_Discovery_v1.0.zip!/10_Phase1_Synthesis_v1.0.md",
+      "kind": "archive_member",
+      "bytes": 5379,
+      "sha256": "82d6d4cbc14927d7ac3769cce5bd67e93112b683fe224793fe42196be16c019c"
+    },
+    {
+      "source": "ANGE_Phase1_Evidence_Discovery_v1.0.zip!/11_Phase1_Completion_Report_v1.0.md",
+      "kind": "archive_member",
+      "bytes": 1643,
+      "sha256": "431a547d8f784c89e1ad926566a856b40530c0645fdeeef3dd1abb911682246e"
+    },
+    {
+      "source": "ANGE_Phase1_Evidence_Discovery_v1.0.zip!/12_Phase2_Task_Board_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 1951,
+      "sha256": "952809ecee295f86306f16ca45cf4d5641c9b20e9f3b2f01d66d72b925b62c57"
+    },
+    {
+      "source": "ANGE_Phase1_Evidence_Discovery_v1.0.zip!/A_Human_AI_Engineering_Evidence_v1.0.md",
+      "kind": "archive_member",
+      "bytes": 3089,
+      "sha256": "fb66f0d67776bfba4796eba8ae1e7c7b2f55c717c890b35021653e094492b25a"
+    },
+    {
+      "source": "ANGE_Phase1_Evidence_Discovery_v1.0.zip!/B_AI_Software_Engineering_Evidence_v1.0.md",
+      "kind": "archive_member",
+      "bytes": 4685,
+      "sha256": "86a3708498064927e9798adebaf5247591c5cc9d61af1d4b22cdb005cb73cf31"
+    },
+    {
+      "source": "ANGE_Phase1_Evidence_Discovery_v1.0.zip!/C_Agent_Reliability_Evidence_v1.0.md",
+      "kind": "archive_member",
+      "bytes": 2956,
+      "sha256": "db9790614f7a6df929b5a85e1061ffe17fadfd5e6a1892b6924e0aa6fc0b75dd"
+    },
+    {
+      "source": "ANGE_Phase1_Evidence_Discovery_v1.0.zip!/Claims_Register_v1.0.csv",
+      "kind": "archive_member",
+      "bytes": 4541,
+      "sha256": "168297d1bb22755e0c26f9cf353e5e1e1cc5b619b43df273691b495e3248f8f8"
+    },
+    {
+      "source": "ANGE_Phase1_Evidence_Discovery_v1.0.zip!/D_Intent_Decision_Evidence_v1.0.md",
+      "kind": "archive_member",
+      "bytes": 2499,
+      "sha256": "bf5ec1bc4590ae0226c0e3263ecbe9b54d7981c7400c66e0d08269c58f283995"
+    },
+    {
+      "source": "ANGE_Phase1_Evidence_Discovery_v1.0.zip!/E_Context_Knowledge_Evidence_v1.0.md",
+      "kind": "archive_member",
+      "bytes": 2803,
+      "sha256": "379f57d03f518598f5ae46581368c7c3567444cb6d6ac194cca1ec6fc81dacbe"
+    },
+    {
+      "source": "ANGE_Phase1_Evidence_Discovery_v1.0.zip!/F_Governance_Harness_Evidence_v1.0.md",
+      "kind": "archive_member",
+      "bytes": 2599,
+      "sha256": "bbb2fbacee5c1ce67c575dab33f5ad3d56e0dad5548d5ef13d1952b0bf6d2e34"
+    },
+    {
+      "source": "ANGE_Phase1_Evidence_Discovery_v1.0.zip!/G_Game_Engineering_Evidence_v1.0.md",
+      "kind": "archive_member",
+      "bytes": 2010,
+      "sha256": "ed9d6055f9d68bbabf98a1212cdce6a6a16b862039f8bd17d6b063e8170d6a87"
+    },
+    {
+      "source": "ANGE_Phase1_Evidence_Discovery_v1.0.zip!/H_AI_Game_Dev_Evidence_v1.0.md",
+      "kind": "archive_member",
+      "bytes": 2817,
+      "sha256": "6b8bae2b2537d261c4bf2ee547a8ee77adedb29df891c3edad450bfc13ce2d73"
+    },
+    {
+      "source": "ANGE_Phase1_Evidence_Discovery_v1.0.zip!/I_Tool_Project_Cases_v1.0.md",
+      "kind": "archive_member",
+      "bytes": 4666,
+      "sha256": "455e0bc6d6829df47b2e69cc6e3ece9b02e6651e535b19be9ecb273c4306a592"
+    },
+    {
+      "source": "ANGE_Phase1_Evidence_Discovery_v1.0.zip!/README.md",
+      "kind": "archive_member",
+      "bytes": 552,
+      "sha256": "d010341ab26df5e72c2ff26cf854e0bdd25fe03d9db488576f4bfa871bd29666"
+    },
+    {
+      "source": "ANGE_Phase1_Evidence_Discovery_v1.0.zip!/Sources_Index_v1.0.md",
+      "kind": "archive_member",
+      "bytes": 8143,
+      "sha256": "10c4642504eff7c8b40c31f2a45c74ac3bbfa5c77dd8287718b569336dd76cfd"
+    },
+    {
+      "source": "ANGE_Phase2_Foundation_Theory_v0.1.zip",
+      "kind": "file",
+      "bytes": 31724,
+      "sha256": "8259fbbc6bd71a24881baecc0bb51cc8af886fdd70c3baf1d7ad8fcae02768b9"
+    },
+    {
+      "source": "ANGE_Phase2_Foundation_Theory_v0.1.zip!/00_Foundation_Theory_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 6568,
+      "sha256": "ed7527717909601a4305550941e0fc4a96540d0a579c25e4cb12793ce96618ff"
+    },
+    {
+      "source": "ANGE_Phase2_Foundation_Theory_v0.1.zip!/01_P2_A_SocioTechnical_Foundation.md",
+      "kind": "archive_member",
+      "bytes": 3232,
+      "sha256": "9ebf62fb227f28a119d41a0df14c31275d5ee34b629912d21ef81e1578c799f8"
+    },
+    {
+      "source": "ANGE_Phase2_Foundation_Theory_v0.1.zip!/02_P2_B_Uncertainty_and_Trust.md",
+      "kind": "archive_member",
+      "bytes": 2891,
+      "sha256": "1635c8f76bd10f89efe1636316c9a12fc8d6675156b5074186d1d3d6bb2270ed"
+    },
+    {
+      "source": "ANGE_Phase2_Foundation_Theory_v0.1.zip!/03_P2_C_Human_Attention_Model.md",
+      "kind": "archive_member",
+      "bytes": 2948,
+      "sha256": "0a14328392936b54cce2f4a1d8737fce4dd8620d6f01727f0032a0d893624019"
+    },
+    {
+      "source": "ANGE_Phase2_Foundation_Theory_v0.1.zip!/04_P2_D_Delegation_Control_Model.md",
+      "kind": "archive_member",
+      "bytes": 2621,
+      "sha256": "cbcd7a66711a28f754817a6e72abe7a0727da134bc0e80fad750d12e39ca05ba"
+    },
+    {
+      "source": "ANGE_Phase2_Foundation_Theory_v0.1.zip!/05_P2_E_Evidence_Model.md",
+      "kind": "archive_member",
+      "bytes": 3015,
+      "sha256": "e3804d49248daaf0dd0fef471bb96f344bbae7282036c6ffbfc5fe14f24064c0"
+    },
+    {
+      "source": "ANGE_Phase2_Foundation_Theory_v0.1.zip!/06_P2_F_Recovery_Learning_Model.md",
+      "kind": "archive_member",
+      "bytes": 2690,
+      "sha256": "5323f1943de48ebc6b5333fb53b527f001b2ad3aeb43e08a921f3525f9317920"
+    },
+    {
+      "source": "ANGE_Phase2_Foundation_Theory_v0.1.zip!/07_Six_Plane_Revision_Decision.md",
+      "kind": "archive_member",
+      "bytes": 1548,
+      "sha256": "1f2e126cdfa0ccb09bb93bea8d2ebfd9fcd2cd025b999015d441df6ccaa4160c"
+    },
+    {
+      "source": "ANGE_Phase2_Foundation_Theory_v0.1.zip!/08_Human_AI_Evidence_Role_Model.md",
+      "kind": "archive_member",
+      "bytes": 2015,
+      "sha256": "1129aa7801940c2b9fe510718a7a95e03c572b25a7e2ba1d63d1e676e3dee96e"
+    },
+    {
+      "source": "ANGE_Phase2_Foundation_Theory_v0.1.zip!/09_Delegation_Contract_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2284,
+      "sha256": "5eea502168c834b05d27fe00fc7782bed62994e697672143994bdd6f1af31986"
+    },
+    {
+      "source": "ANGE_Phase2_Foundation_Theory_v0.1.zip!/10_Evidence_Matrix_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 1760,
+      "sha256": "d04ccf2b115fcddbb19caf5f665e159a3121970453ba6d17503fb085e0d30456"
+    },
+    {
+      "source": "ANGE_Phase2_Foundation_Theory_v0.1.zip!/11_Human_Attention_Profile_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 1467,
+      "sha256": "42f390c87025a7d7fe693ebbd39758348c2772d03597cbef76451da779f6b15f"
+    },
+    {
+      "source": "ANGE_Phase2_Foundation_Theory_v0.1.zip!/12_Boundaries_and_Counterexamples.md",
+      "kind": "archive_member",
+      "bytes": 1837,
+      "sha256": "55e81ab0e526f16079242d0903f7b2510fec7aaaf0c47e8c2962d61e09845406"
+    },
+    {
+      "source": "ANGE_Phase2_Foundation_Theory_v0.1.zip!/13_Phase2_Completion_Report.md",
+      "kind": "archive_member",
+      "bytes": 2027,
+      "sha256": "c9b6b912c33677765b4a4b29d57208263dbf84edad5490d0293bb0d2e532835b"
+    },
+    {
+      "source": "ANGE_Phase2_Foundation_Theory_v0.1.zip!/14_Phase3_Task_Board_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 1853,
+      "sha256": "2a7e6d6c68621e6124f1ae2752c327f4eba0bfe3ea82bfe45c8bc9cbfd111252"
+    },
+    {
+      "source": "ANGE_Phase2_Foundation_Theory_v0.1.zip!/Claims_Register_v0.1.csv",
+      "kind": "archive_member",
+      "bytes": 2237,
+      "sha256": "f21f278b2f399c980c07027cd3ed464f71811862ccc3d9def813229254af5ddf"
+    },
+    {
+      "source": "ANGE_Phase2_Foundation_Theory_v0.1.zip!/README.md",
+      "kind": "archive_member",
+      "bytes": 1406,
+      "sha256": "4c88811c4a9a433e5813591b5824bbfbb9d7fd8846429e6400bac650293861be"
+    },
+    {
+      "source": "ANGE_Phase2_Foundation_Theory_v0.1.zip!/Sources_Index_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 8262,
+      "sha256": "f0f9a84abd5ad6ce9073b49a44c980f00709eaf18d8cf1bcddbeefa27e9204ce"
+    },
+    {
+      "source": "ANGE_Phase3_Intent_Requirement_Decision_v0.1.zip",
+      "kind": "file",
+      "bytes": 25496,
+      "sha256": "3d9be60d296f150697f9940c10c18d4e5ddee31c31229487be51a0bdfb57d05b"
+    },
+    {
+      "source": "ANGE_Phase3_Intent_Requirement_Decision_v0.1.zip!/00_Phase3_Synthesis.md",
+      "kind": "archive_member",
+      "bytes": 4378,
+      "sha256": "9772a5378d2baecc0dabad03cd5bf9f9b34248d771585a10cfa58b077a42f953"
+    },
+    {
+      "source": "ANGE_Phase3_Intent_Requirement_Decision_v0.1.zip!/01_Intent_Model_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2879,
+      "sha256": "05f12659e4297a1f45e44a5ec05e7fc7851bad52ea60dd51c4ce0c5e4c84169e"
+    },
+    {
+      "source": "ANGE_Phase3_Intent_Requirement_Decision_v0.1.zip!/02_Requirements_Under_Uncertainty.md",
+      "kind": "archive_member",
+      "bytes": 3181,
+      "sha256": "86a40bbfcae5cd8b06fe89b8a69279b5f55989e202acd3ae539f444ae85fb79e"
+    },
+    {
+      "source": "ANGE_Phase3_Intent_Requirement_Decision_v0.1.zip!/03_Intent_Traceability_Model.md",
+      "kind": "archive_member",
+      "bytes": 2221,
+      "sha256": "65a30de85e77ff9e584f0e01b6384ffc75b3d68c463ec0883967330ed8652f65"
+    },
+    {
+      "source": "ANGE_Phase3_Intent_Requirement_Decision_v0.1.zip!/04_Decision_Memory_Model.md",
+      "kind": "archive_member",
+      "bytes": 2072,
+      "sha256": "111a6ec4a8e0e226203ec22dfb5dfad881ed6d91883d89729073bdaa76afbbec"
+    },
+    {
+      "source": "ANGE_Phase3_Intent_Requirement_Decision_v0.1.zip!/05_Game_Design_Intent_Model.md",
+      "kind": "archive_member",
+      "bytes": 2337,
+      "sha256": "cc89e95cd45ca731abc02345295a1591a45d065d47e28f39c00552de10cd8701"
+    },
+    {
+      "source": "ANGE_Phase3_Intent_Requirement_Decision_v0.1.zip!/06_Feature_Intent_Contract_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 1860,
+      "sha256": "5ed83f1e249b21481660ddc4f6f538adc6741010e7dd6ae24ea865cb427880a2"
+    },
+    {
+      "source": "ANGE_Phase3_Intent_Requirement_Decision_v0.1.zip!/07_Requirement_Explosion_AntiPattern.md",
+      "kind": "archive_member",
+      "bytes": 1681,
+      "sha256": "ccf9c41df8f119e3514c3aefc0a904ce160eeccbf37d4ed1ae9f574a10e25d05"
+    },
+    {
+      "source": "ANGE_Phase3_Intent_Requirement_Decision_v0.1.zip!/08_Worked_Example_Companion_Healing.md",
+      "kind": "archive_member",
+      "bytes": 3260,
+      "sha256": "49b2ce0f2f8e80f80471d737cbad44effafab2e5148c8127e868eb2efb6fdd35"
+    },
+    {
+      "source": "ANGE_Phase3_Intent_Requirement_Decision_v0.1.zip!/09_Intent_Review_Checklist.md",
+      "kind": "archive_member",
+      "bytes": 1332,
+      "sha256": "cb1a32acb93cc8a7b91fcdde9477777687da0efd7c461812db3c4fbac1506bdb"
+    },
+    {
+      "source": "ANGE_Phase3_Intent_Requirement_Decision_v0.1.zip!/10_Phase3_Completion_Report.md",
+      "kind": "archive_member",
+      "bytes": 2132,
+      "sha256": "18a716af2b3618217377a55653b2f2f3bc1ab949fbde3623da829b4a61f582af"
+    },
+    {
+      "source": "ANGE_Phase3_Intent_Requirement_Decision_v0.1.zip!/11_Phase4_Task_Board_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2021,
+      "sha256": "3f6919f502a62d8064ef6f6d86b5676cbe41bc50c2b2994078f82a000663c713"
+    },
+    {
+      "source": "ANGE_Phase3_Intent_Requirement_Decision_v0.1.zip!/Claims_Register_v0.1.csv",
+      "kind": "archive_member",
+      "bytes": 2720,
+      "sha256": "f8c361a6d91cb613bfbb7b57d1392cf8969cbfbeacd6b0b6626b4a7f3a2591dc"
+    },
+    {
+      "source": "ANGE_Phase3_Intent_Requirement_Decision_v0.1.zip!/README.md",
+      "kind": "archive_member",
+      "bytes": 1054,
+      "sha256": "73b150655b6a11060168c7d416d6d1ab9a9a48a1d6d5a6de053671b03a3b2993"
+    },
+    {
+      "source": "ANGE_Phase3_Intent_Requirement_Decision_v0.1.zip!/Sources_Index_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 8502,
+      "sha256": "0962ef2167a4048c9cd0f0d5ac3421168e4dd8b87a1326c25348462ff4cf1e70"
+    },
+    {
+      "source": "ANGE_Phase4_Context_Knowledge_Memory_v0.1.zip",
+      "kind": "file",
+      "bytes": 21153,
+      "sha256": "d224b95ca3becce60214100f8edf12bb1cd3ffabb3170053bdc80ffbae7ab30b"
+    },
+    {
+      "source": "ANGE_Phase4_Context_Knowledge_Memory_v0.1.zip!/00_Phase4_Synthesis.md",
+      "kind": "archive_member",
+      "bytes": 4585,
+      "sha256": "6d7c27e4d833f12578fce7b4fac90be7a5b57ad251163eda050940ef6001eec9"
+    },
+    {
+      "source": "ANGE_Phase4_Context_Knowledge_Memory_v0.1.zip!/01_Project_Knowledge_Model_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 3133,
+      "sha256": "dadbcd41a05695f7a58d07a9a5c25821837ae4fccd69a9c669c8466663fe2e6c"
+    },
+    {
+      "source": "ANGE_Phase4_Context_Knowledge_Memory_v0.1.zip!/02_Context_Selection_Model_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2697,
+      "sha256": "3eef0a32bb270921e3e5d39e44642b19385fb050b4c3b5bd18d91125f6bbb04a"
+    },
+    {
+      "source": "ANGE_Phase4_Context_Knowledge_Memory_v0.1.zip!/03_Memory_Model_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2197,
+      "sha256": "eb5dd4a7b481b3bcf79201d53f1c66268295e7459b448b6e6cc50984f9ced03f"
+    },
+    {
+      "source": "ANGE_Phase4_Context_Knowledge_Memory_v0.1.zip!/04_Knowledge_Lifecycle_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2423,
+      "sha256": "98a2fd240f6c77e60c50a3a6d5e86f7ff78f6825f7a5b18914d9183dbb33bec1"
+    },
+    {
+      "source": "ANGE_Phase4_Context_Knowledge_Memory_v0.1.zip!/05_Context_Cost_and_Eval_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2273,
+      "sha256": "ab916fe36744a0e0a7715ff2b501d8c7d474e164e9656514bc9cbc6005c47283"
+    },
+    {
+      "source": "ANGE_Phase4_Context_Knowledge_Memory_v0.1.zip!/06_Context_Reference_Architecture_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2565,
+      "sha256": "f684e19c928a52c970fb9846395c98b57e5215961b574ef1c23cb6f1c5bb8f65"
+    },
+    {
+      "source": "ANGE_Phase4_Context_Knowledge_Memory_v0.1.zip!/07_Context_Pack_Schema_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 856,
+      "sha256": "6bcb5b49141b63fca152e9173a136ac11dbf84dc92599eccf7f33b407e803aa8"
+    },
+    {
+      "source": "ANGE_Phase4_Context_Knowledge_Memory_v0.1.zip!/08_AntiPatterns_Context_Bloat_and_Stale_Memory.md",
+      "kind": "archive_member",
+      "bytes": 1832,
+      "sha256": "103dfd7ae5997a69ce3c33e84b9a0924b92c6390e083ef630bcf344d10168ed1"
+    },
+    {
+      "source": "ANGE_Phase4_Context_Knowledge_Memory_v0.1.zip!/09_Worked_Example_Companion_Healing_Context.md",
+      "kind": "archive_member",
+      "bytes": 1892,
+      "sha256": "bbabcad73206597fa2271b2d85f94773fb559c390c3387e575e77846468d2a55"
+    },
+    {
+      "source": "ANGE_Phase4_Context_Knowledge_Memory_v0.1.zip!/10_Phase4_Completion_Report.md",
+      "kind": "archive_member",
+      "bytes": 1761,
+      "sha256": "ae78429c5760f05f8266e307078a37b358f82c0b521a61813947f82ba8f06ffe"
+    },
+    {
+      "source": "ANGE_Phase4_Context_Knowledge_Memory_v0.1.zip!/11_Phase5_Task_Board_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 1593,
+      "sha256": "daae05feb241e8ee166c9190e830152d47002c71710ea89bfaf9865ae84dfd3d"
+    },
+    {
+      "source": "ANGE_Phase4_Context_Knowledge_Memory_v0.1.zip!/Claims_Register_v0.1.csv",
+      "kind": "archive_member",
+      "bytes": 2252,
+      "sha256": "606d7fbd995eed2c1e76039324ea4116ae8399e72e02cb4b07a3cd29715e4c5b"
+    },
+    {
+      "source": "ANGE_Phase4_Context_Knowledge_Memory_v0.1.zip!/README.md",
+      "kind": "archive_member",
+      "bytes": 924,
+      "sha256": "62d93c8e0896b82140e65fb265649bc9044accf3b61070f3390af0ff79e704d0"
+    },
+    {
+      "source": "ANGE_Phase4_Context_Knowledge_Memory_v0.1.zip!/Sources_Index_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2948,
+      "sha256": "52e5bb4991cb00626945b645f615d5918d38feb1dc9b235cdfda4b8615a38bc5"
+    },
+    {
+      "source": "ANGE_Phase5_Autonomy_Risk_Escalation_v0.1.zip",
+      "kind": "file",
+      "bytes": 25630,
+      "sha256": "87c2845cd0f3bea6bedb5d3f6cb0d91f84853a917aadd80796b1ffa10b10a10b"
+    },
+    {
+      "source": "ANGE_Phase5_Autonomy_Risk_Escalation_v0.1.zip!/00_Phase5_Synthesis.md",
+      "kind": "archive_member",
+      "bytes": 4017,
+      "sha256": "c1a45a95f9765346c71aabd95e456ae6c44e7ede690cf7dce6f14b5aa0f948c3"
+    },
+    {
+      "source": "ANGE_Phase5_Autonomy_Risk_Escalation_v0.1.zip!/01_Task_Risk_Vector_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2496,
+      "sha256": "ff8aa09c3e1d3c2c16424216f86a99754cd26965b484db804257f9b4c8776d2d"
+    },
+    {
+      "source": "ANGE_Phase5_Autonomy_Risk_Escalation_v0.1.zip!/02_Verifiability_Vector_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2207,
+      "sha256": "e30f0aa2d4cb78b8ecb84901352a109da8945a4056c3f5f919f7d4f4e3d2d754"
+    },
+    {
+      "source": "ANGE_Phase5_Autonomy_Risk_Escalation_v0.1.zip!/03_Recoverability_Vector_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 1601,
+      "sha256": "676f85329407df9a730bfc5e1fbab8a4004b83f003168378b87620cf570d1d13"
+    },
+    {
+      "source": "ANGE_Phase5_Autonomy_Risk_Escalation_v0.1.zip!/04_Delegation_Policy_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2012,
+      "sha256": "cac210ac3e874437191598cb581f5b71717f9347d07916a01f898d4f253a1f0f"
+    },
+    {
+      "source": "ANGE_Phase5_Autonomy_Risk_Escalation_v0.1.zip!/05_Dynamic_Autonomy_State_Machine.md",
+      "kind": "archive_member",
+      "bytes": 1935,
+      "sha256": "bd9d9ed9849c160d222e8bfaeb585e8772ccc1af970efe3b72ab20d676866b45"
+    },
+    {
+      "source": "ANGE_Phase5_Autonomy_Risk_Escalation_v0.1.zip!/06_Selective_Escalation_Model.md",
+      "kind": "archive_member",
+      "bytes": 2196,
+      "sha256": "3c174586bd8cf12cbdf8e755050ef537f5b9d462413e9430b2ab5ced449dfdeb"
+    },
+    {
+      "source": "ANGE_Phase5_Autonomy_Risk_Escalation_v0.1.zip!/07_Game_Risk_Taxonomy_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 3321,
+      "sha256": "c63ef863a76a4b49cdfbe6c8551d0db4d83d2b4ea9bc86009a55a960d0b18680"
+    },
+    {
+      "source": "ANGE_Phase5_Autonomy_Risk_Escalation_v0.1.zip!/08_Recovery_Aware_Autonomy.md",
+      "kind": "archive_member",
+      "bytes": 1734,
+      "sha256": "bc8be8cc33168ee952bf10acf84c9fed4664db0285648f6a49b7d8ac4ca39b10"
+    },
+    {
+      "source": "ANGE_Phase5_Autonomy_Risk_Escalation_v0.1.zip!/09_Delegation_Policy_Schema_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 1453,
+      "sha256": "8fd2eba49b5ebdfff87d39bb2959e9f4808cd21abd162772a38e6c85e3f403f3"
+    },
+    {
+      "source": "ANGE_Phase5_Autonomy_Risk_Escalation_v0.1.zip!/10_Worked_Examples.md",
+      "kind": "archive_member",
+      "bytes": 2284,
+      "sha256": "5a2635b0e985772544a61977e9d7566a74ae29554c35bab2c5d56de6fffaac01"
+    },
+    {
+      "source": "ANGE_Phase5_Autonomy_Risk_Escalation_v0.1.zip!/11_AntiPatterns_Autonomy_and_Escalation.md",
+      "kind": "archive_member",
+      "bytes": 1726,
+      "sha256": "1611f8c46a7bd55be7cb08bece882b2919b8ebb4a7fd40335f39dae1f0be91ac"
+    },
+    {
+      "source": "ANGE_Phase5_Autonomy_Risk_Escalation_v0.1.zip!/12_Phase5_Completion_Report.md",
+      "kind": "archive_member",
+      "bytes": 2203,
+      "sha256": "cd2fc14cd963f7914e809a37146622946517de295930b0e85ba31e14751a67e3"
+    },
+    {
+      "source": "ANGE_Phase5_Autonomy_Risk_Escalation_v0.1.zip!/13_Phase6_Task_Board_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 1888,
+      "sha256": "f8afc7a79ef1976e111296a6be74731ea072a5a6ba8bd0ddf80175148625e21c"
+    },
+    {
+      "source": "ANGE_Phase5_Autonomy_Risk_Escalation_v0.1.zip!/Claims_Register_v0.1.csv",
+      "kind": "archive_member",
+      "bytes": 2600,
+      "sha256": "92c6a2700c5f0b6e12b8ce56e992a0431ddc85df9344551f3b8ff3de7a7cd429"
+    },
+    {
+      "source": "ANGE_Phase5_Autonomy_Risk_Escalation_v0.1.zip!/README.md",
+      "kind": "archive_member",
+      "bytes": 869,
+      "sha256": "5c2b97cf98758db6b34232333015caa590766f4269b9177f7bf2526c48f8624c"
+    },
+    {
+      "source": "ANGE_Phase5_Autonomy_Risk_Escalation_v0.1.zip!/Sources_Index_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 7279,
+      "sha256": "cba259d6672f655bf0e6d1052dc997b7792d25287b9f5dd4489fbd435df6075b"
+    },
+    {
+      "source": "ANGE_Phase6_AI_Software_Engineering_v0.1.zip",
+      "kind": "file",
+      "bytes": 27326,
+      "sha256": "21b5b1d9bee18625a02abe0c98ca587681fe4043723c0c6b9d83567f9899487d"
+    },
+    {
+      "source": "ANGE_Phase6_AI_Software_Engineering_v0.1.zip!/00_Phase6_Synthesis.md",
+      "kind": "archive_member",
+      "bytes": 5219,
+      "sha256": "8cf3563263f375d7b71cecdf28436dea1fdee0ba7390a202b42ac087d92259f8"
+    },
+    {
+      "source": "ANGE_Phase6_AI_Software_Engineering_v0.1.zip!/01_AI_Coding_Quality_Model_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2923,
+      "sha256": "97e9b1f672bbc65bb27816a8c789ad2f9679c6be8a2ba2e2aa64144893258820"
+    },
+    {
+      "source": "ANGE_Phase6_AI_Software_Engineering_v0.1.zip!/02_Code_Change_Contract_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 1558,
+      "sha256": "7eaa88bb310b1558c02ba4da36cf446634337c10cbd420b504246e340d19eb70"
+    },
+    {
+      "source": "ANGE_Phase6_AI_Software_Engineering_v0.1.zip!/03_Architecture_Aware_AI_Coding.md",
+      "kind": "archive_member",
+      "bytes": 1907,
+      "sha256": "e07516da1908a224c6aa44275d13e80f8f45a145958f621eefde1e0466fd34e3"
+    },
+    {
+      "source": "ANGE_Phase6_AI_Software_Engineering_v0.1.zip!/04_Architecture_Gate_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 1352,
+      "sha256": "d5ae68b9f374907a20c5464ceb77a18b038db04c72808341ac1798f71063ba9b"
+    },
+    {
+      "source": "ANGE_Phase6_AI_Software_Engineering_v0.1.zip!/05_AI_Code_Review_Model.md",
+      "kind": "archive_member",
+      "bytes": 1679,
+      "sha256": "b368fa66d3e3e6178683437d884e9e95ec1cd24c01b4bbbfdc283821cfbfb8fd"
+    },
+    {
+      "source": "ANGE_Phase6_AI_Software_Engineering_v0.1.zip!/06_Review_Evidence_Packet_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 787,
+      "sha256": "9916f5b3cbed2095a9ebba0eaf619d8cb554fd8d39fad682c94688d900d639ac"
+    },
+    {
+      "source": "ANGE_Phase6_AI_Software_Engineering_v0.1.zip!/07_AI_Test_Engineering.md",
+      "kind": "archive_member",
+      "bytes": 2124,
+      "sha256": "4e74f1944eae738623f4dcb34ad9df8c9d23cc9f1664710aca5616e85c8e90b1"
+    },
+    {
+      "source": "ANGE_Phase6_AI_Software_Engineering_v0.1.zip!/08_Test_Strategy_Matrix_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 1097,
+      "sha256": "263a7962f04e5a3887289004738d99a1f7c9025c08eb1bd2332bb9e56e7e5bb9"
+    },
+    {
+      "source": "ANGE_Phase6_AI_Software_Engineering_v0.1.zip!/09_Debug_Repair_Loop_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 1700,
+      "sha256": "806b30483e295922f299a2251a20720dd82b58e1cb7202f91543521bcc9e16d1"
+    },
+    {
+      "source": "ANGE_Phase6_AI_Software_Engineering_v0.1.zip!/10_Game_Specific_Code_Quality.md",
+      "kind": "archive_member",
+      "bytes": 2375,
+      "sha256": "d86232e9ce2681e3fd97a73dc62f8bc6eba4c9175504b4edd26241086bf03a5c"
+    },
+    {
+      "source": "ANGE_Phase6_AI_Software_Engineering_v0.1.zip!/11_Patterns_and_AntiPatterns.md",
+      "kind": "archive_member",
+      "bytes": 1585,
+      "sha256": "40c13e514195a3e12fb0ac0ae10fdab340b08da70210e60bfe836e25ad665bc1"
+    },
+    {
+      "source": "ANGE_Phase6_AI_Software_Engineering_v0.1.zip!/12_Worked_Example_Partner_Healing_Implementation.md",
+      "kind": "archive_member",
+      "bytes": 2434,
+      "sha256": "f62f903a23b44b473cbf8ee75b2020066390b9f24512df0201ff25d4e48d972b"
+    },
+    {
+      "source": "ANGE_Phase6_AI_Software_Engineering_v0.1.zip!/13_Phase6_Eval_Cases.md",
+      "kind": "archive_member",
+      "bytes": 1751,
+      "sha256": "7271ee1047ac55e112f9ba89f1cbc89af0fc3a8c2f650e7d1ddf3f854edf0996"
+    },
+    {
+      "source": "ANGE_Phase6_AI_Software_Engineering_v0.1.zip!/14_Phase6_Completion_Report.md",
+      "kind": "archive_member",
+      "bytes": 2470,
+      "sha256": "f5adbf4eddb9ed50c0578ba4e9f9be09d289efcc2e4c87ba3834ea96e28358bc"
+    },
+    {
+      "source": "ANGE_Phase6_AI_Software_Engineering_v0.1.zip!/15_Phase7_Task_Board_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 1772,
+      "sha256": "1bde2cfb1ccd9dc858a86792eb3bdf03b0cf18991b80e22e1d5f417adf98e2b7"
+    },
+    {
+      "source": "ANGE_Phase6_AI_Software_Engineering_v0.1.zip!/Claims_Register_v0.1.csv",
+      "kind": "archive_member",
+      "bytes": 2995,
+      "sha256": "c107ff2d749621e618f863d915ad3530126bf8eeaedd7abcd0ef65a1e74b9c1f"
+    },
+    {
+      "source": "ANGE_Phase6_AI_Software_Engineering_v0.1.zip!/README.md",
+      "kind": "archive_member",
+      "bytes": 1075,
+      "sha256": "cfb05f173f2bd662bb93a2668dd5b4f6873a4dac662850a49deacccc672a88ac"
+    },
+    {
+      "source": "ANGE_Phase6_AI_Software_Engineering_v0.1.zip!/Sources_Index_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 7699,
+      "sha256": "11e204633d39b68378ea0a5c86a489653846e87f623d78d0e1eda97097b50eb6"
+    },
+    {
+      "source": "ANGE_Phase7_Game_Experience_Playtest_Telemetry_v0.1.zip",
+      "kind": "file",
+      "bytes": 25743,
+      "sha256": "a5e2d10b62695acefc3cc2fba0c320b43847b88f3634c54656f2e9794134215f"
+    },
+    {
+      "source": "ANGE_Phase7_Game_Experience_Playtest_Telemetry_v0.1.zip!/00_Phase7_Synthesis.md",
+      "kind": "archive_member",
+      "bytes": 4239,
+      "sha256": "54304982f038b46f00a2b8fd3cf37e9ffe2be90f8b3e96387ed5bb4c6f879cef"
+    },
+    {
+      "source": "ANGE_Phase7_Game_Experience_Playtest_Telemetry_v0.1.zip!/01_Experience_Engineering_Model_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2494,
+      "sha256": "8b0b01fdb0f3ca9a050ce54e15d70f1e54fa772f42688341625e2d27e09970b4"
+    },
+    {
+      "source": "ANGE_Phase7_Game_Experience_Playtest_Telemetry_v0.1.zip!/02_Experience_Evidence_Model_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2539,
+      "sha256": "8747878c85e25b28729be2b11d3d85ef5a9c5baea66a6d0b612c4d86f5dac5a3"
+    },
+    {
+      "source": "ANGE_Phase7_Game_Experience_Playtest_Telemetry_v0.1.zip!/03_Human_Playtest_Model_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2105,
+      "sha256": "d400cd1aae32155d0fd39709f92dc1aa7ad43cbf6eb554e247c3072eb63aab27"
+    },
+    {
+      "source": "ANGE_Phase7_Game_Experience_Playtest_Telemetry_v0.1.zip!/04_AI_Automated_Playtest_Model_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2472,
+      "sha256": "75bd4cda297b6424b1bc09058c2c593498f3025cf765926e7cd3e9eb55591099"
+    },
+    {
+      "source": "ANGE_Phase7_Game_Experience_Playtest_Telemetry_v0.1.zip!/05_Human_vs_AI_Playtest_Matrix.md",
+      "kind": "archive_member",
+      "bytes": 831,
+      "sha256": "edf35675a9ba7a99d74d49540f86e5fe4f6a2bf9b612a8dc1fb52bb398c5d01e"
+    },
+    {
+      "source": "ANGE_Phase7_Game_Experience_Playtest_Telemetry_v0.1.zip!/06_Game_Telemetry_Model_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2190,
+      "sha256": "c25ba01c8d44a198afd0e17c5d6202fd25166cabb2cc25d0bdd2d335d90a69b6"
+    },
+    {
+      "source": "ANGE_Phase7_Game_Experience_Playtest_Telemetry_v0.1.zip!/07_Intent_Experience_Gap_Taxonomy.md",
+      "kind": "archive_member",
+      "bytes": 1688,
+      "sha256": "fc9d69a87c480c5eb4db56f20c53a4d2ef8017e70a693adacf651e3df006cdf4"
+    },
+    {
+      "source": "ANGE_Phase7_Game_Experience_Playtest_Telemetry_v0.1.zip!/08_Experience_Gate_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 1817,
+      "sha256": "ddda82b0f36ffdff670d77c2fc799295f12559d2d451d0ce98f635cc434ce76e"
+    },
+    {
+      "source": "ANGE_Phase7_Game_Experience_Playtest_Telemetry_v0.1.zip!/09_Experience_Study_Contract_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 984,
+      "sha256": "ab4552ac301649d9c63580c14dbc7f91a3d5d2fb003a9e68c189154df0427d52"
+    },
+    {
+      "source": "ANGE_Phase7_Game_Experience_Playtest_Telemetry_v0.1.zip!/10_Worked_Examples.md",
+      "kind": "archive_member",
+      "bytes": 2476,
+      "sha256": "6ffdb8aec52d0f18437f8bedd8092620741ff3ed67e2204dbaed8e6e4c591ead"
+    },
+    {
+      "source": "ANGE_Phase7_Game_Experience_Playtest_Telemetry_v0.1.zip!/11_Patterns_and_AntiPatterns.md",
+      "kind": "archive_member",
+      "bytes": 1625,
+      "sha256": "a916ef9f6845a2c5cb716dadf1bb19ae36956d079908db1c2870d37b082cd2b0"
+    },
+    {
+      "source": "ANGE_Phase7_Game_Experience_Playtest_Telemetry_v0.1.zip!/12_Phase7_Eval_Cases.md",
+      "kind": "archive_member",
+      "bytes": 1761,
+      "sha256": "f6091de8ff4fd710d7ff0081b0dd5ca2aa40bba89442199385e19b1d1a176700"
+    },
+    {
+      "source": "ANGE_Phase7_Game_Experience_Playtest_Telemetry_v0.1.zip!/13_Phase7_Completion_Report.md",
+      "kind": "archive_member",
+      "bytes": 2422,
+      "sha256": "e015eb3f010535e35be4cc51d80476e4c37764f938bb358e946dcc8547f17e6b"
+    },
+    {
+      "source": "ANGE_Phase7_Game_Experience_Playtest_Telemetry_v0.1.zip!/14_Phase8_Task_Board_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2010,
+      "sha256": "233fcc4ddaf69145bddb016775775e8c0c1fb83f4af3e13d6a970473c02262f2"
+    },
+    {
+      "source": "ANGE_Phase7_Game_Experience_Playtest_Telemetry_v0.1.zip!/Claims_Register_v0.1.csv",
+      "kind": "archive_member",
+      "bytes": 3037,
+      "sha256": "35ed7c41fa6773415a270be210e672880fcfa492eb541252d6c03ba14cb4fdc3"
+    },
+    {
+      "source": "ANGE_Phase7_Game_Experience_Playtest_Telemetry_v0.1.zip!/README.md",
+      "kind": "archive_member",
+      "bytes": 913,
+      "sha256": "a8a40188f8a6854be33c4232f3cd58bbb55e32b8aded800a585bf984033359f5"
+    },
+    {
+      "source": "ANGE_Phase7_Game_Experience_Playtest_Telemetry_v0.1.zip!/Sources_Index_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 6314,
+      "sha256": "e6bf214501b028d88298f751487cfae42e3625518bdb64e8747ca9d8925a8e68"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip",
+      "kind": "file",
+      "bytes": 30532,
+      "sha256": "a5e2d806ff1bd46e1fc48e81f7ea32ba72f28e93125cc421f725813fd900e0f8"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/00_Phase8_Synthesis.md",
+      "kind": "archive_member",
+      "bytes": 3819,
+      "sha256": "89851e2851360286c5680178d988c328b12c89448b0afefcdb48f421291953ba"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/01_ANGE_Eval_Framework_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2187,
+      "sha256": "c70df4c58ceb8b8ef0a52fefbae0771c50f33ca266d326083f437afce3198907"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/02_Metrics_Dictionary_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 3146,
+      "sha256": "735a6a898df04e57927bbc3fa1761488872797f6974d856d77e681eef5f964d2"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/03_Human_Attention_Eval.md",
+      "kind": "archive_member",
+      "bytes": 1940,
+      "sha256": "fb07f8cd5475101ea692382799079460d9999d4eead5251698fe2812bf907668"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/04_Intent_Alignment_Eval.md",
+      "kind": "archive_member",
+      "bytes": 1451,
+      "sha256": "36ccd56d986dbcce3a7c59b50c278e154226263e27237ad68a1f0f3f82b8b562"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/05_Context_Eval.md",
+      "kind": "archive_member",
+      "bytes": 1368,
+      "sha256": "7fe7dee3213fd9bd889648b01d9b9087b8c3c375f3661db4e94037504c774837"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/06_Coding_Quality_Eval.md",
+      "kind": "archive_member",
+      "bytes": 1541,
+      "sha256": "56ab75992bfe3602939a423867f79a79fdcd042b6048c96e89bd70c491246935"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/07_Game_Experience_Eval.md",
+      "kind": "archive_member",
+      "bytes": 1758,
+      "sha256": "b49f5a68680ff7fc954359d3e93b9f2131386036209ef20e7281df57cb3c6131"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/08_End_to_End_Pilot_Protocol.md",
+      "kind": "archive_member",
+      "bytes": 2353,
+      "sha256": "4e1c4b00d26f395e7e693e0f6a954bf7e92c5b035f6c2249bfd7d6b18dec341c"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/09_Benchmark_Task_Set_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 1827,
+      "sha256": "db2ad8e95df3fd9ef24d6e949c2cdd349dfb8df982bc9586b59f0c7f557ba0e7"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/10_Ablation_Plan.md",
+      "kind": "archive_member",
+      "bytes": 1167,
+      "sha256": "8b416d84dc0d1d07beec6232497b232ff45c64ae314040000e31fd3a00f808d7"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/11_Falsification_Criteria.md",
+      "kind": "archive_member",
+      "bytes": 1812,
+      "sha256": "0923c0f9b303420f9b32c755b3c6dd0ce7473b91af9e38a3a87cf10fc91fe8e4"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/12_Statistics_and_Analysis_Plan.md",
+      "kind": "archive_member",
+      "bytes": 2110,
+      "sha256": "9f3bfe66c6ecb9ce93f454198b6f9be23910368bc62a5367cd4294c4cc128ac4"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/13_Reproducibility_Plan.md",
+      "kind": "archive_member",
+      "bytes": 1505,
+      "sha256": "5871a8c351b86d441dfd54c08e7599d768ff93f9a9143a0f4f1ae9de7f8c38b2"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/14_Eval_Run_Record_Schema.md",
+      "kind": "archive_member",
+      "bytes": 1079,
+      "sha256": "209c357774dd201d1cd3234ae5ea2ffbc2ce698da28d59cdc655def58f4c148b"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/15_Phase8_Completion_Report.md",
+      "kind": "archive_member",
+      "bytes": 2425,
+      "sha256": "3c5baff6b8bd4469c15b9db837f990d0e60b65c9eae8c1d2c9810f5a318ab721"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/16_Phase9_Task_Board_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 2293,
+      "sha256": "fd9ede4eaf257b0b186870fa14978c3e8fd0e757f32a5c3e6b0122eef94181cd"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/Claims_Register_v0.1.csv",
+      "kind": "archive_member",
+      "bytes": 2829,
+      "sha256": "c1de30230a7d05cd3b8ea931454eef674e5c4782125fcc659906a12f1531cf6f"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/Metrics_Dictionary_v0.1.csv",
+      "kind": "archive_member",
+      "bytes": 3674,
+      "sha256": "4d8991260da1bccb353121aa1fff41393db323049d0b9ffa4cdd46f895e34411"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/Pilot_Manifest_v0.1.json",
+      "kind": "archive_member",
+      "bytes": 487,
+      "sha256": "9a1af40338234d13c7fa35a3d60c60cdbf5c0269be9f55063ff00078f47b9f25"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/README.md",
+      "kind": "archive_member",
+      "bytes": 975,
+      "sha256": "eb654916f31a6f34e7041b36fc2824872dc9c8f2a5f2e3f43d0e1758877e4c94"
+    },
+    {
+      "source": "ANGE_Phase8_Eval_Benchmark_Metrics_v0.1.zip!/Sources_Index_v0.1.md",
+      "kind": "archive_member",
+      "bytes": 7128,
+      "sha256": "0202f757a7026fc2050d9dac40e1fa3b812720fcc9ca360bb54f549e7541a6ff"
+    },
+    {
+      "source": "ANGE_Reference_Architecture_v1.0_RC.md",
+      "kind": "file",
+      "bytes": 5208,
+      "sha256": "655984cffa8e0171bf891100f80523dc89e075d72744b3eb0f036454dc0909ed",
+      "same_bytes_as": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/02_REFERENCE_ARCHITECTURE/ANGE_Reference_Architecture_v1.0_RC.md"
+    },
+    {
+      "source": "Codex_Repository_Build_Prompt.md",
+      "kind": "file",
+      "bytes": 2472,
+      "sha256": "7ea861b29e4b63d6c9d7641e8046c3db5697bb00177d3ddb16e2ad2ac8d7f9f2",
+      "same_bytes_as": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/09_REPO_BUILD/Codex_Repository_Build_Prompt.md"
+    },
+    {
+      "source": "VALIDATION_REPORT(1).md",
+      "kind": "file",
+      "bytes": 766,
+      "sha256": "e690220a26c8baa68b0d4fbf8956e1461b112171637349fd39506322e12f4358",
+      "same_bytes_as": "AI_Native_Game_Engineering_v1.0_RC_Mother_Package.zip!/AI_Native_Game_Engineering_v1.0_RC/VALIDATION_REPORT.md"
+    }
+  ]
+}

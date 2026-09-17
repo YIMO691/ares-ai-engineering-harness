@@ -1,0 +1,1 @@
+synthetic rule: reject a negative amount before changing state.

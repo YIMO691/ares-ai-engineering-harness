@@ -28,6 +28,7 @@
 | Codex adapter | 配置和调用官方 CLI，执行独立只读 Reviewer |
 | CLI | 接受由当前 Primary 整理的业务请求，不依赖 Web |
 | Web | 默认只读观察 Task、文档、运行证据、Align 和 Lens 报告 |
+| 可选 ANGE Eval | 独立 Python 只读工具；检查显式协议/运行记录并输出描述性统计，不接管执行、不写数据库或验收状态 |
 
 实现入口：[DirectWorkflowService](../../src/Ares.Workbench.Application/DirectWorkflowService.cs)、[DirectCli](../../src/Ares.Workbench.Cli/DirectCli.cs)、[DirectDocuments](../../src/Ares.Workbench.Infrastructure/DirectDocuments.cs)。
 
@@ -40,6 +41,8 @@ Direct 每次 verify 使用独立 Run，执行提交证据、Build/Test、可选
 Codex adapter 将长文本和 diff 保存为外部内容快照，提示词提供有限预览、路径与哈希，角色按需读取。每次输入索引与内容随运行留存，调用前后验证引用；不再仅保留文档首尾。它不记录实际读取轨迹，也不恢复上游已经截断的输出。详见 [Reviewer context](../CODEX_DIRECT.md#reviewer-context)。
 
 Change Lens 通过现有分析脚本和外部构建 Worker 读取冻结 Git HEAD 到提交 WORKTREE 的变化，保存解释附件及真实状态，不修改目标源码或审批。
+
+[ANGE Eval](../../tools/ange-eval/README.md)仅读取调用者提供的 JSON。协议哈希绑定运行配置及计划 assignment，报告失败、缺失和偏离；证据引用不自动解引用，真实数据不进入 Git。工具不引入新 Agent runtime，也不自动把 Direct 的阶段时间解释为人的活跃工作时间。
 
 ## 权限与恢复
 
