@@ -5,6 +5,12 @@
 Owner 与现有原生 Primary 直接协作。CLI 登记约定、文档、授权、提交和证据；`verify` 执行配置的 Build/Test，FAST 跳过 Reviewer，STANDARD/CRITICAL 执行独立只读 Reviewer。新任务保持 document before agree、align before accept；Web 为可选观察入口。Context、Design、Verification 等内容由 Primary 维护，CLI 不自动检索或校准研究资料，也不实现原生会话/工具循环。
 
 
+## Reviewer context
+
+Reviewer 和旧模式角色的长文本输入使用外部内容引用：完整文档、grounding/plan、已有业务输出、Primary 报告和 diff 按 UTF-8 SHA-256 保存到运行 artifacts 的 `context` 子目录；提示词只带最多 1000 字符预览、路径、字节数与哈希。每次调用保留输入索引，并在执行前后校验引用。Direct 优先使用冻结约定中的文档版本。
+
+原生角色应按需读取完整内容；关键来源无法读取时报告 blocked，不能依据预览推断通过。此机制不记录实际读取轨迹，不认证语义覆盖；上游命令已经截断的输出也不会自动恢复。缺失的旧 grounding/plan 明示为 null。所有引用仍是资料，不授予执行权限。CLI 请求字段和数据库结构保持不变。
+
 ## Local settings
 
 复制 scripts/workbench.example.json 到仓库外的本地配置，保留已有 DataRoot、ScratchRoot、CodexHome、dotnet/git 路径，补充：

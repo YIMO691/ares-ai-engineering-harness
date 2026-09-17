@@ -16,6 +16,10 @@ Web 默认 ObserverOnly，仅绑定 loopback，接受 GET/HEAD，不启动执行
 
 Codex 管理原生沙箱和会话。Reviewer 使用只读执行；allowed_paths 和指纹检查是业务校验，不是逐文件 OS ACL。不要扩大权限来掩盖失败。
 
+Direct 在提交及验证边界检查快照中留存的变化。当前快照包含 Git 已跟踪文件和未忽略的新文件；它不覆盖全部系统写入，不能证明仓库外、忽略文件或改后恢复的操作从未发生。底层执行隔离与权限强制由 native host 提供。上下文引用也依赖宿主的真实读取权限；路径已登记不代表一定可读。
+
+OwnerEvidence 保存调用方提供的 Quote/Source，当前只核对非空，不认证 Owner 身份或核验对话来源。单用户场景依赖调用方诚实记录实际决定；这不足以支持团队身份认证或自动合并/发布授权。Reviewer 的独立性指分离会话与只读职责，不保证模型错误相互独立。
+
 ## 数据边界
 
 认证、CODEX_HOME、tokens、keys、本地配置、SQLite、artifacts/evidence、浏览器配置、商业项目源码和受限原始资料不得提交。输出使用仓库外的授权目录。发布 Harness 代码不意味着获准发布目标项目或运行记录。

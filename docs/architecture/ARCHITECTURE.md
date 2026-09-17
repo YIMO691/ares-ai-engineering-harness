@@ -37,6 +37,8 @@ SQLite 保存增量业务 JSON，旧记录继续可读。讨论文档写入 Docu
 
 Direct 每次 verify 使用独立 Run，执行提交证据、Build/Test、可选独立 Reviewer 和交付节点。修复发现交回当前 Primary，不在 Harness 中启动替代实现代理。Align 绑定当前 Run 的成功证据并核对文档、源码和原始证据完整性；它不能自行证明自然语言验收结论。
 
+Codex adapter 将长文本和 diff 保存为外部内容快照，提示词提供有限预览、路径与哈希，角色按需读取。每次输入索引与内容随运行留存，调用前后验证引用；不再仅保留文档首尾。它不记录实际读取轨迹，也不恢复上游已经截断的输出。详见 [Reviewer context](../CODEX_DIRECT.md#reviewer-context)。
+
 Change Lens 通过现有分析脚本和外部构建 Worker 读取冻结 Git HEAD 到提交 WORKTREE 的变化，保存解释附件及真实状态，不修改目标源码或审批。
 
 ## 权限与恢复
@@ -44,6 +46,8 @@ Change Lens 通过现有分析脚本和外部构建 Worker 读取冻结 Git HEAD
 CLI 写操作与旧 Web 执行使用独占 writer lease。默认 Observer 不运行 RunWorker 或启动恢复，不接管 Primary。外部编辑器仍可改动源码，指纹检查提供失效检测而非逐文件 OS 权限隔离。
 
 CRITICAL 在外部实施前记录冻结边界授权；最终验收是另一个决定。硬中断需核对进程、源码和状态，再 recover/重验；没有透明会话接管或完整 Primary 工具遥测。
+
+OwnerEvidence 的 Quote/Source 是调用方提供的决定依据，软件不认证 Owner 身份。Reviewer 分离会话与只读职责不等于错误统计独立。快照的覆盖范围及执行权限边界见[安全说明](../../SECURITY.md#执行与访问边界)。
 
 ## 历史兼容
 
